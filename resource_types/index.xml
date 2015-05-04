@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Resource_types on Horizon</title>
+    <link>http://localhost:1313/api/horizon/resource_types/</link>
+    <description>Recent content in Resource_types on Horizon</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 04 May 2015 08:03:07 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/api/horizon/resource_types/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Effect Resource Type</title>
+      <link>http://localhost:1313/api/horizon/resource_types/effect/</link>
+      <pubDate>Mon, 04 May 2015 08:03:07 -0700</pubDate>
+      
+      <guid>http://localhost:1313/api/horizon/resource_types/effect/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Operation Resource Type</title>
+      <link>http://localhost:1313/api/horizon/resource_types/operation/</link>
+      <pubDate>Mon, 04 May 2015 08:02:39 -0700</pubDate>
+      
+      <guid>http://localhost:1313/api/horizon/resource_types/operation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Transaction Resource Type</title>
+      <link>http://localhost:1313/api/horizon/resource_types/transaction/</link>
+      <pubDate>Mon, 04 May 2015 08:02:32 -0700</pubDate>
+      
+      <guid>http://localhost:1313/api/horizon/resource_types/transaction/</guid>
+      <description>
+
+&lt;p&gt;All changes to the Stellar Network&amp;rsquo;s ledger&lt;/p&gt;
+
+&lt;p&gt;A Transaction Resource represents a transaction that was submitted to the Stellar Network at some point in the past.&lt;/p&gt;
+
+&lt;h2 id=&#34;attributes:2e47673b0e2fecf4f97d6b00d496cdc9&#34;&gt;Attributes&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Attribute&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;id&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;The canonical id of this transaction, suitable for use as the :id parameter for url templates that require a transaction&amp;rsquo;s ID.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;paging_token&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A &lt;a href=&#34;No page found with path or logical name &#34;/guides/paging.md&#34;.
+&#34;&gt;paging token&lt;/a&gt; suitable for use as the &lt;code&gt;cursor&lt;/code&gt; parameter to transaction collection resources.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;hash&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A hex-encoded SHA-256 hash of the transaction&amp;rsquo;s XDR-encoded form.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ledger&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;Sequence number of the ledger in which this transaction was applied. &lt;code&gt;null&lt;/code&gt; if the transaction is failed or unvalidated.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;account&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;account_sequence&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;max_fee&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;The maximum fee willing to be paid by the transaction creator, expressed in a native currency amount.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;fee_paid&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;The fee paid by the source account of this transaction when the transaction was applied to the ledger.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;operation_count&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;The number of operations that are contained within this transaction.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;result_code&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;result_code_s&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;result_code_human&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;links:2e47673b0e2fecf4f97d6b00d496cdc9&#34;&gt;Links&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;rel&lt;/th&gt;
+&lt;th&gt;Example&lt;/th&gt;
+&lt;th&gt;Relation&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;/resources/transactions/one.md&#34;.
+&#34;&gt;self&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;/resources/accounts/one.md&#34;.
+&#34;&gt;account&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/accounts/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The source account for this transaction.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;/resources/ledgers/one.md&#34;.
+&#34;&gt;ledger&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/ledgers/3&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The ledger in which this transaction was applied.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;/resources/operations/for_transaction.md&#34;.
+&#34;&gt;operations&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a/operations&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;/resources/effects/for_transaction.md&#34;.
+&#34;&gt;effects&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a/effects&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;/resources/transactions/many.md&#34;.
+&#34;&gt;precedes&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions?cursor=12884905984&amp;amp;order=asc&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;A collection of transactions that occure after this transaction.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;/resources/transactions/many.md&#34;.
+&#34;&gt;succeeds&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions?cursor=12884905984&amp;amp;order=desc&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;A collection of transactions that occur before this transaction.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;example-resources:2e47673b0e2fecf4f97d6b00d496cdc9&#34;&gt;Example Resources&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;//TODO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;resources-that-provide-transactions:2e47673b0e2fecf4f97d6b00d496cdc9&#34;&gt;Resources that provide transactions&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Resource&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Resource URL&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;/resources/transactions/many.md&#34;.
+&#34;&gt;All Transactions&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Collection&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;/resources/transactions/one.md&#34;.
+&#34;&gt;Transaction Details&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Single&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions/:id&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
