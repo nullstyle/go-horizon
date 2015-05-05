@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Problems on Horizon</title>
+    <link>http://localhost:1313/go-horizon/problems/</link>
+    <description>Recent content in Problems on Horizon</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 04 May 2015 20:03:27 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/go-horizon/problems/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Not Found</title>
+      <link>http://localhost:1313/go-horizon/problems/not_found/</link>
+      <pubDate>Mon, 04 May 2015 20:03:27 -0700</pubDate>
+      
+      <guid>http://localhost:1313/go-horizon/problems/not_found/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

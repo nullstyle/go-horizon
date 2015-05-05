@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Guides on Horizon</title>
+    <link>http://localhost:1313/go-horizon/guides/</link>
+    <description>Recent content in Guides on Horizon</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 04 May 2015 08:00:59 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/go-horizon/guides/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Introduction</title>
+      <link>http://localhost:1313/go-horizon/guides/intro/</link>
+      <pubDate>Mon, 04 May 2015 08:00:59 -0700</pubDate>
+      
+      <guid>http://localhost:1313/go-horizon/guides/intro/</guid>
+      <description>
+
+&lt;p&gt;Horizon is the client facing API server for the Stellar ecosystem.  See &lt;a href=&#34;TODO&#34;&gt;an overview of the Stellar ecosystem&lt;/a&gt; for more details.&lt;/p&gt;
+
+&lt;p&gt;Horizon provides three significant portions of functionality:  The Transactions API, the History API, and the Trading API.&lt;/p&gt;
+
+&lt;h2 id=&#34;transactions-api:34c4da6d4768d05e50db99357a299b5c&#34;&gt;Transactions API&lt;/h2&gt;
+
+&lt;p&gt;The Transactions API exists to help you make transactions against the Stellar network.  It provides ways to help you create valid transactions, such as providing an account&amp;rsquo;s sequence number or latest known balances.&lt;/p&gt;
+
+&lt;p&gt;In addition to the read endpoints, the Transactions API also provides the endpoint to submit transactions.&lt;/p&gt;
+
+&lt;h2 id=&#34;history-api:34c4da6d4768d05e50db99357a299b5c&#34;&gt;History API&lt;/h2&gt;
+
+&lt;p&gt;The History API provides endpoints for retrieving data about what has happened in the past on the Stellar network.  It provides (or will provide) endpoints that let you:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Retrieve transaction details&lt;/li&gt;
+&lt;li&gt;Load transactions that effect a given account&lt;/li&gt;
+&lt;li&gt;Load payment history for an account&lt;/li&gt;
+&lt;li&gt;Load trade history for a given order book&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;trading-api:34c4da6d4768d05e50db99357a299b5c&#34;&gt;Trading API&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>paging</title>
+      <link>http://localhost:1313/go-horizon/guides/paging/</link>
+      <pubDate>Mon, 04 May 2015 18:37:32 -0700</pubDate>
+      
+      <guid>http://localhost:1313/go-horizon/guides/paging/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Problems</title>
+      <link>http://localhost:1313/go-horizon/guides/problems/</link>
+      <pubDate>Mon, 04 May 2015 15:48:17 -0700</pubDate>
+      
+      <guid>http://localhost:1313/go-horizon/guides/problems/</guid>
+      <description>&lt;p&gt;TODO&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Response Format</title>
+      <link>http://localhost:1313/go-horizon/guides/responses/</link>
+      <pubDate>Mon, 04 May 2015 15:48:17 -0700</pubDate>
+      
+      <guid>http://localhost:1313/go-horizon/guides/responses/</guid>
+      <description>&lt;p&gt;Rather than using a fully custom way of representing the resources we expose in Horizon, we use &lt;a href=&#34;http://stateless.co/hal_specification.html&#34;&gt;HAL&lt;/a&gt;. HAL is a hypermedia format in JSON that remains simple while giving us a couple of benefits such as simpler client integration for several languages. See &lt;a href=&#34;https://github.com/mikekelly/hal_specification/wiki/Libraries&#34;&gt;this wiki page&lt;/a&gt; for a list of libraries.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

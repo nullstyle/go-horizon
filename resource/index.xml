@@ -1,46 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Horizon</title>
-    <link>http://stellar.github.io/go-horizon/</link>
-    <description>Recent content on Horizon</description>
+    <title>Resources on Horizon</title>
+    <link>http://stellar.github.io/go-horizon/resource/</link>
+    <description>Recent content in Resources on Horizon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 May 2015 08:00:59 -0700</lastBuildDate>
-    <atom:link href="http://stellar.github.io/go-horizon/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>Introduction</title>
-      <link>http://stellar.github.io/go-horizon/guide/intro/</link>
-      <pubDate>Mon, 04 May 2015 08:00:59 -0700</pubDate>
-      
-      <guid>http://stellar.github.io/go-horizon/guide/intro/</guid>
-      <description>
-
-&lt;p&gt;Horizon is the client facing API server for the Stellar ecosystem.  See &lt;a href=&#34;TODO&#34;&gt;an overview of the Stellar ecosystem&lt;/a&gt; for more details.&lt;/p&gt;
-
-&lt;p&gt;Horizon provides three significant portions of functionality:  The Transactions API, the History API, and the Trading API.&lt;/p&gt;
-
-&lt;h2 id=&#34;transactions-api:34c4da6d4768d05e50db99357a299b5c&#34;&gt;Transactions API&lt;/h2&gt;
-
-&lt;p&gt;The Transactions API exists to help you make transactions against the Stellar network.  It provides ways to help you create valid transactions, such as providing an account&amp;rsquo;s sequence number or latest known balances.&lt;/p&gt;
-
-&lt;p&gt;In addition to the read endpoints, the Transactions API also provides the endpoint to submit transactions.&lt;/p&gt;
-
-&lt;h2 id=&#34;history-api:34c4da6d4768d05e50db99357a299b5c&#34;&gt;History API&lt;/h2&gt;
-
-&lt;p&gt;The History API provides endpoints for retrieving data about what has happened in the past on the Stellar network.  It provides (or will provide) endpoints that let you:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Retrieve transaction details&lt;/li&gt;
-&lt;li&gt;Load transactions that effect a given account&lt;/li&gt;
-&lt;li&gt;Load payment history for an account&lt;/li&gt;
-&lt;li&gt;Load trade history for a given order book&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;trading-api:34c4da6d4768d05e50db99357a299b5c&#34;&gt;Trading API&lt;/h2&gt;
-</description>
-    </item>
+    <atom:link href="http://stellar.github.io/go-horizon/resource/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Transaction</title>
@@ -241,60 +207,6 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Transaction Details</title>
-      <link>http://stellar.github.io/go-horizon/endpoint/transactions_single/</link>
-      <pubDate>Mon, 04 May 2015 14:52:29 -0700</pubDate>
-      
-      <guid>http://stellar.github.io/go-horizon/endpoint/transactions_single/</guid>
-      <description>
-
-&lt;p&gt;The transaction details endpoint provides information on a single transaction
-within the ledger. The transaction hash provided in the &lt;code&gt;hash&lt;/code&gt; argument specifies
-which transaction to load&lt;/p&gt;
-
-&lt;p&gt;URL Template: &lt;code&gt;/transactions/{hash}&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;arguments:fe8abeb8cb7003c54c062db4b868bc2f&#34;&gt;Arguments&lt;/h2&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;name&lt;/th&gt;
-&lt;th&gt;type&lt;/th&gt;
-&lt;th&gt;description&lt;/th&gt;
-&lt;th&gt;example&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;hash&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;td&gt;A transaction hash, hex-encoded&lt;/td&gt;
-&lt;td&gt;6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&#34;example-request:fe8abeb8cb7003c54c062db4b868bc2f&#34;&gt;Example Request&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;curl TODO/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;response:fe8abeb8cb7003c54c062db4b868bc2f&#34;&gt;Response&lt;/h2&gt;
-
-&lt;p&gt;This endpoint responds with a single Transaction.  See &lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/resource/transaction/&#34;&gt;transaction resource&lt;/a&gt; for reference.&lt;/p&gt;
-
-&lt;h2 id=&#34;problems:fe8abeb8cb7003c54c062db4b868bc2f&#34;&gt;Problems&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;No page found with path or logical name &#34;problem/not_found.md&#34;.
-&#34;&gt;not_found&lt;/a&gt;: A &lt;code&gt;not_found&lt;/code&gt; problem will be returned if there is no transaction in the ledger whose hash matches the &lt;code&gt;hash&lt;/code&gt; argument.&lt;/li&gt;
-&lt;/ul&gt;
 </description>
     </item>
     

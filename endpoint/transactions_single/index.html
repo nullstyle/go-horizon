@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> Transaction Details &middot; Horizon </title>
+
+  
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/poole.css">
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/syntax.css">
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Horizon" />
+</head>
+
+<body>
+
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>Horizon</h1>
+    </div>
+
+    <ul class="sidebar-nav">
+
+      <li>Guides</li>
+      
+        <li><a href="/go-horizon/guide/intro/">Introduction</a></li>
+      
+
+      <li>Resources</li>
+      
+        <li><a href="/go-horizon/resource/transaction/"> Transaction </a></li>
+      
+        <li><a href="/go-horizon/resource/operation/"> Operation </a></li>
+      
+
+      <li>Endpoints</li>
+      
+        <li><a href="/go-horizon/endpoint/transactions_single/"> Transaction Details </a></li>
+      
+
+      <li>Problems</li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1>Transaction Details</h1>
+        
+
+<p>The transaction details endpoint provides information on a single transaction
+within the ledger. The transaction hash provided in the <code>hash</code> argument specifies
+which transaction to load</p>
+
+<p>URL Template: <code>/transactions/{hash}</code></p>
+
+<h2 id="arguments:fe8abeb8cb7003c54c062db4b868bc2f">Arguments</h2>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+<th>example</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>hash</code></td>
+<td>string</td>
+<td>A transaction hash, hex-encoded</td>
+<td>6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="example-request:fe8abeb8cb7003c54c062db4b868bc2f">Example Request</h2>
+
+<pre><code>curl TODO/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a
+</code></pre>
+
+<h2 id="response:fe8abeb8cb7003c54c062db4b868bc2f">Response</h2>
+
+<p>This endpoint responds with a single Transaction.  See <a href="/go-horizon/resource/transaction/">transaction resource</a> for reference.</p>
+
+<h2 id="problems:fe8abeb8cb7003c54c062db4b868bc2f">Problems</h2>
+
+<ul>
+<li><a href="No page found with path or logical name "problem/not_found.md".
+">not_found</a>: A <code>not_found</code> problem will be returned if there is no transaction in the ledger whose hash matches the <code>hash</code> argument.</li>
+</ul>
+
+  </div>
+</div>
+
+</body>
+</html>

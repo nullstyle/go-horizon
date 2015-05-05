@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Resources on Horizon</title>
+    <link>http://localhost:1313/go-horizon/resources/</link>
+    <description>Recent content in Resources on Horizon</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1313/go-horizon/resources/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Transaction</title>
+      <link>http://localhost:1313/go-horizon/resources/transaction/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/go-horizon/resources/transaction/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;Transaction&lt;/strong&gt; resources are the basic unit of change in the Stellar Network.&lt;/p&gt;
+
+&lt;p&gt;A transaction is a grouping of &lt;a href=&#34;http://localhost:1313/go-horizon/go-horizon/resources/operation/&#34;&gt;operations&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;attributes:2e47673b0e2fecf4f97d6b00d496cdc9&#34;&gt;Attributes&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Attribute&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;id&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;The canonical id of this transaction, suitable for use as the :id parameter for url templates that require a transaction&amp;rsquo;s ID.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;paging_token&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A &lt;a href=&#34;No page found with path or logical name &#34;guides/paging.md&#34;.
+&#34;&gt;paging token&lt;/a&gt; suitable for use as the &lt;code&gt;cursor&lt;/code&gt; parameter to transaction collection resources.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;hash&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A hex-encoded SHA-256 hash of the transaction&amp;rsquo;s XDR-encoded form.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ledger&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;Sequence number of the ledger in which this transaction was applied. &lt;code&gt;null&lt;/code&gt; if the transaction is failed or unvalidated.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;account&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;account_sequence&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;max_fee&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;The maximum fee willing to be paid by the transaction creator, expressed in a native currency amount.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;fee_paid&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;The fee paid by the source account of this transaction when the transaction was applied to the ledger.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;operation_count&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;The number of operations that are contained within this transaction.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;result_code&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;The numeric result code for this transaction&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;result_code_s&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;links:2e47673b0e2fecf4f97d6b00d496cdc9&#34;&gt;Links&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;rel&lt;/th&gt;
+&lt;th&gt;Example&lt;/th&gt;
+&lt;th&gt;Relation&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;endpoints/transactions/one.md&#34;.
+&#34;&gt;self&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;endpoints/accounts/one.md&#34;.
+&#34;&gt;account&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/accounts/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The source account for this transaction.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;endpoints/ledgers/one.md&#34;.
+&#34;&gt;ledger&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/ledgers/3&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The ledger in which this transaction was applied.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;endpoints/operations/for_transaction.md&#34;.
+&#34;&gt;operations&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a/operations&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;endpoints/effects/for_transaction.md&#34;.
+&#34;&gt;effects&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a/effects&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;endpoints/transactions/all.md&#34;.
+&#34;&gt;precedes&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions?cursor=12884905984&amp;amp;order=asc&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;A collection of transactions that occure after this transaction.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;endpoints/transactions/all.md&#34;.
+&#34;&gt;succeeds&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions?cursor=12884905984&amp;amp;order=desc&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;A collection of transactions that occur before this transaction.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;example:2e47673b0e2fecf4f97d6b00d496cdc9&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;//TODO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;endpoints:2e47673b0e2fecf4f97d6b00d496cdc9&#34;&gt;Endpoints&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Resource&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Resource URL&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;endpoints/transactions/all.md&#34;.
+&#34;&gt;All Transactions&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Collection&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;endpoints/transactions/one.md&#34;.
+&#34;&gt;Transaction Details&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Single&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions/:id&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&#34;No page found with path or logical name &#34;endpoints/transactions/for_account.md&#34;.
+&#34;&gt;Account Transactions&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;Collection&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/accounts/:account_id/transactions&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;[Ledger Transactions][transactions/ledger]&lt;/td&gt;
+&lt;td&gt;Collection&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/ledgers/:ledger_id/transactions&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Effect</title>
+      <link>http://localhost:1313/go-horizon/resources/effect/</link>
+      <pubDate>Mon, 04 May 2015 15:48:17 -0700</pubDate>
+      
+      <guid>http://localhost:1313/go-horizon/resources/effect/</guid>
+      <description>
+
+&lt;p&gt;A successful operation will yield zero or more &lt;strong&gt;effects&lt;/strong&gt;.  These effects
+represent specific changes that occur in the ledger, but are not necessarily
+directly reflected in the ledger or history, as transactions and operations are.&lt;/p&gt;
+
+&lt;p&gt;An example is&lt;/p&gt;
+
+&lt;p&gt;Effect Types:
+- CreditEffect
+- DebitEffect&lt;/p&gt;
+
+&lt;h2 id=&#34;tradeeffect:57acbcd59fb6165903daddf0665a1bd8&#34;&gt;- TradeEffect&lt;/h2&gt;
+
+&lt;h2 id=&#34;attributes:57acbcd59fb6165903daddf0665a1bd8&#34;&gt;Attributes&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Attribute&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;links:57acbcd59fb6165903daddf0665a1bd8&#34;&gt;Links&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;rel&lt;/th&gt;
+&lt;th&gt;Example&lt;/th&gt;
+&lt;th&gt;Relation&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;example:57acbcd59fb6165903daddf0665a1bd8&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;//TODO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;endpoints:57acbcd59fb6165903daddf0665a1bd8&#34;&gt;Endpoints&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Resource&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Resource URL&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ledger</title>
+      <link>http://localhost:1313/go-horizon/resources/ledger/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/go-horizon/resources/ledger/</guid>
+      <description>
+
+&lt;p&gt;Overview goes here&lt;/p&gt;
+
+&lt;h2 id=&#34;attributes:70859c27c2c783f63b076ab2255ead69&#34;&gt;Attributes&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Attribute&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;links:70859c27c2c783f63b076ab2255ead69&#34;&gt;Links&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;rel&lt;/th&gt;
+&lt;th&gt;Example&lt;/th&gt;
+&lt;th&gt;Relation&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;example:70859c27c2c783f63b076ab2255ead69&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;//TODO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;endpoints:70859c27c2c783f63b076ab2255ead69&#34;&gt;Endpoints&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Resource&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Resource URL&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Operation</title>
+      <link>http://localhost:1313/go-horizon/resources/operation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/go-horizon/resources/operation/</guid>
+      <description>
+
+&lt;p&gt;Operations are objects that represent a desired change to the ledger: payments,
+offers to exchange currency, changes made to account options, etc.  Operations
+are submitted to the Stellar Network grouped in a &lt;a href=&#34;http://localhost:1313/go-horizon/go-horizon/resources/transaction/&#34;&gt;Transaction&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;operation-types:8b7e8847f7803edbe4006f59a10f29ad&#34;&gt;Operation Types&lt;/h2&gt;
+
+&lt;p&gt;An operation is one of six types:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Payment:
+
+&lt;ul&gt;
+&lt;li&gt;from, to, currency, amount&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Create Offer:
+
+&lt;ul&gt;
+&lt;li&gt;order book, operation, price, amount&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Set Options:
+
+&lt;ul&gt;
+&lt;li&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Change Trust:
+
+&lt;ul&gt;
+&lt;li&gt;currency, limit&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Allow Trust:&lt;/li&gt;
+&lt;li&gt;Merge Account:&lt;/li&gt;
+&lt;li&gt;Inflation:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;attributes:8b7e8847f7803edbe4006f59a10f29ad&#34;&gt;Attributes&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;links:8b7e8847f7803edbe4006f59a10f29ad&#34;&gt;Links&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Example&lt;/th&gt;
+&lt;th&gt;Relation&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;example:8b7e8847f7803edbe4006f59a10f29ad&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;//TODO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;endpoints:8b7e8847f7803edbe4006f59a10f29ad&#34;&gt;Endpoints&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;Resource URL&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

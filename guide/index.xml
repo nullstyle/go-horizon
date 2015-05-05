@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Guides on Horizon</title>
+    <link>http://stellar.github.io/go-horizon/guide/</link>
+    <description>Recent content in Guides on Horizon</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 04 May 2015 08:00:59 -0700</lastBuildDate>
+    <atom:link href="http://stellar.github.io/go-horizon/guide/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Introduction</title>
+      <link>http://stellar.github.io/go-horizon/guide/intro/</link>
+      <pubDate>Mon, 04 May 2015 08:00:59 -0700</pubDate>
+      
+      <guid>http://stellar.github.io/go-horizon/guide/intro/</guid>
+      <description>
+
+&lt;p&gt;Horizon is the client facing API server for the Stellar ecosystem.  See &lt;a href=&#34;TODO&#34;&gt;an overview of the Stellar ecosystem&lt;/a&gt; for more details.&lt;/p&gt;
+
+&lt;p&gt;Horizon provides three significant portions of functionality:  The Transactions API, the History API, and the Trading API.&lt;/p&gt;
+
+&lt;h2 id=&#34;transactions-api:34c4da6d4768d05e50db99357a299b5c&#34;&gt;Transactions API&lt;/h2&gt;
+
+&lt;p&gt;The Transactions API exists to help you make transactions against the Stellar network.  It provides ways to help you create valid transactions, such as providing an account&amp;rsquo;s sequence number or latest known balances.&lt;/p&gt;
+
+&lt;p&gt;In addition to the read endpoints, the Transactions API also provides the endpoint to submit transactions.&lt;/p&gt;
+
+&lt;h2 id=&#34;history-api:34c4da6d4768d05e50db99357a299b5c&#34;&gt;History API&lt;/h2&gt;
+
+&lt;p&gt;The History API provides endpoints for retrieving data about what has happened in the past on the Stellar network.  It provides (or will provide) endpoints that let you:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Retrieve transaction details&lt;/li&gt;
+&lt;li&gt;Load transactions that effect a given account&lt;/li&gt;
+&lt;li&gt;Load payment history for an account&lt;/li&gt;
+&lt;li&gt;Load trade history for a given order book&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;trading-api:34c4da6d4768d05e50db99357a299b5c&#34;&gt;Trading API&lt;/h2&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

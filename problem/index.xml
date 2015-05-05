@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Problems on Horizon</title>
+    <link>http://localhost:1313/go-horizon/problem/</link>
+    <description>Recent content in Problems on Horizon</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 04 May 2015 20:03:27 -0700</lastBuildDate>
+    <atom:link href="http://localhost:1313/go-horizon/problem/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Problem: Not Found</title>
+      <link>http://localhost:1313/go-horizon/problem/not_found/</link>
+      <pubDate>Mon, 04 May 2015 20:03:27 -0700</pubDate>
+      
+      <guid>http://localhost:1313/go-horizon/problem/not_found/</guid>
+      <description>
+
+&lt;p&gt;A &lt;code&gt;not_found&lt;/code&gt; problem is returned from horizon when the resource a client is
+requesting is not found.  This is similar to a &amp;ldquo;404 Not Found&amp;rdquo; error response
+you get from HTTP.&lt;/p&gt;
+
+&lt;h2 id=&#34;example:7c9f872d85877c754d4fe264c1426309&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;type&amp;quot;:     &amp;quot;https://www.stellar.org/docs/horizon/problems/not_found&amp;quot;,
+  &amp;quot;title&amp;quot;:    &amp;quot;Resource Missing&amp;quot;,
+  &amp;quot;status&amp;quot;:   404,
+  &amp;quot;details&amp;quot;:  &amp;quot;The resource .... not found.&amp;quot;,
+  &amp;quot;instance&amp;quot;: &amp;quot;d3465740-ec3a-4a0b-9d4a-c9ea734ce58a&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;tips-for-resolution:7c9f872d85877c754d4fe264c1426309&#34;&gt;Tips for resolution&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Ensure that the URL is correct, pay special attention to any path parameters,
+as this is usually where something is wrong.  Additionally, you should be
+never see this error message when navigating from a link read from a response.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Ensure the data exists. For example, if you are requesting the details of a
+transaction, you will receive a &lt;code&gt;not_found&lt;/code&gt; error in the event that the
+transaction you are requesting failed.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

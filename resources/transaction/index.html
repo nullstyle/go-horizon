@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> Transaction &middot; Horizon </title>
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/go-horizon/css/poole.css">
+  <link rel="stylesheet" href="http://localhost:1313/go-horizon/css/syntax.css">
+  <link rel="stylesheet" href="http://localhost:1313/go-horizon/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Horizon" />
+</head>
+
+<body>
+
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>Horizon</h1>
+    </div>
+
+    <ul class="sidebar-nav">
+
+      <li>Guides</li>
+      
+
+<div class="content container">
+  <div class="post">
+    <h1>Transaction</h1>
+        
+
+<p><strong>Transaction</strong> resources are the basic unit of change in the Stellar Network.</p>
+
+<p>A transaction is a grouping of <a href="/go-horizon/resources/operation/">operations</a>.</p>
+
+<h2 id="attributes:2e47673b0e2fecf4f97d6b00d496cdc9">Attributes</h2>
+
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>The canonical id of this transaction, suitable for use as the :id parameter for url templates that require a transaction&rsquo;s ID.</td>
+</tr>
+
+<tr>
+<td>paging_token</td>
+<td>string</td>
+<td>A <a href="No page found with path or logical name "guides/paging.md".
+">paging token</a> suitable for use as the <code>cursor</code> parameter to transaction collection resources.</td>
+</tr>
+
+<tr>
+<td>hash</td>
+<td>string</td>
+<td>A hex-encoded SHA-256 hash of the transaction&rsquo;s XDR-encoded form.</td>
+</tr>
+
+<tr>
+<td>ledger</td>
+<td>number</td>
+<td>Sequence number of the ledger in which this transaction was applied. <code>null</code> if the transaction is failed or unvalidated.</td>
+</tr>
+
+<tr>
+<td>account</td>
+<td>string</td>
+<td></td>
+</tr>
+
+<tr>
+<td>account_sequence</td>
+<td>number</td>
+<td></td>
+</tr>
+
+<tr>
+<td>max_fee</td>
+<td>number</td>
+<td>The maximum fee willing to be paid by the transaction creator, expressed in a native currency amount.</td>
+</tr>
+
+<tr>
+<td>fee_paid</td>
+<td>number</td>
+<td>The fee paid by the source account of this transaction when the transaction was applied to the ledger.</td>
+</tr>
+
+<tr>
+<td>operation_count</td>
+<td>number</td>
+<td>The number of operations that are contained within this transaction.</td>
+</tr>
+
+<tr>
+<td>result_code</td>
+<td>number</td>
+<td>The numeric result code for this transaction</td>
+</tr>
+
+<tr>
+<td>result_code_s</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="links:2e47673b0e2fecf4f97d6b00d496cdc9">Links</h2>
+
+<table>
+<thead>
+<tr>
+<th>rel</th>
+<th>Example</th>
+<th>Relation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><a href="No page found with path or logical name "endpoints/transactions/one.md".
+">self</a></td>
+<td><code>/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a</code></td>
+<td></td>
+</tr>
+
+<tr>
+<td><a href="No page found with path or logical name "endpoints/accounts/one.md".
+">account</a></td>
+<td><code>/accounts/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC</code></td>
+<td>The source account for this transaction.</td>
+</tr>
+
+<tr>
+<td><a href="No page found with path or logical name "endpoints/ledgers/one.md".
+">ledger</a></td>
+<td><code>/ledgers/3</code></td>
+<td>The ledger in which this transaction was applied.</td>
+</tr>
+
+<tr>
+<td><a href="No page found with path or logical name "endpoints/operations/for_transaction.md".
+">operations</a></td>
+<td><code>/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a/operations</code></td>
+<td></td>
+</tr>
+
+<tr>
+<td><a href="No page found with path or logical name "endpoints/effects/for_transaction.md".
+">effects</a></td>
+<td><code>/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a/effects</code></td>
+<td></td>
+</tr>
+
+<tr>
+<td><a href="No page found with path or logical name "endpoints/transactions/all.md".
+">precedes</a></td>
+<td><code>/transactions?cursor=12884905984&amp;order=asc</code></td>
+<td>A collection of transactions that occure after this transaction.</td>
+</tr>
+
+<tr>
+<td><a href="No page found with path or logical name "endpoints/transactions/all.md".
+">succeeds</a></td>
+<td><code>/transactions?cursor=12884905984&amp;order=desc</code></td>
+<td>A collection of transactions that occur before this transaction.</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="example:2e47673b0e2fecf4f97d6b00d496cdc9">Example</h2>
+
+<pre><code class="language-json">//TODO
+</code></pre>
+
+<h2 id="endpoints:2e47673b0e2fecf4f97d6b00d496cdc9">Endpoints</h2>
+
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Type</th>
+<th>Resource URL</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><a href="No page found with path or logical name "endpoints/transactions/all.md".
+">All Transactions</a></td>
+<td>Collection</td>
+<td><code>/transactions</code></td>
+</tr>
+
+<tr>
+<td><a href="No page found with path or logical name "endpoints/transactions/one.md".
+">Transaction Details</a></td>
+<td>Single</td>
+<td><code>/transactions/:id</code></td>
+</tr>
+
+<tr>
+<td><a href="No page found with path or logical name "endpoints/transactions/for_account.md".
+">Account Transactions</a></td>
+<td>Collection</td>
+<td><code>/accounts/:account_id/transactions</code></td>
+</tr>
+
+<tr>
+<td>[Ledger Transactions][transactions/ledger]</td>
+<td>Collection</td>
+<td><code>/ledgers/:ledger_id/transactions</code></td>
+</tr>
+</tbody>
+</table>
+
+  </div>
+</div>
+
+<script>document.write('<script src="http://'
+        + (location.host || 'localhost').split(':')[0]
+		+ ':1313/livereload.js?mindelay=10"></'
+        + 'script>')</script></body>
+</html>

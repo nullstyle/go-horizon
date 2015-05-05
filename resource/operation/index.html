@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> Operation &middot; Horizon </title>
+
+  
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/poole.css">
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/syntax.css">
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Horizon" />
+</head>
+
+<body>
+
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>Horizon</h1>
+    </div>
+
+    <ul class="sidebar-nav">
+
+      <li>Guides</li>
+      
+        <li><a href="/go-horizon/guide/intro/">Introduction</a></li>
+      
+
+      <li>Resources</li>
+      
+        <li><a href="/go-horizon/resource/transaction/"> Transaction </a></li>
+      
+        <li><a href="/go-horizon/resource/operation/"> Operation </a></li>
+      
+
+      <li>Endpoints</li>
+      
+        <li><a href="/go-horizon/endpoint/transactions_single/"> Transaction Details </a></li>
+      
+
+      <li>Problems</li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1>Operation</h1>
+        
+
+<p>Operations are objects that represent a desired change to the ledger: payments,
+offers to exchange currency, changes made to account options, etc.  Operations
+are submitted to the Stellar Network grouped in a <a href="/go-horizon/resource/transaction/">Transaction</a>.</p>
+
+<p>An operation is one of six types: Payment, Create Offer, Set Options, Change
+Trust, Allow Trust, Account Merge, and Inflation.  See the section &ldquo;Operation
+Types&rdquo; below.</p>
+
+<p>Every operation type share a set of common attributes and links, but contain
+additional attributes and links specific to its types.</p>
+
+<h2 id="common-attributes:8b7e8847f7803edbe4006f59a10f29ad">Common Attributes</h2>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>number</td>
+<td>The canonical id of this operation, suitable for use as the :id parameter for url templates that require an operation&rsquo;s ID</td>
+</tr>
+
+<tr>
+<td>paging_token</td>
+<td>any</td>
+<td></td>
+</tr>
+
+<tr>
+<td>type</td>
+<td>number</td>
+<td>Specifies the type of operation, See &ldquo;Types&rdquo; section below for reference.</td>
+</tr>
+
+<tr>
+<td>type_s</td>
+<td>string</td>
+<td>A string representation of the type of operation</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="common-links:8b7e8847f7803edbe4006f59a10f29ad">Common Links</h2>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Example</th>
+<th>Relation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>self</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>succeeds</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>precedes</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>transaction</td>
+<td></td>
+<td>The transaction this operation is part of</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="operation-types:8b7e8847f7803edbe4006f59a10f29ad">Operation Types</h2>
+
+<p>There are sevent different operation types:</p>
+
+<table>
+<thead>
+<tr>
+<th>type_s</th>
+<th>type</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>payment</td>
+<td>0</td>
+</tr>
+
+<tr>
+<td>create_offer</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>set_options</td>
+<td>2</td>
+</tr>
+
+<tr>
+<td>change_trust</td>
+<td>3</td>
+</tr>
+
+<tr>
+<td>allow_trust</td>
+<td>4</td>
+</tr>
+
+<tr>
+<td>account_merge</td>
+<td>5</td>
+</tr>
+
+<tr>
+<td>inflation</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+
+<p>Each operation type will have a different set of attributes, in addition to the
+common attributes listed above.</p>
+
+<h3 id="payment:8b7e8847f7803edbe4006f59a10f29ad">Payment</h3>
+
+<p>A payment operation represents a payment from one account to another.  This payment
+can be either a simple native currency payment or a fiat currency payment.</p>
+
+<h4 id="attributes:8b7e8847f7803edbe4006f59a10f29ad">Attributes</h4>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>sender</td>
+<td>string</td>
+<td>address of sender</td>
+</tr>
+
+<tr>
+<td>receiver</td>
+<td>string</td>
+<td></td>
+</tr>
+
+<tr>
+<td>currency</td>
+<td>object</td>
+<td></td>
+</tr>
+
+<tr>
+<td>currency.code</td>
+<td>string</td>
+<td></td>
+</tr>
+
+<tr>
+<td>currency.issuer</td>
+<td>string</td>
+<td></td>
+</tr>
+
+<tr>
+<td>amount</td>
+<td>number</td>
+<td></td>
+</tr>
+
+<tr>
+<td>amount_f</td>
+<td>number</td>
+<td></td>
+</tr>
+
+<tr>
+<td>path</td>
+<td>array</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="links:8b7e8847f7803edbe4006f59a10f29ad">Links</h4>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Example</th>
+<th>Relation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>sender</td>
+<td>/accounts/gT9jHoPKoErFwXavCrDYLkSVcVd9oyVv94ydrq6FnPMXpKHPTA</td>
+<td>Sending account</td>
+</tr>
+
+<tr>
+<td>receiver</td>
+<td>/accounts/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC</td>
+<td>Receiving account</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="create-offer:8b7e8847f7803edbe4006f59a10f29ad">Create Offer</h3>
+
+<p>A &ldquo;Create Offer&rdquo; operation represents the desire of an account to trade
+currencies. It specifies an order book, a price and amount of currency to
+buy or sell.</p>
+
+<p>When this operation is applied to the ledger, trades will be executed by
+matching this operation with crossing offers, executing trades in an attempt to
+completely will this offer.</p>
+
+<p>In the event that there are not enough crossing orders to fill the order completely
+a new &ldquo;Offer&rdquo; object will be created in the ledger.  As other accounts make
+offers or payments, this offer will be filled when possible.</p>
+
+<h4 id="attributes-1:8b7e8847f7803edbe4006f59a10f29ad">Attributes</h4>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h4 id="links-1:8b7e8847f7803edbe4006f59a10f29ad">Links</h4>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Example</th>
+<th>Relation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>orderbook</td>
+<td></td>
+<td>The orderbook the offer was posted to</td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="set-options:8b7e8847f7803edbe4006f59a10f29ad">Set Options</h3>
+
+<p>TODO</p>
+
+<h3 id="change-trust:8b7e8847f7803edbe4006f59a10f29ad">Change Trust</h3>
+
+<p>TODO</p>
+
+<h3 id="allow-trust:8b7e8847f7803edbe4006f59a10f29ad">Allow Trust</h3>
+
+<p>TODO</p>
+
+<h3 id="account-merge:8b7e8847f7803edbe4006f59a10f29ad">Account Merge</h3>
+
+<p>TODO</p>
+
+<h3 id="inflation:8b7e8847f7803edbe4006f59a10f29ad">Inflation</h3>
+
+<p>TODO</p>
+
+<h2 id="endpoints:8b7e8847f7803edbe4006f59a10f29ad">Endpoints</h2>
+
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Type</th>
+<th>Resource URL</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><a href="#">All Operations</a></td>
+<td>Collection</td>
+<td><code>/operations</code></td>
+</tr>
+
+<tr>
+<td><a href="#">Operations Details</a></td>
+<td>Single</td>
+<td><code>/operations/:id</code></td>
+</tr>
+
+<tr>
+<td><a href="#">Account Operations</a></td>
+<td>Collection</td>
+<td><code>/accounts/:account_id/operations</code></td>
+</tr>
+
+<tr>
+<td><a href="#">Account Payments</a></td>
+<td>Collection</td>
+<td><code>/accounts/:account_id/payments</code></td>
+</tr>
+</tbody>
+</table>
+
+  </div>
+</div>
+
+</body>
+</html>
