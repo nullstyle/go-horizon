@@ -396,7 +396,11 @@ terminal.&lt;/p&gt;
 
 &lt;h2 id=&#34;following-payments:ee7aa3ccb5ff4fc52fc070c8f2ca7d98&#34;&gt;Following payments&lt;/h2&gt;
 
+&lt;p&gt;TODO&lt;/p&gt;
+
 &lt;h2 id=&#34;testing-it-out:ee7aa3ccb5ff4fc52fc070c8f2ca7d98&#34;&gt;Testing it out&lt;/h2&gt;
+
+&lt;p&gt;TODO&lt;/p&gt;
 </description>
     </item>
     
@@ -544,6 +548,43 @@ curl https://horizon-testnet.stellar.org/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjL
     </item>
     
     <item>
+      <title>Problem: Not Found</title>
+      <link>http://stellar.github.io/go-horizon/problem/not_found/</link>
+      <pubDate>Mon, 04 May 2015 20:03:27 -0700</pubDate>
+      
+      <guid>http://stellar.github.io/go-horizon/problem/not_found/</guid>
+      <description>
+
+&lt;p&gt;A &lt;code&gt;not_found&lt;/code&gt; problem is returned from horizon when the resource a client is
+requesting is not found.  This is similar to a &amp;ldquo;404 Not Found&amp;rdquo; error response
+you get from HTTP.&lt;/p&gt;
+
+&lt;h2 id=&#34;example:7c9f872d85877c754d4fe264c1426309&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;type&amp;quot;:     &amp;quot;https://www.stellar.org/docs/horizon/problems/not_found&amp;quot;,
+  &amp;quot;title&amp;quot;:    &amp;quot;Resource Missing&amp;quot;,
+  &amp;quot;status&amp;quot;:   404,
+  &amp;quot;details&amp;quot;:  &amp;quot;The resource .... not found.&amp;quot;,
+  &amp;quot;instance&amp;quot;: &amp;quot;d3465740-ec3a-4a0b-9d4a-c9ea734ce58a&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;tips-for-resolution:7c9f872d85877c754d4fe264c1426309&#34;&gt;Tips for resolution&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Ensure that the URL is correct, pay special attention to any path parameters,
+as this is usually where something is wrong.  Additionally, you should be
+never see this error message when navigating from a link read from a response.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Ensure the data exists. For example, if you are requesting the details of a
+transaction, you will receive a &lt;code&gt;not_found&lt;/code&gt; error in the event that the
+transaction you are requesting failed.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Problem: Internal Server Error</title>
       <link>http://stellar.github.io/go-horizon/problem/server_error/</link>
       <pubDate>Mon, 04 May 2015 20:03:27 -0700</pubDate>
@@ -581,43 +622,6 @@ issue on &lt;a href=&#34;#&#34;&gt;horizon&amp;rsquo;s issue tracker&lt;/a&gt;. 
 &lt;code&gt;instance&lt;/code&gt;   attribute from the problem response, but additional information
 such as the original request that triggered the problem is always welcome and
 speeds our ability to identify the problem.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Problem: Not Found</title>
-      <link>http://stellar.github.io/go-horizon/problem/not_found/</link>
-      <pubDate>Mon, 04 May 2015 20:03:27 -0700</pubDate>
-      
-      <guid>http://stellar.github.io/go-horizon/problem/not_found/</guid>
-      <description>
-
-&lt;p&gt;A &lt;code&gt;not_found&lt;/code&gt; problem is returned from horizon when the resource a client is
-requesting is not found.  This is similar to a &amp;ldquo;404 Not Found&amp;rdquo; error response
-you get from HTTP.&lt;/p&gt;
-
-&lt;h2 id=&#34;example:7c9f872d85877c754d4fe264c1426309&#34;&gt;Example&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-  &amp;quot;type&amp;quot;:     &amp;quot;https://www.stellar.org/docs/horizon/problems/not_found&amp;quot;,
-  &amp;quot;title&amp;quot;:    &amp;quot;Resource Missing&amp;quot;,
-  &amp;quot;status&amp;quot;:   404,
-  &amp;quot;details&amp;quot;:  &amp;quot;The resource .... not found.&amp;quot;,
-  &amp;quot;instance&amp;quot;: &amp;quot;d3465740-ec3a-4a0b-9d4a-c9ea734ce58a&amp;quot;
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;tips-for-resolution:7c9f872d85877c754d4fe264c1426309&#34;&gt;Tips for resolution&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Ensure that the URL is correct, pay special attention to any path parameters,
-as this is usually where something is wrong.  Additionally, you should be
-never see this error message when navigating from a link read from a response.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Ensure the data exists. For example, if you are requesting the details of a
-transaction, you will receive a &lt;code&gt;not_found&lt;/code&gt; error in the event that the
-transaction you are requesting failed.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
@@ -684,6 +688,10 @@ what parameters a give resource can take. You must evaluate the template to a
 valid URI before navigating to it.&lt;/p&gt;
 
 &lt;h2 id=&#34;pages:a9fd9c163aecade52fef4c416dfaef41&#34;&gt;Pages&lt;/h2&gt;
+
+&lt;p&gt;TODO&lt;/p&gt;
+
+&lt;h2 id=&#34;streaming-via-server-sent-events:a9fd9c163aecade52fef4c416dfaef41&#34;&gt;Streaming via Server-Sent Events&lt;/h2&gt;
 
 &lt;p&gt;TODO&lt;/p&gt;
 </description>
@@ -892,6 +900,125 @@ which transaction to load&lt;/p&gt;
 &lt;li&gt;The &lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/guide/problems/#standard_errors&#34;&gt;standard errors&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/problem/not_found/&#34;&gt;not_found&lt;/a&gt;: A &lt;code&gt;not_found&lt;/code&gt; problem will be returned if there is no transaction in the ledger whose hash matches the &lt;code&gt;hash&lt;/code&gt; argument.&lt;/li&gt;
 &lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Page</title>
+      <link>http://stellar.github.io/go-horizon/resource/page/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://stellar.github.io/go-horizon/resource/page/</guid>
+      <description>
+
+&lt;p&gt;Pages are objects that represent a subset of objects from a larger collection.
+As an example, it would be unfeasible to provide the&lt;br /&gt;
+&lt;a href=&#34;No page found with path or logical name &#34;endpoint/transactions_all.md&#34;.
+&#34;&gt;All Transactions&lt;/a&gt; endpoint without paging;  Over time there
+will be millions of transactions in the Stellar network&amp;rsquo;s ledger and returning
+them all over a single request would be unfeasible.&lt;/p&gt;
+
+&lt;h2 id=&#34;attributes:e35b73785af203bc9dd708890406fffd&#34;&gt;Attributes&lt;/h2&gt;
+
+&lt;p&gt;A page itself exposes no attributes.  It is merely a container for embedded
+records and some links to aid in iterating the entire collection the page is
+part of.&lt;/p&gt;
+
+&lt;h2 id=&#34;embedded-resources:e35b73785af203bc9dd708890406fffd&#34;&gt;Embedded Resources&lt;/h2&gt;
+
+&lt;p&gt;A page contains an embedded set of &lt;code&gt;records&lt;/code&gt;, regardless of the contained
+resource.&lt;/p&gt;
+
+&lt;h2 id=&#34;links:e35b73785af203bc9dd708890406fffd&#34;&gt;Links&lt;/h2&gt;
+
+&lt;p&gt;A page provides a couple of links to ease in iteration.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Example&lt;/th&gt;
+&lt;th&gt;Relation&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;self&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;prev&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions?cursor=12884905984&amp;amp;order=desc&amp;amp;limit=10&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The previous page of results&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;next&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions?cursor=12884905984&amp;amp;order=asc&amp;amp;limit=10&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The next page of results&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;example:e35b73785af203bc9dd708890406fffd&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;
+{
+  &amp;quot;_embedded&amp;quot;: {
+    &amp;quot;records&amp;quot;: [
+      {
+        &amp;quot;_links&amp;quot;: {
+          &amp;quot;self&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/operations/12884905984&amp;quot;
+          },
+          &amp;quot;transaction&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/transaction/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&amp;quot;
+          },
+          &amp;quot;precedes&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=asc{?limit}&amp;quot;,
+            &amp;quot;templated&amp;quot;: true
+          },
+          &amp;quot;succeeds&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=desc{?limit}&amp;quot;,
+            &amp;quot;templated&amp;quot;: true
+          }
+        },
+        &amp;quot;id&amp;quot;: 12884905984,
+        &amp;quot;paging_token&amp;quot;: &amp;quot;12884905984&amp;quot;,
+        &amp;quot;type&amp;quot;: 0,
+        &amp;quot;type_s&amp;quot;: &amp;quot;payment&amp;quot;,
+        &amp;quot;sender&amp;quot;: &amp;quot;gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&amp;quot;,
+        &amp;quot;receiver&amp;quot;: &amp;quot;gsKuurNYgtBhTSFfsCaWqNb3Ze5Je9csKTSLfjo8Ko2b1f66ayZ&amp;quot;,
+        &amp;quot;currency&amp;quot;: {
+          &amp;quot;code&amp;quot;: &amp;quot;XLM&amp;quot;
+        },
+        &amp;quot;amount&amp;quot;: 1000000000,
+        &amp;quot;amount_f&amp;quot;: 100.00
+      }
+    ]
+  },
+  &amp;quot;_links&amp;quot;: {
+    &amp;quot;next&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=asc&amp;amp;limit=100&amp;quot;
+    },
+    &amp;quot;prev&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=desc&amp;amp;limit=100&amp;quot;
+    },
+    &amp;quot;self&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?limit=100&amp;quot;
+    }
+  }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;endpoints:e35b73785af203bc9dd708890406fffd&#34;&gt;Endpoints&lt;/h2&gt;
+
+&lt;p&gt;Any endpoint that provides a collection of resources should represent them as
+pages.&lt;/p&gt;
 </description>
     </item>
     
@@ -1288,125 +1415,6 @@ offers or payments, this offer will be filled when possible.&lt;/p&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Page</title>
-      <link>http://stellar.github.io/go-horizon/resource/page/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://stellar.github.io/go-horizon/resource/page/</guid>
-      <description>
-
-&lt;p&gt;Pages are objects that represent a subset of objects from a larger collection.
-As an example, it would be unfeasible to provide the&lt;br /&gt;
-&lt;a href=&#34;No page found with path or logical name &#34;endpoint/transactions_all.md&#34;.
-&#34;&gt;All Transactions&lt;/a&gt; endpoint without paging;  Over time there
-will be millions of transactions in the Stellar network&amp;rsquo;s ledger and returning
-them all over a single request would be unfeasible.&lt;/p&gt;
-
-&lt;h2 id=&#34;attributes:e35b73785af203bc9dd708890406fffd&#34;&gt;Attributes&lt;/h2&gt;
-
-&lt;p&gt;A page itself exposes no attributes.  It is merely a container for embedded
-records and some links to aid in iterating the entire collection the page is
-part of.&lt;/p&gt;
-
-&lt;h2 id=&#34;embedded-resources:e35b73785af203bc9dd708890406fffd&#34;&gt;Embedded Resources&lt;/h2&gt;
-
-&lt;p&gt;A page contains an embedded set of &lt;code&gt;records&lt;/code&gt;, regardless of the contained
-resource.&lt;/p&gt;
-
-&lt;h2 id=&#34;links:e35b73785af203bc9dd708890406fffd&#34;&gt;Links&lt;/h2&gt;
-
-&lt;p&gt;A page provides a couple of links to ease in iteration.&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Example&lt;/th&gt;
-&lt;th&gt;Relation&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;self&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;/transactions&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;prev&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;/transactions?cursor=12884905984&amp;amp;order=desc&amp;amp;limit=10&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;The previous page of results&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;next&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;/transactions?cursor=12884905984&amp;amp;order=asc&amp;amp;limit=10&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;The next page of results&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&#34;example:e35b73785af203bc9dd708890406fffd&#34;&gt;Example&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;
-{
-  &amp;quot;_embedded&amp;quot;: {
-    &amp;quot;records&amp;quot;: [
-      {
-        &amp;quot;_links&amp;quot;: {
-          &amp;quot;self&amp;quot;: {
-            &amp;quot;href&amp;quot;: &amp;quot;/operations/12884905984&amp;quot;
-          },
-          &amp;quot;transaction&amp;quot;: {
-            &amp;quot;href&amp;quot;: &amp;quot;/transaction/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&amp;quot;
-          },
-          &amp;quot;precedes&amp;quot;: {
-            &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=asc{?limit}&amp;quot;,
-            &amp;quot;templated&amp;quot;: true
-          },
-          &amp;quot;succeeds&amp;quot;: {
-            &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=desc{?limit}&amp;quot;,
-            &amp;quot;templated&amp;quot;: true
-          }
-        },
-        &amp;quot;id&amp;quot;: 12884905984,
-        &amp;quot;paging_token&amp;quot;: &amp;quot;12884905984&amp;quot;,
-        &amp;quot;type&amp;quot;: 0,
-        &amp;quot;type_s&amp;quot;: &amp;quot;payment&amp;quot;,
-        &amp;quot;sender&amp;quot;: &amp;quot;gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&amp;quot;,
-        &amp;quot;receiver&amp;quot;: &amp;quot;gsKuurNYgtBhTSFfsCaWqNb3Ze5Je9csKTSLfjo8Ko2b1f66ayZ&amp;quot;,
-        &amp;quot;currency&amp;quot;: {
-          &amp;quot;code&amp;quot;: &amp;quot;XLM&amp;quot;
-        },
-        &amp;quot;amount&amp;quot;: 1000000000,
-        &amp;quot;amount_f&amp;quot;: 100.00
-      }
-    ]
-  },
-  &amp;quot;_links&amp;quot;: {
-    &amp;quot;next&amp;quot;: {
-      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=asc&amp;amp;limit=100&amp;quot;
-    },
-    &amp;quot;prev&amp;quot;: {
-      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=desc&amp;amp;limit=100&amp;quot;
-    },
-    &amp;quot;self&amp;quot;: {
-      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?limit=100&amp;quot;
-    }
-  }
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;endpoints:e35b73785af203bc9dd708890406fffd&#34;&gt;Endpoints&lt;/h2&gt;
-
-&lt;p&gt;Any endpoint that provides a collection of resources should represent them as
-pages.&lt;/p&gt;
 </description>
     </item>
     

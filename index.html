@@ -53,9 +53,9 @@
       
         <li><a href="/go-horizon/resource/transaction/"> Transaction </a></li>
       
-        <li><a href="/go-horizon/resource/operation/"> Operation </a></li>
-      
         <li><a href="/go-horizon/resource/page/"> Page </a></li>
+      
+        <li><a href="/go-horizon/resource/operation/"> Operation </a></li>
       
 
       <li>Endpoints</li>
@@ -69,9 +69,9 @@
 
       <li>Problems</li>
       
-        <li><a href="/go-horizon/problem/server_error/"> Server Error </a></li>
-      
         <li><a href="/go-horizon/problem/not_found/"> Not Found </a></li>
+      
+        <li><a href="/go-horizon/problem/server_error/"> Server Error </a></li>
       
     </ul>
   </div>
@@ -211,6 +211,10 @@ what parameters a give resource can take. You must evaluate the template to a
 valid URI before navigating to it.</p>
 
 <h2 id="pages:a9fd9c163aecade52fef4c416dfaef41">Pages</h2>
+
+<p>TODO</p>
+
+<h2 id="streaming-via-server-sent-events:a9fd9c163aecade52fef4c416dfaef41">Streaming via Server-Sent Events</h2>
 
 <p>TODO</p>
 
@@ -558,6 +562,126 @@ The IDL files used for the Stellar Network are available
 </tr>
 </tbody>
 </table>
+
+  </div>
+
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://stellar.github.io/go-horizon/resource/page/">
+        Page
+      </a>
+    </h1>
+
+  
+
+<p>Pages are objects that represent a subset of objects from a larger collection.
+As an example, it would be unfeasible to provide the<br />
+<a href="No page found with path or logical name "endpoint/transactions_all.md".
+">All Transactions</a> endpoint without paging;  Over time there
+will be millions of transactions in the Stellar network&rsquo;s ledger and returning
+them all over a single request would be unfeasible.</p>
+
+<h2 id="attributes:e35b73785af203bc9dd708890406fffd">Attributes</h2>
+
+<p>A page itself exposes no attributes.  It is merely a container for embedded
+records and some links to aid in iterating the entire collection the page is
+part of.</p>
+
+<h2 id="embedded-resources:e35b73785af203bc9dd708890406fffd">Embedded Resources</h2>
+
+<p>A page contains an embedded set of <code>records</code>, regardless of the contained
+resource.</p>
+
+<h2 id="links:e35b73785af203bc9dd708890406fffd">Links</h2>
+
+<p>A page provides a couple of links to ease in iteration.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Example</th>
+<th>Relation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>self</td>
+<td><code>/transactions</code></td>
+<td></td>
+</tr>
+
+<tr>
+<td>prev</td>
+<td><code>/transactions?cursor=12884905984&amp;order=desc&amp;limit=10</code></td>
+<td>The previous page of results</td>
+</tr>
+
+<tr>
+<td>next</td>
+<td><code>/transactions?cursor=12884905984&amp;order=asc&amp;limit=10</code></td>
+<td>The next page of results</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="example:e35b73785af203bc9dd708890406fffd">Example</h2>
+
+<pre><code class="language-json">
+{
+  &quot;_embedded&quot;: {
+    &quot;records&quot;: [
+      {
+        &quot;_links&quot;: {
+          &quot;self&quot;: {
+            &quot;href&quot;: &quot;/operations/12884905984&quot;
+          },
+          &quot;transaction&quot;: {
+            &quot;href&quot;: &quot;/transaction/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&quot;
+          },
+          &quot;precedes&quot;: {
+            &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=asc{?limit}&quot;,
+            &quot;templated&quot;: true
+          },
+          &quot;succeeds&quot;: {
+            &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=desc{?limit}&quot;,
+            &quot;templated&quot;: true
+          }
+        },
+        &quot;id&quot;: 12884905984,
+        &quot;paging_token&quot;: &quot;12884905984&quot;,
+        &quot;type&quot;: 0,
+        &quot;type_s&quot;: &quot;payment&quot;,
+        &quot;sender&quot;: &quot;gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&quot;,
+        &quot;receiver&quot;: &quot;gsKuurNYgtBhTSFfsCaWqNb3Ze5Je9csKTSLfjo8Ko2b1f66ayZ&quot;,
+        &quot;currency&quot;: {
+          &quot;code&quot;: &quot;XLM&quot;
+        },
+        &quot;amount&quot;: 1000000000,
+        &quot;amount_f&quot;: 100.00
+      }
+    ]
+  },
+  &quot;_links&quot;: {
+    &quot;next&quot;: {
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=asc&amp;limit=100&quot;
+    },
+    &quot;prev&quot;: {
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=desc&amp;limit=100&quot;
+    },
+    &quot;self&quot;: {
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?limit=100&quot;
+    }
+  }
+}
+
+</code></pre>
+
+<h2 id="endpoints:e35b73785af203bc9dd708890406fffd">Endpoints</h2>
+
+<p>Any endpoint that provides a collection of resources should represent them as
+pages.</p>
 
   </div>
 
@@ -958,126 +1082,6 @@ offers or payments, this offer will be filled when possible.</p>
 
   </div>
 
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://stellar.github.io/go-horizon/resource/page/">
-        Page
-      </a>
-    </h1>
-
-  
-
-<p>Pages are objects that represent a subset of objects from a larger collection.
-As an example, it would be unfeasible to provide the<br />
-<a href="No page found with path or logical name "endpoint/transactions_all.md".
-">All Transactions</a> endpoint without paging;  Over time there
-will be millions of transactions in the Stellar network&rsquo;s ledger and returning
-them all over a single request would be unfeasible.</p>
-
-<h2 id="attributes:e35b73785af203bc9dd708890406fffd">Attributes</h2>
-
-<p>A page itself exposes no attributes.  It is merely a container for embedded
-records and some links to aid in iterating the entire collection the page is
-part of.</p>
-
-<h2 id="embedded-resources:e35b73785af203bc9dd708890406fffd">Embedded Resources</h2>
-
-<p>A page contains an embedded set of <code>records</code>, regardless of the contained
-resource.</p>
-
-<h2 id="links:e35b73785af203bc9dd708890406fffd">Links</h2>
-
-<p>A page provides a couple of links to ease in iteration.</p>
-
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Example</th>
-<th>Relation</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>self</td>
-<td><code>/transactions</code></td>
-<td></td>
-</tr>
-
-<tr>
-<td>prev</td>
-<td><code>/transactions?cursor=12884905984&amp;order=desc&amp;limit=10</code></td>
-<td>The previous page of results</td>
-</tr>
-
-<tr>
-<td>next</td>
-<td><code>/transactions?cursor=12884905984&amp;order=asc&amp;limit=10</code></td>
-<td>The next page of results</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="example:e35b73785af203bc9dd708890406fffd">Example</h2>
-
-<pre><code class="language-json">
-{
-  &quot;_embedded&quot;: {
-    &quot;records&quot;: [
-      {
-        &quot;_links&quot;: {
-          &quot;self&quot;: {
-            &quot;href&quot;: &quot;/operations/12884905984&quot;
-          },
-          &quot;transaction&quot;: {
-            &quot;href&quot;: &quot;/transaction/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&quot;
-          },
-          &quot;precedes&quot;: {
-            &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=asc{?limit}&quot;,
-            &quot;templated&quot;: true
-          },
-          &quot;succeeds&quot;: {
-            &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=desc{?limit}&quot;,
-            &quot;templated&quot;: true
-          }
-        },
-        &quot;id&quot;: 12884905984,
-        &quot;paging_token&quot;: &quot;12884905984&quot;,
-        &quot;type&quot;: 0,
-        &quot;type_s&quot;: &quot;payment&quot;,
-        &quot;sender&quot;: &quot;gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&quot;,
-        &quot;receiver&quot;: &quot;gsKuurNYgtBhTSFfsCaWqNb3Ze5Je9csKTSLfjo8Ko2b1f66ayZ&quot;,
-        &quot;currency&quot;: {
-          &quot;code&quot;: &quot;XLM&quot;
-        },
-        &quot;amount&quot;: 1000000000,
-        &quot;amount_f&quot;: 100.00
-      }
-    ]
-  },
-  &quot;_links&quot;: {
-    &quot;next&quot;: {
-      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=asc&amp;limit=100&quot;
-    },
-    &quot;prev&quot;: {
-      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=desc&amp;limit=100&quot;
-    },
-    &quot;self&quot;: {
-      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?limit=100&quot;
-    }
-  }
-}
-
-</code></pre>
-
-<h2 id="endpoints:e35b73785af203bc9dd708890406fffd">Endpoints</h2>
-
-<p>Any endpoint that provides a collection of resources should represent them as
-pages.</p>
-
-  </div>
-
 
 
 
@@ -1439,6 +1443,44 @@ which transaction to load</p>
 
   <div class="post">
     <h1 class="post-title">
+      <a href="http://stellar.github.io/go-horizon/problem/not_found/">
+        Problem: Not Found
+      </a>
+    </h1>
+
+  
+
+<p>A <code>not_found</code> problem is returned from horizon when the resource a client is
+requesting is not found.  This is similar to a &ldquo;404 Not Found&rdquo; error response
+you get from HTTP.</p>
+
+<h2 id="example:7c9f872d85877c754d4fe264c1426309">Example</h2>
+
+<pre><code class="language-json">{
+  &quot;type&quot;:     &quot;https://www.stellar.org/docs/horizon/problems/not_found&quot;,
+  &quot;title&quot;:    &quot;Resource Missing&quot;,
+  &quot;status&quot;:   404,
+  &quot;details&quot;:  &quot;The resource .... not found.&quot;,
+  &quot;instance&quot;: &quot;d3465740-ec3a-4a0b-9d4a-c9ea734ce58a&quot;
+}
+</code></pre>
+
+<h2 id="tips-for-resolution:7c9f872d85877c754d4fe264c1426309">Tips for resolution</h2>
+
+<ul>
+<li><p>Ensure that the URL is correct, pay special attention to any path parameters,
+as this is usually where something is wrong.  Additionally, you should be
+never see this error message when navigating from a link read from a response.</p></li>
+
+<li><p>Ensure the data exists. For example, if you are requesting the details of a
+transaction, you will receive a <code>not_found</code> error in the event that the
+transaction you are requesting failed.</p></li>
+</ul>
+
+  </div>
+
+  <div class="post">
+    <h1 class="post-title">
       <a href="http://stellar.github.io/go-horizon/problem/server_error/">
         Problem: Internal Server Error
       </a>
@@ -1476,44 +1518,6 @@ issue on <a href="#">horizon&rsquo;s issue tracker</a>.  Please include at a min
 <code>instance</code>   attribute from the problem response, but additional information
 such as the original request that triggered the problem is always welcome and
 speeds our ability to identify the problem.</p></li>
-</ul>
-
-  </div>
-
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://stellar.github.io/go-horizon/problem/not_found/">
-        Problem: Not Found
-      </a>
-    </h1>
-
-  
-
-<p>A <code>not_found</code> problem is returned from horizon when the resource a client is
-requesting is not found.  This is similar to a &ldquo;404 Not Found&rdquo; error response
-you get from HTTP.</p>
-
-<h2 id="example:7c9f872d85877c754d4fe264c1426309">Example</h2>
-
-<pre><code class="language-json">{
-  &quot;type&quot;:     &quot;https://www.stellar.org/docs/horizon/problems/not_found&quot;,
-  &quot;title&quot;:    &quot;Resource Missing&quot;,
-  &quot;status&quot;:   404,
-  &quot;details&quot;:  &quot;The resource .... not found.&quot;,
-  &quot;instance&quot;: &quot;d3465740-ec3a-4a0b-9d4a-c9ea734ce58a&quot;
-}
-</code></pre>
-
-<h2 id="tips-for-resolution:7c9f872d85877c754d4fe264c1426309">Tips for resolution</h2>
-
-<ul>
-<li><p>Ensure that the URL is correct, pay special attention to any path parameters,
-as this is usually where something is wrong.  Additionally, you should be
-never see this error message when navigating from a link read from a response.</p></li>
-
-<li><p>Ensure the data exists. For example, if you are requesting the details of a
-transaction, you will receive a <code>not_found</code> error in the event that the
-transaction you are requesting failed.</p></li>
 </ul>
 
   </div>
