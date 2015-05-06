@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  <title> Resources &middot; Horizon </title>
+  <title> Post Transaction &middot; Horizon </title>
 
   
   <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/poole.css">
@@ -20,7 +20,7 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
   
-  <link href="http://stellar.github.io/go-horizon/resource/index.xml" rel="alternate" type="application/rss+xml" title="Horizon" />
+  <link href="" rel="alternate" type="application/rss+xml" title="Horizon" />
 </head>
 
 <body>
@@ -71,18 +71,55 @@
 </div>
 
 
-  <div class="content container">
-    <ul class="posts">
+<div class="content container">
+  <div class="post">
+    <h1>Post Transaction</h1>
         
-        <li>
-          <span><a href="http://stellar.github.io/go-horizon/resource/transaction/">Transaction</a> <time class="pull-right post-list">Mon, Jan 1, 0001</time></span>
-        </li>
-        
-        <li>
-          <span><a href="http://stellar.github.io/go-horizon/resource/operation/">Operation</a> <time class="pull-right post-list">Mon, Jan 1, 0001</time></span>
-        </li>
-        
-    </ul>
+
+<p>Posts a new transaction to the Stellar Network.</p>
+
+<h2 id="request:d25076cb7570b8e48f0eda47b5eada67">Request</h2>
+
+<pre><code>POST /transactions
+</code></pre>
+
+<h3 id="arguments:d25076cb7570b8e48f0eda47b5eada67">Arguments</h3>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+<th>example</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>hash</code></td>
+<td>string</td>
+<td>A transaction hash, hex-encoded</td>
+<td>6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example:d25076cb7570b8e48f0eda47b5eada67">Example</h3>
+
+<pre><code>curl https://horizon-testnet.stellar.org/transactions \
+  -X POST \
+  -F &quot;tx=899b2840ed5636c56ddc5f14b23975f79f1ba2388d2694e4c56ecdddc960e5ef0000000a000000000000000100000000ffffffff000000010000000000000000500e14fe9d7dc549e30244da424cfbcabe2166a55237897473d3f7358a086b4800000000000009184e72a000000000000000000000000000000009184e72a00000000001899b28402e992cc5fc6d7e0f888b7afa173a35d3ce87526bc37d8171e2d9ee7f2715d1d4146a9026b13396ab8e7392f947caba1b00d398801b4644ae5238f96f96ec7605&quot;
+</code></pre>
+
+<h2 id="response:d25076cb7570b8e48f0eda47b5eada67">Response</h2>
+
+<h3 id="example-1:d25076cb7570b8e48f0eda47b5eada67">Example</h3>
+
+<h3 id="problems:d25076cb7570b8e48f0eda47b5eada67">Problems</h3>
+
   </div>
+</div>
+
 </body>
 </html>

@@ -39,6 +39,8 @@
       
         <li><a href="/go-horizon/guide/responses/">Response Format</a></li>
       
+        <li><a href="/go-horizon/guide/problems/">Problems</a></li>
+      
         <li><a href="/go-horizon/guide/xdr/">XDR</a></li>
       
 
@@ -51,14 +53,18 @@
 
       <li>Endpoints</li>
       
+        <li><a href="/go-horizon/endpoint/payments_for_account/"> Payments for account </a></li>
+      
+        <li><a href="/go-horizon/endpoint/transactions_create/"> Post Transaction </a></li>
+      
         <li><a href="/go-horizon/endpoint/transactions_single/"> Transaction Details </a></li>
       
 
       <li>Problems</li>
       
-        <li><a href="/go-horizon/problem/not_found/"> Not Found </a></li>
-      
         <li><a href="/go-horizon/problem/server_error/"> Server Error </a></li>
+      
+        <li><a href="/go-horizon/problem/not_found/"> Not Found </a></li>
       
     </ul>
   </div>
@@ -74,9 +80,12 @@
 within the ledger. The transaction hash provided in the <code>hash</code> argument specifies
 which transaction to load</p>
 
-<p>URL Template: <code>/transactions/{hash}</code></p>
+<h2 id="request:fe8abeb8cb7003c54c062db4b868bc2f">Request</h2>
 
-<h2 id="arguments:fe8abeb8cb7003c54c062db4b868bc2f">Arguments</h2>
+<pre><code>GET /transactions/{hash}
+</code></pre>
+
+<h3 id="arguments:fe8abeb8cb7003c54c062db4b868bc2f">Arguments</h3>
 
 <table>
 <thead>
@@ -98,18 +107,23 @@ which transaction to load</p>
 </tbody>
 </table>
 
-<h2 id="example-request:fe8abeb8cb7003c54c062db4b868bc2f">Example Request</h2>
+<h3 id="example:fe8abeb8cb7003c54c062db4b868bc2f">Example</h3>
 
-<pre><code>curl TODO/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a
+<pre><code>curl https://horizon-testnet.stellar.org/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a
 </code></pre>
 
 <h2 id="response:fe8abeb8cb7003c54c062db4b868bc2f">Response</h2>
 
 <p>This endpoint responds with a single Transaction.  See <a href="/go-horizon/resource/transaction/">transaction resource</a> for reference.</p>
 
-<h2 id="problems:fe8abeb8cb7003c54c062db4b868bc2f">Problems</h2>
+<h3 id="example-1:fe8abeb8cb7003c54c062db4b868bc2f">Example</h3>
+
+<p>TODO</p>
+
+<h3 id="problems:fe8abeb8cb7003c54c062db4b868bc2f">Problems</h3>
 
 <ul>
+<li>The <a href="/go-horizon/guide/problems/#standard_errors">standard errors</a>.</li>
 <li><a href="/go-horizon/problem/not_found/">not_found</a>: A <code>not_found</code> problem will be returned if there is no transaction in the ledger whose hash matches the <code>hash</code> argument.</li>
 </ul>
 

@@ -39,6 +39,8 @@
       
         <li><a href="/go-horizon/guide/responses/">Response Format</a></li>
       
+        <li><a href="/go-horizon/guide/problems/">Problems</a></li>
+      
         <li><a href="/go-horizon/guide/xdr/">XDR</a></li>
       
 
@@ -51,14 +53,18 @@
 
       <li>Endpoints</li>
       
+        <li><a href="/go-horizon/endpoint/payments_for_account/"> Payments for account </a></li>
+      
+        <li><a href="/go-horizon/endpoint/transactions_create/"> Post Transaction </a></li>
+      
         <li><a href="/go-horizon/endpoint/transactions_single/"> Transaction Details </a></li>
       
 
       <li>Problems</li>
       
-        <li><a href="/go-horizon/problem/not_found/"> Not Found </a></li>
-      
         <li><a href="/go-horizon/problem/server_error/"> Server Error </a></li>
+      
+        <li><a href="/go-horizon/problem/not_found/"> Not Found </a></li>
       
     </ul>
   </div>
@@ -210,6 +216,8 @@ additional attributes and links specific to its types.</p>
 <p>Each operation type will have a different set of attributes, in addition to the
 common attributes listed above.</p>
 
+<p><a id="payment"></a></p>
+
 <h3 id="payment:8b7e8847f7803edbe4006f59a10f29ad">Payment</h3>
 
 <p>A payment operation represents a payment from one account to another.  This payment
@@ -302,6 +310,39 @@ can be either a simple native currency payment or a fiat currency payment.</p>
 </tr>
 </tbody>
 </table>
+
+<h4 id="example:8b7e8847f7803edbe4006f59a10f29ad">Example</h4>
+
+<pre><code class="language-json">{
+  &quot;_links&quot;: {
+    &quot;self&quot;: {
+      &quot;href&quot;: &quot;/operations/12884905984&quot;
+    },
+    &quot;transaction&quot;: {
+      &quot;href&quot;: &quot;/transaction/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&quot;
+    },
+    &quot;precedes&quot;: {
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=asc{?limit}&quot;,
+      &quot;templated&quot;: true
+    },
+    &quot;succeeds&quot;: {
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=desc{?limit}&quot;,
+      &quot;templated&quot;: true
+    }
+  },
+  &quot;id&quot;: 12884905984,
+  &quot;paging_token&quot;: &quot;12884905984&quot;,
+  &quot;type&quot;: 0,
+  &quot;type_s&quot;: &quot;payment&quot;,
+  &quot;sender&quot;: &quot;gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&quot;,
+  &quot;receiver&quot;: &quot;gsKuurNYgtBhTSFfsCaWqNb3Ze5Je9csKTSLfjo8Ko2b1f66ayZ&quot;,
+  &quot;currency&quot;: {
+    &quot;code&quot;: &quot;XLM&quot;
+  },
+  &quot;amount&quot;: 1000000000,
+  &quot;amount_f&quot;: 100.00
+}
+</code></pre>
 
 <h3 id="create-offer:8b7e8847f7803edbe4006f59a10f29ad">Create Offer</h3>
 

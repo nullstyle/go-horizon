@@ -6,24 +6,170 @@
     <description>Recent content in Endpoints on Horizon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 May 2015 14:52:29 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 04 May 2015 21:06:23 -0700</lastBuildDate>
     <atom:link href="http://stellar.github.io/go-horizon/endpoint/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Transaction Details</title>
-      <link>http://stellar.github.io/go-horizon/endpoint/transactions_single/</link>
-      <pubDate>Mon, 04 May 2015 14:52:29 -0700</pubDate>
+      <title>Payments for account</title>
+      <link>http://stellar.github.io/go-horizon/endpoint/payments_for_account/</link>
+      <pubDate>Mon, 04 May 2015 21:06:23 -0700</pubDate>
       
-      <guid>http://stellar.github.io/go-horizon/endpoint/transactions_single/</guid>
+      <guid>http://stellar.github.io/go-horizon/endpoint/payments_for_account/</guid>
       <description>
 
-&lt;p&gt;The transaction details endpoint provides information on a single transaction
-within the ledger. The transaction hash provided in the &lt;code&gt;hash&lt;/code&gt; argument specifies
-which transaction to load&lt;/p&gt;
+&lt;p&gt;This endpoint responds with a collection of &lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/resource/operation/#payment&#34;&gt;Payment operations&lt;/a&gt;
+resources for the account specified in the arguments.  Specifically, any payment
+in which the specified account participates, either as sender or receiver.&lt;/p&gt;
 
-&lt;p&gt;URL Template: &lt;code&gt;/transactions/{hash}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This endpoint is particularly useful for following along with payments made by
+an account.  A client can retrieve quick notification about payments made to a
+specific account by using &lt;a href=&#34;No page found with path or logical name &#34;guide/response_streaming.md&#34;.
+&#34;&gt;response streaming&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&#34;arguments:fe8abeb8cb7003c54c062db4b868bc2f&#34;&gt;Arguments&lt;/h2&gt;
+&lt;h2 id=&#34;request:6816b45c33d53d5b4428b5123e7485a5&#34;&gt;Request&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;GET /accounts/{id}/payments{?cursor}{?limit}{?order}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;arguments:6816b45c33d53d5b4428b5123e7485a5&#34;&gt;Arguments&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;name&lt;/th&gt;
+&lt;th&gt;loc&lt;/th&gt;
+&lt;th&gt;notes&lt;/th&gt;
+&lt;th&gt;example&lt;/th&gt;
+&lt;th&gt;description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;id&lt;/td&gt;
+&lt;td&gt;path&lt;/td&gt;
+&lt;td&gt;required, string&lt;/td&gt;
+&lt;td&gt;gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&lt;/td&gt;
+&lt;td&gt;The address of the account used to constrain results.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;cursor&lt;/td&gt;
+&lt;td&gt;query&lt;/td&gt;
+&lt;td&gt;optional, &lt;br&gt; default &lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;8589934592&lt;/td&gt;
+&lt;td&gt;A payment paging token specifying from where to begin results.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;limit&lt;/td&gt;
+&lt;td&gt;query&lt;/td&gt;
+&lt;td&gt;optional, number, &lt;br&gt; default &lt;code&gt;10&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;500&lt;/td&gt;
+&lt;td&gt;Specifies the count of records at most to return.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;order&lt;/td&gt;
+&lt;td&gt;query&lt;/td&gt;
+&lt;td&gt;optional, string, &lt;br&gt; default &lt;code&gt;&amp;quot;asc&amp;quot;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;desc&lt;/td&gt;
+&lt;td&gt;Specifies order of returned results.  &lt;code&gt;&amp;quot;asc&amp;quot;&lt;/code&gt; means older payments first, &lt;code&gt;&amp;quot;desc&amp;quot;&lt;/code&gt; mean newer payments first.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;example:6816b45c33d53d5b4428b5123e7485a5&#34;&gt;Example&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# retrieve the first 25 payment for account
+
+curl https://horizon-testnet.stellar.org/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?limit=25
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;response:6816b45c33d53d5b4428b5123e7485a5&#34;&gt;Response&lt;/h2&gt;
+
+&lt;p&gt;This endpoint responds with a &lt;a href=&#34;No page found with path or logical name &#34;resource/page.md&#34;.
+&#34;&gt;page&lt;/a&gt; of &lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/resource/operation/#payment&#34;&gt;payment operations&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;example-1:6816b45c33d53d5b4428b5123e7485a5&#34;&gt;Example&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;
+{
+  &amp;quot;_embedded&amp;quot;: {
+    &amp;quot;records&amp;quot;: [
+      {
+        &amp;quot;_links&amp;quot;: {
+          &amp;quot;self&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/operations/12884905984&amp;quot;
+          },
+          &amp;quot;transaction&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/transaction/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&amp;quot;
+          },
+          &amp;quot;precedes&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=asc{?limit}&amp;quot;,
+            &amp;quot;templated&amp;quot;: true
+          },
+          &amp;quot;succeeds&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=desc{?limit}&amp;quot;,
+            &amp;quot;templated&amp;quot;: true
+          }
+        },
+        &amp;quot;id&amp;quot;: 12884905984,
+        &amp;quot;paging_token&amp;quot;: &amp;quot;12884905984&amp;quot;,
+        &amp;quot;type&amp;quot;: 0,
+        &amp;quot;type_s&amp;quot;: &amp;quot;payment&amp;quot;,
+        &amp;quot;sender&amp;quot;: &amp;quot;gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&amp;quot;,
+        &amp;quot;receiver&amp;quot;: &amp;quot;gsKuurNYgtBhTSFfsCaWqNb3Ze5Je9csKTSLfjo8Ko2b1f66ayZ&amp;quot;,
+        &amp;quot;currency&amp;quot;: {
+          &amp;quot;code&amp;quot;: &amp;quot;XLM&amp;quot;
+        },
+        &amp;quot;amount&amp;quot;: 1000000000,
+        &amp;quot;amount_f&amp;quot;: 100.00
+      }
+    ]
+  },
+  &amp;quot;_links&amp;quot;: {
+    &amp;quot;next&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=asc{?limit}&amp;quot;,
+      &amp;quot;templated&amp;quot;: true
+    },
+    &amp;quot;self&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments&amp;quot;
+    }
+  }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;problems:6816b45c33d53d5b4428b5123e7485a5&#34;&gt;Problems&lt;/h3&gt;
+
+&lt;p&gt;This endpoint should only respond with &lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/guide/problems/#standard_errors&#34;&gt;standard errors&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;tutorials:6816b45c33d53d5b4428b5123e7485a5&#34;&gt;Tutorials&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;No page found with path or logical name &#34;tutorial/follow_received_payments.md&#34;.
+&#34;&gt;Follow payments sent to an account&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Post Transaction</title>
+      <link>http://stellar.github.io/go-horizon/endpoint/transactions_create/</link>
+      <pubDate>Mon, 04 May 2015 14:52:29 -0700</pubDate>
+      
+      <guid>http://stellar.github.io/go-horizon/endpoint/transactions_create/</guid>
+      <description>
+
+&lt;p&gt;Posts a new transaction to the Stellar Network.&lt;/p&gt;
+
+&lt;h2 id=&#34;request:d25076cb7570b8e48f0eda47b5eada67&#34;&gt;Request&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;POST /transactions
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;arguments:d25076cb7570b8e48f0eda47b5eada67&#34;&gt;Arguments&lt;/h3&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
@@ -45,18 +191,77 @@ which transaction to load&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h2 id=&#34;example-request:fe8abeb8cb7003c54c062db4b868bc2f&#34;&gt;Example Request&lt;/h2&gt;
+&lt;h3 id=&#34;example:d25076cb7570b8e48f0eda47b5eada67&#34;&gt;Example&lt;/h3&gt;
 
-&lt;pre&gt;&lt;code&gt;curl TODO/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a
+&lt;pre&gt;&lt;code&gt;curl https://horizon-testnet.stellar.org/transactions \
+  -X POST \
+  -F &amp;quot;tx=899b2840ed5636c56ddc5f14b23975f79f1ba2388d2694e4c56ecdddc960e5ef0000000a000000000000000100000000ffffffff000000010000000000000000500e14fe9d7dc549e30244da424cfbcabe2166a55237897473d3f7358a086b4800000000000009184e72a000000000000000000000000000000009184e72a00000000001899b28402e992cc5fc6d7e0f888b7afa173a35d3ce87526bc37d8171e2d9ee7f2715d1d4146a9026b13396ab8e7392f947caba1b00d398801b4644ae5238f96f96ec7605&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;response:d25076cb7570b8e48f0eda47b5eada67&#34;&gt;Response&lt;/h2&gt;
+
+&lt;h3 id=&#34;example-1:d25076cb7570b8e48f0eda47b5eada67&#34;&gt;Example&lt;/h3&gt;
+
+&lt;h3 id=&#34;problems:d25076cb7570b8e48f0eda47b5eada67&#34;&gt;Problems&lt;/h3&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Transaction Details</title>
+      <link>http://stellar.github.io/go-horizon/endpoint/transactions_single/</link>
+      <pubDate>Mon, 04 May 2015 14:52:29 -0700</pubDate>
+      
+      <guid>http://stellar.github.io/go-horizon/endpoint/transactions_single/</guid>
+      <description>
+
+&lt;p&gt;The transaction details endpoint provides information on a single transaction
+within the ledger. The transaction hash provided in the &lt;code&gt;hash&lt;/code&gt; argument specifies
+which transaction to load&lt;/p&gt;
+
+&lt;h2 id=&#34;request:fe8abeb8cb7003c54c062db4b868bc2f&#34;&gt;Request&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;GET /transactions/{hash}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;arguments:fe8abeb8cb7003c54c062db4b868bc2f&#34;&gt;Arguments&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;name&lt;/th&gt;
+&lt;th&gt;type&lt;/th&gt;
+&lt;th&gt;description&lt;/th&gt;
+&lt;th&gt;example&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;hash&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A transaction hash, hex-encoded&lt;/td&gt;
+&lt;td&gt;6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;example:fe8abeb8cb7003c54c062db4b868bc2f&#34;&gt;Example&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;curl https://horizon-testnet.stellar.org/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h2 id=&#34;response:fe8abeb8cb7003c54c062db4b868bc2f&#34;&gt;Response&lt;/h2&gt;
 
 &lt;p&gt;This endpoint responds with a single Transaction.  See &lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/resource/transaction/&#34;&gt;transaction resource&lt;/a&gt; for reference.&lt;/p&gt;
 
-&lt;h2 id=&#34;problems:fe8abeb8cb7003c54c062db4b868bc2f&#34;&gt;Problems&lt;/h2&gt;
+&lt;h3 id=&#34;example-1:fe8abeb8cb7003c54c062db4b868bc2f&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;TODO&lt;/p&gt;
+
+&lt;h3 id=&#34;problems:fe8abeb8cb7003c54c062db4b868bc2f&#34;&gt;Problems&lt;/h3&gt;
 
 &lt;ul&gt;
+&lt;li&gt;The &lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/guide/problems/#standard_errors&#34;&gt;standard errors&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/problem/not_found/&#34;&gt;not_found&lt;/a&gt;: A &lt;code&gt;not_found&lt;/code&gt; problem will be returned if there is no transaction in the ledger whose hash matches the &lt;code&gt;hash&lt;/code&gt; argument.&lt;/li&gt;
 &lt;/ul&gt;
 </description>

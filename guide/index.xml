@@ -30,8 +30,7 @@
 &lt;h3 id=&#34;important-endpoints:34c4da6d4768d05e50db99357a299b5c&#34;&gt;Important Endpoints&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;No page found with path or logical name &#34;endpoint/transactions_create.md&#34;.
-&#34;&gt;Post transaction&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/endpoint/transactions_create/&#34;&gt;Post transaction&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;No page found with path or logical name &#34;endpoint/accounts_one.md&#34;.
 &#34;&gt;Account details&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Calculate payment path&lt;/a&gt;&lt;/li&gt;
@@ -139,6 +138,90 @@ valid URI before navigating to it.&lt;/p&gt;
 &lt;h2 id=&#34;pages:a9fd9c163aecade52fef4c416dfaef41&#34;&gt;Pages&lt;/h2&gt;
 
 &lt;p&gt;TODO&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Problems</title>
+      <link>http://stellar.github.io/go-horizon/guide/problems/</link>
+      <pubDate>Mon, 04 May 2015 15:48:17 -0700</pubDate>
+      
+      <guid>http://stellar.github.io/go-horizon/guide/problems/</guid>
+      <description>
+
+&lt;p&gt;In the event that an error occurs while processing a request to horizon, a
+&lt;strong&gt;problem&lt;/strong&gt; response will be returned to the client.  This problem response will
+contain information detailing why the request couldn&amp;rsquo;t complete successfully.&lt;/p&gt;
+
+&lt;p&gt;Like HAL for successful responses, horizon uses a standard to specify how we
+communicate errors to the client.  Specifically, horizon uses the &lt;a href=&#34;https://tools.ietf.org/html/draft-ietf-appsawg-http-
+problem-00&#34;&gt;Problem
+Details for HTTP APIs&lt;/a&gt; draft specification.  The specification is short, so we recommend
+you read it.  In summary, when a problem occurs on the server we respond with a
+json document with the following attributes:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;name&lt;/th&gt;
+&lt;th&gt;type&lt;/th&gt;
+&lt;th&gt;description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;type&lt;/td&gt;
+&lt;td&gt;url&lt;/td&gt;
+&lt;td&gt;The identifier for the problem, expressed as a url.  Visiting the url in a web browser will redirect you to the additional documentation for the problem.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;title&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A short title describing the problem.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;status&lt;/td&gt;
+&lt;td&gt;number&lt;/td&gt;
+&lt;td&gt;An HTTP status code that maps to the problem.  A problem that is triggered due to client input will be in the 400-499 range of status code, for exmaple.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;detail&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A longer description of the problem meant the further explain to problem to developers.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;instance&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A token that uniquely identifies this request.  Allows server administrators to correlate a client report with server log files&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;a id=&#34;standard_errors&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;standard-problems:da4a0b4ace8d0d7d90610be217d49347&#34;&gt;Standard Problems&lt;/h2&gt;
+
+&lt;p&gt;There are a set of problems that can occur in any request to horizon which we
+call &lt;strong&gt;standard problems&lt;/strong&gt;.  These problems are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/problem/server_error/&#34;&gt;Server Error&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;No page found with path or logical name &#34;problem/rate_limit_exceeded.md&#34;.
+&#34;&gt;Rate Limit Exceeded&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;No page found with path or logical name &#34;problem/forbidden.md&#34;.
+&#34;&gt;Forbidden&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     

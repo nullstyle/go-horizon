@@ -10,9 +10,9 @@
   <title> Problems &middot; Horizon </title>
 
   
-  <link rel="stylesheet" href="http://localhost:1313/go-horizon/css/poole.css">
-  <link rel="stylesheet" href="http://localhost:1313/go-horizon/css/syntax.css">
-  <link rel="stylesheet" href="http://localhost:1313/go-horizon/css/hyde.css">
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/poole.css">
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/syntax.css">
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/hyde.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 
   
@@ -37,48 +37,32 @@
       
         <li><a href="/go-horizon/guide/intro/">Introduction</a></li>
       
-        <li><a href="/go-horizon/guide/paging/">paging</a></li>
-      
         <li><a href="/go-horizon/guide/responses/">Response Format</a></li>
       
         <li><a href="/go-horizon/guide/problems/">Problems</a></li>
+      
+        <li><a href="/go-horizon/guide/xdr/">XDR</a></li>
       
 
       <li>Resources</li>
       
         <li><a href="/go-horizon/resource/transaction/"> Transaction </a></li>
       
-        <li><a href="/go-horizon/resource/effect/"> Effect </a></li>
-      
-        <li><a href="/go-horizon/resource/ledger/"> Ledger </a></li>
-      
         <li><a href="/go-horizon/resource/operation/"> Operation </a></li>
       
 
       <li>Endpoints</li>
       
-        <li><a href="/go-horizon/endpoint/operations_for_transaction/"> Operations for transaction </a></li>
+        <li><a href="/go-horizon/endpoint/payments_for_account/"> Payments for account </a></li>
       
-        <li><a href="/go-horizon/endpoint/effects_for_transaction/"> Effects for transaction </a></li>
-      
-        <li><a href="/go-horizon/endpoint/transactions_for_ledger/"> Transactions for ledger </a></li>
-      
-        <li><a href="/go-horizon/endpoint/ledgers_all/"> All Ledgers </a></li>
-      
-        <li><a href="/go-horizon/endpoint/ledgers_single/"> Ledger Details </a></li>
-      
-        <li><a href="/go-horizon/endpoint/accounts_all/"> All Accounts </a></li>
-      
-        <li><a href="/go-horizon/endpoint/accounts_single/"> Account Details </a></li>
-      
-        <li><a href="/go-horizon/endpoint/transactions_for_account/"> Transactions for account </a></li>
-      
-        <li><a href="/go-horizon/endpoint/transactions_all/"> All Transactions </a></li>
+        <li><a href="/go-horizon/endpoint/transactions_create/"> Post Transaction </a></li>
       
         <li><a href="/go-horizon/endpoint/transactions_single/"> Transaction Details </a></li>
       
 
       <li>Problems</li>
+      
+        <li><a href="/go-horizon/problem/server_error/"> Server Error </a></li>
       
         <li><a href="/go-horizon/problem/not_found/"> Not Found </a></li>
       
@@ -90,13 +74,84 @@
 <div class="content container">
   <div class="post">
     <h1>Problems</h1>
-        <p>TODO</p>
+        
+
+<p>In the event that an error occurs while processing a request to horizon, a
+<strong>problem</strong> response will be returned to the client.  This problem response will
+contain information detailing why the request couldn&rsquo;t complete successfully.</p>
+
+<p>Like HAL for successful responses, horizon uses a standard to specify how we
+communicate errors to the client.  Specifically, horizon uses the <a href="https://tools.ietf.org/html/draft-ietf-appsawg-http-
+problem-00">Problem
+Details for HTTP APIs</a> draft specification.  The specification is short, so we recommend
+you read it.  In summary, when a problem occurs on the server we respond with a
+json document with the following attributes:</p>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>type</td>
+<td>url</td>
+<td>The identifier for the problem, expressed as a url.  Visiting the url in a web browser will redirect you to the additional documentation for the problem.</td>
+</tr>
+
+<tr>
+<td>title</td>
+<td>string</td>
+<td>A short title describing the problem.</td>
+</tr>
+
+<tr>
+<td>status</td>
+<td>number</td>
+<td>An HTTP status code that maps to the problem.  A problem that is triggered due to client input will be in the 400-499 range of status code, for exmaple.</td>
+</tr>
+
+<tr>
+<td>detail</td>
+<td>string</td>
+<td>A longer description of the problem meant the further explain to problem to developers.</td>
+</tr>
+
+<tr>
+<td>instance</td>
+<td>string</td>
+<td>A token that uniquely identifies this request.  Allows server administrators to correlate a client report with server log files</td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a id="standard_errors"></a></p>
+
+<h2 id="standard-problems:da4a0b4ace8d0d7d90610be217d49347">Standard Problems</h2>
+
+<p>There are a set of problems that can occur in any request to horizon which we
+call <strong>standard problems</strong>.  These problems are:</p>
+
+<ul>
+<li><a href="/go-horizon/problem/server_error/">Server Error</a></li>
+<li><a href="No page found with path or logical name "problem/rate_limit_exceeded.md".
+">Rate Limit Exceeded</a></li>
+<li><a href="No page found with path or logical name "problem/forbidden.md".
+">Forbidden</a></li>
+</ul>
 
   </div>
 </div>
 
-<script>document.write('<script src="http://'
-        + (location.host || 'localhost').split(':')[0]
-		+ ':1313/livereload.js?mindelay=10"></'
-        + 'script>')</script></body>
+</body>
 </html>

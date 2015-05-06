@@ -39,36 +39,54 @@
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;trading-api:34c4da6d4768d05e50db99357a299b5c&#34;&gt;Trading API&lt;/h2&gt;
+
+&lt;h2 id=&#34;api-overview:34c4da6d4768d05e50db99357a299b5c&#34;&gt;API Overview&lt;/h2&gt;
+
+&lt;p&gt;The following section describes a couple of important concepts for the Horizon API at a high level.  Understanding these concepts will help make your overall experience integrating with Horizon much easier.&lt;/p&gt;
+
+&lt;h3 id=&#34;response-format:34c4da6d4768d05e50db99357a299b5c&#34;&gt;Response Format&lt;/h3&gt;
+
+&lt;p&gt;Rather than using a fully custom way of representing the resources we expose in Horizon, we use &lt;a href=&#34;http://stateless.co/hal_specification.html&#34;&gt;HAL&lt;/a&gt;. HAL is a hypermedia format in JSON that remains simple while giving us a couple of benefits such as simpler client integration for several languages. See &lt;a href=&#34;https://github.com/mikekelly/hal_specification/wiki/Libraries&#34;&gt;this wiki page&lt;/a&gt; for a list of libraries.&lt;/p&gt;
+
+&lt;p&gt;See &lt;a href=&#34;responses.md&#34;&gt;Responses&lt;/a&gt; for more details&lt;/p&gt;
+
+&lt;h3 id=&#34;error-format:34c4da6d4768d05e50db99357a299b5c&#34;&gt;Error Format&lt;/h3&gt;
+
+&lt;p&gt;HAL doesn&amp;rsquo;t really have any special consideration for error responses.  To provide some standardization to our API&amp;rsquo;s error messages we use the &lt;a href=&#34;https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00&#34;&gt;Problem Details for HTTP APIs RFC&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;See &lt;a href=&#34;errors.md&#34;&gt;errors&lt;/a&gt; for more details&lt;/p&gt;
+
+&lt;h3 id=&#34;paging:34c4da6d4768d05e50db99357a299b5c&#34;&gt;Paging&lt;/h3&gt;
+
+&lt;p&gt;Some resources in Horizon represent a collection of other resources.  Almost always, loading this collection in its entirety is not feasible.  To work around this, we provide a way to page through a collection.&lt;/p&gt;
+
+&lt;p&gt;The paging system in Horizon is known as a &lt;em&gt;token-based&lt;/em&gt; paging system.  There is no &amp;ldquo;page 3&amp;rdquo; or the like.  Paging through a collection in a token-based paging system involves three pieces of data:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;the &lt;em&gt;paging token&lt;/em&gt;, which is an opaque value that logically represents the last record seen by a client.&lt;/li&gt;
+&lt;li&gt;the &lt;em&gt;limit&lt;/em&gt;, or page size, a positive integer.&lt;/li&gt;
+&lt;li&gt;the &lt;em&gt;order&lt;/em&gt; applied to the whole collection&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;See &lt;a href=&#34;paging.md&#34;&gt;paging&lt;/a&gt; for more details.&lt;/p&gt;
+
+&lt;h2 id=&#34;api-reference:34c4da6d4768d05e50db99357a299b5c&#34;&gt;API Reference&lt;/h2&gt;
+
+&lt;p&gt;While Horizon is lightly self-documenting through use of hyperlinks in responses (such that you should be able to navigate through the dataset without too much trouble), we also have reference documentation available.&lt;/p&gt;
+
+&lt;p&gt;We document our API using &lt;a href=&#34;https://apiblueprint.org/&#34;&gt;API Blueprint&lt;/a&gt;, and you can see the raw file &lt;a href=&#34;horizon.apib&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We host the documentation for our API presently with apiary.  You can find this documentation at (&lt;a href=&#34;http://docs.stellarhorizon.apiary.io/&#34;&gt;http://docs.stellarhorizon.apiary.io/&lt;/a&gt;)&lt;/p&gt;
 </description>
     </item>
     
     <item>
-      <title>paging</title>
-      <link>http://localhost:1313/go-horizon/guides/paging/</link>
-      <pubDate>Mon, 04 May 2015 18:37:32 -0700</pubDate>
-      
-      <guid>http://localhost:1313/go-horizon/guides/paging/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Problems</title>
+      <title>problems</title>
       <link>http://localhost:1313/go-horizon/guides/problems/</link>
       <pubDate>Mon, 04 May 2015 15:48:17 -0700</pubDate>
       
       <guid>http://localhost:1313/go-horizon/guides/problems/</guid>
-      <description>&lt;p&gt;TODO&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Response Format</title>
-      <link>http://localhost:1313/go-horizon/guides/responses/</link>
-      <pubDate>Mon, 04 May 2015 15:48:17 -0700</pubDate>
-      
-      <guid>http://localhost:1313/go-horizon/guides/responses/</guid>
-      <description>&lt;p&gt;Rather than using a fully custom way of representing the resources we expose in Horizon, we use &lt;a href=&#34;http://stateless.co/hal_specification.html&#34;&gt;HAL&lt;/a&gt;. HAL is a hypermedia format in JSON that remains simple while giving us a couple of benefits such as simpler client integration for several languages. See &lt;a href=&#34;https://github.com/mikekelly/hal_specification/wiki/Libraries&#34;&gt;this wiki page&lt;/a&gt; for a list of libraries.&lt;/p&gt;
-</description>
+      <description></description>
     </item>
     
   </channel>

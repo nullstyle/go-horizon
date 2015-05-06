@@ -17,12 +17,17 @@
   </url>
   
   <url>
-    <loc>http://stellar.github.io/go-horizon/problem/not_found/</loc>
-    <lastmod>2015-05-04T20:03:27-07:00</lastmod>
+    <loc>http://stellar.github.io/go-horizon/endpoint/payments_for_account/</loc>
+    <lastmod>2015-05-04T21:06:23-07:00</lastmod>
   </url>
   
   <url>
     <loc>http://stellar.github.io/go-horizon/problem/server_error/</loc>
+    <lastmod>2015-05-04T20:03:27-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://stellar.github.io/go-horizon/problem/not_found/</loc>
     <lastmod>2015-05-04T20:03:27-07:00</lastmod>
   </url>
   
@@ -32,16 +37,26 @@
   </url>
   
   <url>
+    <loc>http://stellar.github.io/go-horizon/endpoint/transactions_create/</loc>
+    <lastmod>2015-05-04T14:52:29-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://stellar.github.io/go-horizon/endpoint/transactions_single/</loc>
     <lastmod>2015-05-04T14:52:29-07:00</lastmod>
   </url>
   
   <url>
-    <loc>http://stellar.github.io/go-horizon/guide/xdr/</loc>
+    <loc>http://stellar.github.io/go-horizon/resource/operation/</loc>
   </url>
   
   <url>
-    <loc>http://stellar.github.io/go-horizon/resource/operation/</loc>
+    <loc>http://stellar.github.io/go-horizon/guide/problems/</loc>
+    <lastmod>2015-05-04T15:48:17-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://stellar.github.io/go-horizon/guide/xdr/</loc>
   </url>
   
 </urlset>

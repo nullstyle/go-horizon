@@ -32,9 +32,14 @@
     </div>
 
     <ul class="sidebar-nav">
-
-      <li>Guides</li>
+      <li><a href="/">Home</a> </li>
       
+    </ul>
+
+    <p>&copy; 2015. All rights reserved. </p>
+  </div>
+</div>
+
 
 <div class="content container">
   <div class="post">
@@ -63,6 +68,44 @@
 </ul>
 
 <h2 id="trading-api:34c4da6d4768d05e50db99357a299b5c">Trading API</h2>
+
+<h2 id="api-overview:34c4da6d4768d05e50db99357a299b5c">API Overview</h2>
+
+<p>The following section describes a couple of important concepts for the Horizon API at a high level.  Understanding these concepts will help make your overall experience integrating with Horizon much easier.</p>
+
+<h3 id="response-format:34c4da6d4768d05e50db99357a299b5c">Response Format</h3>
+
+<p>Rather than using a fully custom way of representing the resources we expose in Horizon, we use <a href="http://stateless.co/hal_specification.html">HAL</a>. HAL is a hypermedia format in JSON that remains simple while giving us a couple of benefits such as simpler client integration for several languages. See <a href="https://github.com/mikekelly/hal_specification/wiki/Libraries">this wiki page</a> for a list of libraries.</p>
+
+<p>See <a href="responses.md">Responses</a> for more details</p>
+
+<h3 id="error-format:34c4da6d4768d05e50db99357a299b5c">Error Format</h3>
+
+<p>HAL doesn&rsquo;t really have any special consideration for error responses.  To provide some standardization to our API&rsquo;s error messages we use the <a href="https://tools.ietf.org/html/draft-ietf-appsawg-http-problem-00">Problem Details for HTTP APIs RFC</a></p>
+
+<p>See <a href="errors.md">errors</a> for more details</p>
+
+<h3 id="paging:34c4da6d4768d05e50db99357a299b5c">Paging</h3>
+
+<p>Some resources in Horizon represent a collection of other resources.  Almost always, loading this collection in its entirety is not feasible.  To work around this, we provide a way to page through a collection.</p>
+
+<p>The paging system in Horizon is known as a <em>token-based</em> paging system.  There is no &ldquo;page 3&rdquo; or the like.  Paging through a collection in a token-based paging system involves three pieces of data:</p>
+
+<ul>
+<li>the <em>paging token</em>, which is an opaque value that logically represents the last record seen by a client.</li>
+<li>the <em>limit</em>, or page size, a positive integer.</li>
+<li>the <em>order</em> applied to the whole collection</li>
+</ul>
+
+<p>See <a href="paging.md">paging</a> for more details.</p>
+
+<h2 id="api-reference:34c4da6d4768d05e50db99357a299b5c">API Reference</h2>
+
+<p>While Horizon is lightly self-documenting through use of hyperlinks in responses (such that you should be able to navigate through the dataset without too much trouble), we also have reference documentation available.</p>
+
+<p>We document our API using <a href="https://apiblueprint.org/">API Blueprint</a>, and you can see the raw file <a href="horizon.apib">here</a>.</p>
+
+<p>We host the documentation for our API presently with apiary.  You can find this documentation at (<a href="http://docs.stellarhorizon.apiary.io/">http://docs.stellarhorizon.apiary.io/</a>)</p>
 
   </div>
 </div>

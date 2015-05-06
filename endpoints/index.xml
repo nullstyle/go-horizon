@@ -6,134 +6,8 @@
     <description>Recent content in Endpoints on Horizon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 May 2015 21:07:22 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 04 May 2015 14:52:29 -0700</lastBuildDate>
     <atom:link href="http://localhost:1313/go-horizon/endpoints/index.xml" rel="self" type="application/rss+xml" />
-    
-    <item>
-      <title>for_transaction</title>
-      <link>http://localhost:1313/go-horizon/endpoints/operations/for_transaction/</link>
-      <pubDate>Mon, 04 May 2015 21:07:22 -0700</pubDate>
-      
-      <guid>http://localhost:1313/go-horizon/endpoints/operations/for_transaction/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>for_transaction</title>
-      <link>http://localhost:1313/go-horizon/endpoints/effects/for_transaction/</link>
-      <pubDate>Mon, 04 May 2015 21:07:13 -0700</pubDate>
-      
-      <guid>http://localhost:1313/go-horizon/endpoints/effects/for_transaction/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>for_ledger</title>
-      <link>http://localhost:1313/go-horizon/endpoints/transactions/for_ledger/</link>
-      <pubDate>Mon, 04 May 2015 21:07:06 -0700</pubDate>
-      
-      <guid>http://localhost:1313/go-horizon/endpoints/transactions/for_ledger/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>one</title>
-      <link>http://localhost:1313/go-horizon/endpoints/ledgers/one/</link>
-      <pubDate>Mon, 04 May 2015 21:06:51 -0700</pubDate>
-      
-      <guid>http://localhost:1313/go-horizon/endpoints/ledgers/one/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>one</title>
-      <link>http://localhost:1313/go-horizon/endpoints/accounts/one/</link>
-      <pubDate>Mon, 04 May 2015 21:06:40 -0700</pubDate>
-      
-      <guid>http://localhost:1313/go-horizon/endpoints/accounts/one/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>for_account</title>
-      <link>http://localhost:1313/go-horizon/endpoints/transactions/for_account/</link>
-      <pubDate>Mon, 04 May 2015 21:06:23 -0700</pubDate>
-      
-      <guid>http://localhost:1313/go-horizon/endpoints/transactions/for_account/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>All Transactions</title>
-      <link>http://localhost:1313/go-horizon/endpoints/transactions/all/</link>
-      <pubDate>Mon, 04 May 2015 20:04:06 -0700</pubDate>
-      
-      <guid>http://localhost:1313/go-horizon/endpoints/transactions/all/</guid>
-      <description>
-
-&lt;p&gt;Represents&lt;/p&gt;
-
-&lt;h2 id=&#34;arguments:4b05bb498d30b711811f28c61ae62e19&#34;&gt;Arguments&lt;/h2&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;name&lt;/th&gt;
-&lt;th&gt;type&lt;/th&gt;
-&lt;th&gt;default&lt;/th&gt;
-&lt;th&gt;description&lt;/th&gt;
-&lt;th&gt;example&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;?cursor&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;any&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;A paging token, specifying where to start returning records from.&lt;/td&gt;
-&lt;td&gt;12884905984&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;?order&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;td&gt;asc&lt;/td&gt;
-&lt;td&gt;The order in which to return rows, &amp;ldquo;asc&amp;rdquo; or &amp;ldquo;desc&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;asc&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;?limit&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;number&lt;/td&gt;
-&lt;td&gt;10&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;100&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&#34;example-requests:4b05bb498d30b711811f28c61ae62e19&#34;&gt;Example Requests&lt;/h2&gt;
-
-&lt;p&gt;Retrieve the first 200 transactions, ordered chronologically&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ curl https://horizon-testnet.stellar.org/transactions?limit=200
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Retrieve a page of transactions to occur immediately before the transaction
-identified by the paging token &amp;ldquo;1234&amp;rdquo;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ curl https://horizon-testnet.stellar.org/transactions?cursor=1234&amp;amp;order=desc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;response:4b05bb498d30b711811f28c61ae62e19&#34;&gt;Response&lt;/h2&gt;
-
-&lt;p&gt;This endpoint returns a page of &lt;a href=&#34;http://localhost:1313/go-horizon/go-horizon/resources/transaction/&#34;&gt;transactions&lt;/a&gt;.  For simple http
-requests, these&lt;/p&gt;
-
-&lt;h2 id=&#34;problems:4b05bb498d30b711811f28c61ae62e19&#34;&gt;Problems&lt;/h2&gt;
-</description>
-    </item>
     
     <item>
       <title>Transaction Details</title>
@@ -143,11 +17,11 @@ requests, these&lt;/p&gt;
       <guid>http://localhost:1313/go-horizon/endpoints/transactions/one/</guid>
       <description>
 
-&lt;p&gt;The transaction details endpoint provides information on a single transaction
-within the ledger. The transaction hash provided in the &lt;code&gt;hash&lt;/code&gt; argument specifies
+&lt;p&gt;The transaction details resource provides information on a single transaction
+within the ledger. The transaction hash provided in the &lt;code&gt;:id&lt;/code&gt; argument specifies
 which transaction to load&lt;/p&gt;
 
-&lt;p&gt;URL Template: &lt;code&gt;/transactions/{hash}&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;URL Template: &lt;code&gt;/transactions/:id&lt;/code&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;arguments:f066022a5cd7e2eba28340b66795b149&#34;&gt;Arguments&lt;/h2&gt;
 
@@ -163,7 +37,7 @@ which transaction to load&lt;/p&gt;
 
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code&gt;hash&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;:id&lt;/code&gt;&lt;/td&gt;
 &lt;td&gt;string&lt;/td&gt;
 &lt;td&gt;A transaction hash, hex-encoded&lt;/td&gt;
 &lt;td&gt;6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&lt;/td&gt;
@@ -178,13 +52,10 @@ which transaction to load&lt;/p&gt;
 
 &lt;h2 id=&#34;response:f066022a5cd7e2eba28340b66795b149&#34;&gt;Response&lt;/h2&gt;
 
-&lt;p&gt;This endpoint responds with a single Transaction.  See &lt;a href=&#34;http://localhost:1313/go-horizon/go-horizon/resources/transaction/&#34;&gt;transaction resource&lt;/a&gt; for reference.&lt;/p&gt;
+&lt;p&gt;This endpoint responds with a single Transaction.  See the &lt;a href=&#34;No page found with path or logical name &#34;/resource_types/transaction.md&#34;.
+&#34;&gt;Transaction Resource Type&lt;/a&gt; for reference&lt;/p&gt;
 
 &lt;h2 id=&#34;problems:f066022a5cd7e2eba28340b66795b149&#34;&gt;Problems&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://localhost:1313/go-horizon/go-horizon/problems/not_found/&#34;&gt;not_found&lt;/a&gt;: A &lt;code&gt;not_found&lt;/code&gt; problem will be returned if there is no transaction in the ledger whose hash matches the &lt;code&gt;hash&lt;/code&gt; argument.&lt;/li&gt;
-&lt;/ul&gt;
 </description>
     </item>
     

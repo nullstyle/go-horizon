@@ -32,20 +32,25 @@
     </div>
 
     <ul class="sidebar-nav">
-
-      <li>Guides</li>
+      <li><a href="/">Home</a> </li>
       
+    </ul>
+
+    <p>&copy; 2015. All rights reserved. </p>
+  </div>
+</div>
+
 
 <div class="content container">
   <div class="post">
     <h1>Transaction Details</h1>
         
 
-<p>The transaction details endpoint provides information on a single transaction
-within the ledger. The transaction hash provided in the <code>hash</code> argument specifies
+<p>The transaction details resource provides information on a single transaction
+within the ledger. The transaction hash provided in the <code>:id</code> argument specifies
 which transaction to load</p>
 
-<p>URL Template: <code>/transactions/{hash}</code></p>
+<p>URL Template: <code>/transactions/:id</code></p>
 
 <h2 id="arguments:f066022a5cd7e2eba28340b66795b149">Arguments</h2>
 
@@ -61,7 +66,7 @@ which transaction to load</p>
 
 <tbody>
 <tr>
-<td><code>hash</code></td>
+<td><code>:id</code></td>
 <td>string</td>
 <td>A transaction hash, hex-encoded</td>
 <td>6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a</td>
@@ -76,13 +81,10 @@ which transaction to load</p>
 
 <h2 id="response:f066022a5cd7e2eba28340b66795b149">Response</h2>
 
-<p>This endpoint responds with a single Transaction.  See <a href="/go-horizon/resources/transaction/">transaction resource</a> for reference.</p>
+<p>This endpoint responds with a single Transaction.  See the <a href="No page found with path or logical name "/resource_types/transaction.md".
+">Transaction Resource Type</a> for reference</p>
 
 <h2 id="problems:f066022a5cd7e2eba28340b66795b149">Problems</h2>
-
-<ul>
-<li><a href="/go-horizon/problems/not_found/">not_found</a>: A <code>not_found</code> problem will be returned if there is no transaction in the ledger whose hash matches the <code>hash</code> argument.</li>
-</ul>
 
   </div>
 </div>

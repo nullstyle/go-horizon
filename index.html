@@ -39,6 +39,8 @@
       
         <li><a href="/go-horizon/guide/responses/">Response Format</a></li>
       
+        <li><a href="/go-horizon/guide/problems/">Problems</a></li>
+      
         <li><a href="/go-horizon/guide/xdr/">XDR</a></li>
       
 
@@ -51,14 +53,18 @@
 
       <li>Endpoints</li>
       
+        <li><a href="/go-horizon/endpoint/payments_for_account/"> Payments for account </a></li>
+      
+        <li><a href="/go-horizon/endpoint/transactions_create/"> Post Transaction </a></li>
+      
         <li><a href="/go-horizon/endpoint/transactions_single/"> Transaction Details </a></li>
       
 
       <li>Problems</li>
       
-        <li><a href="/go-horizon/problem/not_found/"> Not Found </a></li>
-      
         <li><a href="/go-horizon/problem/server_error/"> Server Error </a></li>
+      
+        <li><a href="/go-horizon/problem/not_found/"> Not Found </a></li>
       
     </ul>
   </div>
@@ -91,8 +97,7 @@
 <h3 id="important-endpoints:34c4da6d4768d05e50db99357a299b5c">Important Endpoints</h3>
 
 <ul>
-<li><a href="No page found with path or logical name "endpoint/transactions_create.md".
-">Post transaction</a></li>
+<li><a href="/go-horizon/endpoint/transactions_create/">Post transaction</a></li>
 <li><a href="No page found with path or logical name "endpoint/accounts_one.md".
 ">Account details</a></li>
 <li><a href="#">Calculate payment path</a></li>
@@ -201,6 +206,91 @@ valid URI before navigating to it.</p>
 <h2 id="pages:a9fd9c163aecade52fef4c416dfaef41">Pages</h2>
 
 <p>TODO</p>
+
+  </div>
+
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://stellar.github.io/go-horizon/guide/problems/">
+        Problems
+      </a>
+    </h1>
+
+  
+
+<p>In the event that an error occurs while processing a request to horizon, a
+<strong>problem</strong> response will be returned to the client.  This problem response will
+contain information detailing why the request couldn&rsquo;t complete successfully.</p>
+
+<p>Like HAL for successful responses, horizon uses a standard to specify how we
+communicate errors to the client.  Specifically, horizon uses the <a href="https://tools.ietf.org/html/draft-ietf-appsawg-http-
+problem-00">Problem
+Details for HTTP APIs</a> draft specification.  The specification is short, so we recommend
+you read it.  In summary, when a problem occurs on the server we respond with a
+json document with the following attributes:</p>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>type</td>
+<td>url</td>
+<td>The identifier for the problem, expressed as a url.  Visiting the url in a web browser will redirect you to the additional documentation for the problem.</td>
+</tr>
+
+<tr>
+<td>title</td>
+<td>string</td>
+<td>A short title describing the problem.</td>
+</tr>
+
+<tr>
+<td>status</td>
+<td>number</td>
+<td>An HTTP status code that maps to the problem.  A problem that is triggered due to client input will be in the 400-499 range of status code, for exmaple.</td>
+</tr>
+
+<tr>
+<td>detail</td>
+<td>string</td>
+<td>A longer description of the problem meant the further explain to problem to developers.</td>
+</tr>
+
+<tr>
+<td>instance</td>
+<td>string</td>
+<td>A token that uniquely identifies this request.  Allows server administrators to correlate a client report with server log files</td>
+</tr>
+
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p><a id="standard_errors"></a></p>
+
+<h2 id="standard-problems:da4a0b4ace8d0d7d90610be217d49347">Standard Problems</h2>
+
+<p>There are a set of problems that can occur in any request to horizon which we
+call <strong>standard problems</strong>.  These problems are:</p>
+
+<ul>
+<li><a href="/go-horizon/problem/server_error/">Server Error</a></li>
+<li><a href="No page found with path or logical name "problem/rate_limit_exceeded.md".
+">Rate Limit Exceeded</a></li>
+<li><a href="No page found with path or logical name "problem/forbidden.md".
+">Forbidden</a></li>
+</ul>
 
   </div>
 
@@ -595,6 +685,8 @@ additional attributes and links specific to its types.</p>
 <p>Each operation type will have a different set of attributes, in addition to the
 common attributes listed above.</p>
 
+<p><a id="payment"></a></p>
+
 <h3 id="payment:8b7e8847f7803edbe4006f59a10f29ad">Payment</h3>
 
 <p>A payment operation represents a payment from one account to another.  This payment
@@ -687,6 +779,39 @@ can be either a simple native currency payment or a fiat currency payment.</p>
 </tr>
 </tbody>
 </table>
+
+<h4 id="example:8b7e8847f7803edbe4006f59a10f29ad">Example</h4>
+
+<pre><code class="language-json">{
+  &quot;_links&quot;: {
+    &quot;self&quot;: {
+      &quot;href&quot;: &quot;/operations/12884905984&quot;
+    },
+    &quot;transaction&quot;: {
+      &quot;href&quot;: &quot;/transaction/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&quot;
+    },
+    &quot;precedes&quot;: {
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=asc{?limit}&quot;,
+      &quot;templated&quot;: true
+    },
+    &quot;succeeds&quot;: {
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=desc{?limit}&quot;,
+      &quot;templated&quot;: true
+    }
+  },
+  &quot;id&quot;: 12884905984,
+  &quot;paging_token&quot;: &quot;12884905984&quot;,
+  &quot;type&quot;: 0,
+  &quot;type_s&quot;: &quot;payment&quot;,
+  &quot;sender&quot;: &quot;gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&quot;,
+  &quot;receiver&quot;: &quot;gsKuurNYgtBhTSFfsCaWqNb3Ze5Je9csKTSLfjo8Ko2b1f66ayZ&quot;,
+  &quot;currency&quot;: {
+    &quot;code&quot;: &quot;XLM&quot;
+  },
+  &quot;amount&quot;: 1000000000,
+  &quot;amount_f&quot;: 100.00
+}
+</code></pre>
 
 <h3 id="create-offer:8b7e8847f7803edbe4006f59a10f29ad">Create Offer</h3>
 
@@ -813,20 +938,167 @@ offers or payments, this offer will be filled when possible.</p>
 
   <div class="post">
     <h1 class="post-title">
-      <a href="http://stellar.github.io/go-horizon/endpoint/transactions_single/">
-        Transaction Details
+      <a href="http://stellar.github.io/go-horizon/endpoint/payments_for_account/">
+        Payments for account
       </a>
     </h1>
 
   
 
-<p>The transaction details endpoint provides information on a single transaction
-within the ledger. The transaction hash provided in the <code>hash</code> argument specifies
-which transaction to load</p>
+<p>This endpoint responds with a collection of <a href="/go-horizon/resource/operation/#payment">Payment operations</a>
+resources for the account specified in the arguments.  Specifically, any payment
+in which the specified account participates, either as sender or receiver.</p>
 
-<p>URL Template: <code>/transactions/{hash}</code></p>
+<p>This endpoint is particularly useful for following along with payments made by
+an account.  A client can retrieve quick notification about payments made to a
+specific account by using <a href="No page found with path or logical name "guide/response_streaming.md".
+">response streaming</a>.</p>
 
-<h2 id="arguments:fe8abeb8cb7003c54c062db4b868bc2f">Arguments</h2>
+<h2 id="request:6816b45c33d53d5b4428b5123e7485a5">Request</h2>
+
+<pre><code>GET /accounts/{id}/payments{?cursor}{?limit}{?order}
+</code></pre>
+
+<h3 id="arguments:6816b45c33d53d5b4428b5123e7485a5">Arguments</h3>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>loc</th>
+<th>notes</th>
+<th>example</th>
+<th>description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>id</td>
+<td>path</td>
+<td>required, string</td>
+<td>gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC</td>
+<td>The address of the account used to constrain results.</td>
+</tr>
+
+<tr>
+<td>cursor</td>
+<td>query</td>
+<td>optional, <br> default <code>&quot;&quot;</code></td>
+<td>8589934592</td>
+<td>A payment paging token specifying from where to begin results.</td>
+</tr>
+
+<tr>
+<td>limit</td>
+<td>query</td>
+<td>optional, number, <br> default <code>10</code></td>
+<td>500</td>
+<td>Specifies the count of records at most to return.</td>
+</tr>
+
+<tr>
+<td>order</td>
+<td>query</td>
+<td>optional, string, <br> default <code>&quot;asc&quot;</code></td>
+<td>desc</td>
+<td>Specifies order of returned results.  <code>&quot;asc&quot;</code> means older payments first, <code>&quot;desc&quot;</code> mean newer payments first.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example:6816b45c33d53d5b4428b5123e7485a5">Example</h3>
+
+<pre><code class="language-bash"># retrieve the first 25 payment for account
+
+curl https://horizon-testnet.stellar.org/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?limit=25
+</code></pre>
+
+<h2 id="response:6816b45c33d53d5b4428b5123e7485a5">Response</h2>
+
+<p>This endpoint responds with a <a href="No page found with path or logical name "resource/page.md".
+">page</a> of <a href="/go-horizon/resource/operation/#payment">payment operations</a>.</p>
+
+<h3 id="example-1:6816b45c33d53d5b4428b5123e7485a5">Example</h3>
+
+<pre><code class="language-json">
+{
+  &quot;_embedded&quot;: {
+    &quot;records&quot;: [
+      {
+        &quot;_links&quot;: {
+          &quot;self&quot;: {
+            &quot;href&quot;: &quot;/operations/12884905984&quot;
+          },
+          &quot;transaction&quot;: {
+            &quot;href&quot;: &quot;/transaction/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&quot;
+          },
+          &quot;precedes&quot;: {
+            &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=asc{?limit}&quot;,
+            &quot;templated&quot;: true
+          },
+          &quot;succeeds&quot;: {
+            &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=desc{?limit}&quot;,
+            &quot;templated&quot;: true
+          }
+        },
+        &quot;id&quot;: 12884905984,
+        &quot;paging_token&quot;: &quot;12884905984&quot;,
+        &quot;type&quot;: 0,
+        &quot;type_s&quot;: &quot;payment&quot;,
+        &quot;sender&quot;: &quot;gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&quot;,
+        &quot;receiver&quot;: &quot;gsKuurNYgtBhTSFfsCaWqNb3Ze5Je9csKTSLfjo8Ko2b1f66ayZ&quot;,
+        &quot;currency&quot;: {
+          &quot;code&quot;: &quot;XLM&quot;
+        },
+        &quot;amount&quot;: 1000000000,
+        &quot;amount_f&quot;: 100.00
+      }
+    ]
+  },
+  &quot;_links&quot;: {
+    &quot;next&quot;: {
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=asc{?limit}&quot;,
+      &quot;templated&quot;: true
+    },
+    &quot;self&quot;: {
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments&quot;
+    }
+  }
+}
+
+</code></pre>
+
+<h3 id="problems:6816b45c33d53d5b4428b5123e7485a5">Problems</h3>
+
+<p>This endpoint should only respond with <a href="/go-horizon/guide/problems/#standard_errors">standard errors</a>.</p>
+
+<h2 id="tutorials:6816b45c33d53d5b4428b5123e7485a5">Tutorials</h2>
+
+<ul>
+<li><a href="No page found with path or logical name "tutorial/follow_received_payments.md".
+">Follow payments sent to an account</a></li>
+</ul>
+
+  </div>
+
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://stellar.github.io/go-horizon/endpoint/transactions_create/">
+        Post Transaction
+      </a>
+    </h1>
+
+  
+
+<p>Posts a new transaction to the Stellar Network.</p>
+
+<h2 id="request:d25076cb7570b8e48f0eda47b5eada67">Request</h2>
+
+<pre><code>POST /transactions
+</code></pre>
+
+<h3 id="arguments:d25076cb7570b8e48f0eda47b5eada67">Arguments</h3>
 
 <table>
 <thead>
@@ -848,18 +1120,78 @@ which transaction to load</p>
 </tbody>
 </table>
 
-<h2 id="example-request:fe8abeb8cb7003c54c062db4b868bc2f">Example Request</h2>
+<h3 id="example:d25076cb7570b8e48f0eda47b5eada67">Example</h3>
 
-<pre><code>curl TODO/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a
+<pre><code>curl https://horizon-testnet.stellar.org/transactions \
+  -X POST \
+  -F &quot;tx=899b2840ed5636c56ddc5f14b23975f79f1ba2388d2694e4c56ecdddc960e5ef0000000a000000000000000100000000ffffffff000000010000000000000000500e14fe9d7dc549e30244da424cfbcabe2166a55237897473d3f7358a086b4800000000000009184e72a000000000000000000000000000000009184e72a00000000001899b28402e992cc5fc6d7e0f888b7afa173a35d3ce87526bc37d8171e2d9ee7f2715d1d4146a9026b13396ab8e7392f947caba1b00d398801b4644ae5238f96f96ec7605&quot;
+</code></pre>
+
+<h2 id="response:d25076cb7570b8e48f0eda47b5eada67">Response</h2>
+
+<h3 id="example-1:d25076cb7570b8e48f0eda47b5eada67">Example</h3>
+
+<h3 id="problems:d25076cb7570b8e48f0eda47b5eada67">Problems</h3>
+
+  </div>
+
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://stellar.github.io/go-horizon/endpoint/transactions_single/">
+        Transaction Details
+      </a>
+    </h1>
+
+  
+
+<p>The transaction details endpoint provides information on a single transaction
+within the ledger. The transaction hash provided in the <code>hash</code> argument specifies
+which transaction to load</p>
+
+<h2 id="request:fe8abeb8cb7003c54c062db4b868bc2f">Request</h2>
+
+<pre><code>GET /transactions/{hash}
+</code></pre>
+
+<h3 id="arguments:fe8abeb8cb7003c54c062db4b868bc2f">Arguments</h3>
+
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>description</th>
+<th>example</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>hash</code></td>
+<td>string</td>
+<td>A transaction hash, hex-encoded</td>
+<td>6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example:fe8abeb8cb7003c54c062db4b868bc2f">Example</h3>
+
+<pre><code>curl https://horizon-testnet.stellar.org/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a
 </code></pre>
 
 <h2 id="response:fe8abeb8cb7003c54c062db4b868bc2f">Response</h2>
 
 <p>This endpoint responds with a single Transaction.  See <a href="/go-horizon/resource/transaction/">transaction resource</a> for reference.</p>
 
-<h2 id="problems:fe8abeb8cb7003c54c062db4b868bc2f">Problems</h2>
+<h3 id="example-1:fe8abeb8cb7003c54c062db4b868bc2f">Example</h3>
+
+<p>TODO</p>
+
+<h3 id="problems:fe8abeb8cb7003c54c062db4b868bc2f">Problems</h3>
 
 <ul>
+<li>The <a href="/go-horizon/guide/problems/#standard_errors">standard errors</a>.</li>
 <li><a href="/go-horizon/problem/not_found/">not_found</a>: A <code>not_found</code> problem will be returned if there is no transaction in the ledger whose hash matches the <code>hash</code> argument.</li>
 </ul>
 
@@ -868,44 +1200,6 @@ which transaction to load</p>
 
 
 
-
-  <div class="post">
-    <h1 class="post-title">
-      <a href="http://stellar.github.io/go-horizon/problem/not_found/">
-        Problem: Not Found
-      </a>
-    </h1>
-
-  
-
-<p>A <code>not_found</code> problem is returned from horizon when the resource a client is
-requesting is not found.  This is similar to a &ldquo;404 Not Found&rdquo; error response
-you get from HTTP.</p>
-
-<h2 id="example:7c9f872d85877c754d4fe264c1426309">Example</h2>
-
-<pre><code class="language-json">{
-  &quot;type&quot;:     &quot;https://www.stellar.org/docs/horizon/problems/not_found&quot;,
-  &quot;title&quot;:    &quot;Resource Missing&quot;,
-  &quot;status&quot;:   404,
-  &quot;details&quot;:  &quot;The resource .... not found.&quot;,
-  &quot;instance&quot;: &quot;d3465740-ec3a-4a0b-9d4a-c9ea734ce58a&quot;
-}
-</code></pre>
-
-<h2 id="tips-for-resolution:7c9f872d85877c754d4fe264c1426309">Tips for resolution</h2>
-
-<ul>
-<li><p>Ensure that the URL is correct, pay special attention to any path parameters,
-as this is usually where something is wrong.  Additionally, you should be
-never see this error message when navigating from a link read from a response.</p></li>
-
-<li><p>Ensure the data exists. For example, if you are requesting the details of a
-transaction, you will receive a <code>not_found</code> error in the event that the
-transaction you are requesting failed.</p></li>
-</ul>
-
-  </div>
 
   <div class="post">
     <h1 class="post-title">
@@ -946,6 +1240,44 @@ issue on <a href="#">horizon&rsquo;s issue tracker</a>.  Please include at a min
 <code>instance</code>   attribute from the problem response, but additional information
 such as the original request that triggered the problem is always welcome and
 speeds our ability to identify the problem.</p></li>
+</ul>
+
+  </div>
+
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://stellar.github.io/go-horizon/problem/not_found/">
+        Problem: Not Found
+      </a>
+    </h1>
+
+  
+
+<p>A <code>not_found</code> problem is returned from horizon when the resource a client is
+requesting is not found.  This is similar to a &ldquo;404 Not Found&rdquo; error response
+you get from HTTP.</p>
+
+<h2 id="example:7c9f872d85877c754d4fe264c1426309">Example</h2>
+
+<pre><code class="language-json">{
+  &quot;type&quot;:     &quot;https://www.stellar.org/docs/horizon/problems/not_found&quot;,
+  &quot;title&quot;:    &quot;Resource Missing&quot;,
+  &quot;status&quot;:   404,
+  &quot;details&quot;:  &quot;The resource .... not found.&quot;,
+  &quot;instance&quot;: &quot;d3465740-ec3a-4a0b-9d4a-c9ea734ce58a&quot;
+}
+</code></pre>
+
+<h2 id="tips-for-resolution:7c9f872d85877c754d4fe264c1426309">Tips for resolution</h2>
+
+<ul>
+<li><p>Ensure that the URL is correct, pay special attention to any path parameters,
+as this is usually where something is wrong.  Additionally, you should be
+never see this error message when navigating from a link read from a response.</p></li>
+
+<li><p>Ensure the data exists. For example, if you are requesting the details of a
+transaction, you will receive a <code>not_found</code> error in the event that the
+transaction you are requesting failed.</p></li>
 </ul>
 
   </div>

@@ -358,6 +358,8 @@ additional attributes and links specific to its types.&lt;/p&gt;
 &lt;p&gt;Each operation type will have a different set of attributes, in addition to the
 common attributes listed above.&lt;/p&gt;
 
+&lt;p&gt;&lt;a id=&#34;payment&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
 &lt;h3 id=&#34;payment:8b7e8847f7803edbe4006f59a10f29ad&#34;&gt;Payment&lt;/h3&gt;
 
 &lt;p&gt;A payment operation represents a payment from one account to another.  This payment
@@ -450,6 +452,39 @@ can be either a simple native currency payment or a fiat currency payment.&lt;/p
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+
+&lt;h4 id=&#34;example:8b7e8847f7803edbe4006f59a10f29ad&#34;&gt;Example&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;_links&amp;quot;: {
+    &amp;quot;self&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/operations/12884905984&amp;quot;
+    },
+    &amp;quot;transaction&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/transaction/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&amp;quot;
+    },
+    &amp;quot;precedes&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=asc{?limit}&amp;quot;,
+      &amp;quot;templated&amp;quot;: true
+    },
+    &amp;quot;succeeds&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=desc{?limit}&amp;quot;,
+      &amp;quot;templated&amp;quot;: true
+    }
+  },
+  &amp;quot;id&amp;quot;: 12884905984,
+  &amp;quot;paging_token&amp;quot;: &amp;quot;12884905984&amp;quot;,
+  &amp;quot;type&amp;quot;: 0,
+  &amp;quot;type_s&amp;quot;: &amp;quot;payment&amp;quot;,
+  &amp;quot;sender&amp;quot;: &amp;quot;gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&amp;quot;,
+  &amp;quot;receiver&amp;quot;: &amp;quot;gsKuurNYgtBhTSFfsCaWqNb3Ze5Je9csKTSLfjo8Ko2b1f66ayZ&amp;quot;,
+  &amp;quot;currency&amp;quot;: {
+    &amp;quot;code&amp;quot;: &amp;quot;XLM&amp;quot;
+  },
+  &amp;quot;amount&amp;quot;: 1000000000,
+  &amp;quot;amount_f&amp;quot;: 100.00
+}
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&#34;create-offer:8b7e8847f7803edbe4006f59a10f29ad&#34;&gt;Create Offer&lt;/h3&gt;
 
