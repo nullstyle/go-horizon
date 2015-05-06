@@ -44,11 +44,18 @@
         <li><a href="/go-horizon/guide/xdr/">XDR</a></li>
       
 
+      <li>Tutorials</li>
+      
+        <li><a href="/go-horizon/tutorial/follow_received_payments/">Follow payments (node)</a></li>
+      
+
       <li>Resources</li>
       
         <li><a href="/go-horizon/resource/transaction/"> Transaction </a></li>
       
         <li><a href="/go-horizon/resource/operation/"> Operation </a></li>
+      
+        <li><a href="/go-horizon/resource/page/"> Page </a></li>
       
 
       <li>Endpoints</li>
@@ -76,7 +83,14 @@
     <h1>Post Transaction</h1>
         
 
-<p>Posts a new transaction to the Stellar Network.</p>
+<p>Posts a new transaction to the Stellar Network.  Note that creating a valid
+transactions and signing it properly should be the responsibility of your
+<a href="#">client library</a>.</p>
+
+<p>Also note, this endpoint is presently a very thin wrapper around the raw
+transaction submission endpoint in stellar-core.  This endpoint will probably
+change quite soon to reflect more of the design choices made by the rest of
+horizon</p>
 
 <h2 id="request:d25076cb7570b8e48f0eda47b5eada67">Request</h2>
 
@@ -89,18 +103,20 @@
 <thead>
 <tr>
 <th>name</th>
-<th>type</th>
-<th>description</th>
+<th>loc</th>
+<th>notes</th>
 <th>example</th>
+<th>description</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td><code>hash</code></td>
-<td>string</td>
-<td>A transaction hash, hex-encoded</td>
-<td>6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a</td>
+<td><code>tx</code></td>
+<td>body</td>
+<td>required</td>
+<td>899b2840ed5636c56ddc5f14b23975f79f1ba2388d2694e4c56ecdddc960e5ef<br>0000000a000000000000000100000000ffffffff000000010000000000000000<br>500e14fe9d7dc549e30244da424cfbcabe2166a55237897473d3f7358a086b48<br>00000000000009184e72a000000000000000000000000000000009184e72a000<br>00000001899b28402e992cc5fc6d7e0f888b7afa173a35d3ce87526bc37d8171<br>e2d9ee7f2715d1d4146a9026b13396ab8e7392f947caba1b00d398801b4644ae<br>5238f96f96ec7605</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -114,9 +130,93 @@
 
 <h2 id="response:d25076cb7570b8e48f0eda47b5eada67">Response</h2>
 
+<p>This endpoint returns a resource that represents the result of initial
+submission of the provided transaction to stellar-core.</p>
+
+<h3 id="attributes:d25076cb7570b8e48f0eda47b5eada67">Attributes</h3>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>hash</code></td>
+<td>string</td>
+<td>A hex-encoded hash of the submitted transaction.</td>
+</tr>
+
+<tr>
+<td><code>result</code></td>
+<td>string</td>
+<td>Distilled summary of the result.  See &ldquo;Result&rdquo; section below.</td>
+</tr>
+
+<tr>
+<td><code>submission_result</code></td>
+<td>string</td>
+<td>A hex-encoded <code>TransactionResult</code> XDR object.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="result:d25076cb7570b8e48f0eda47b5eada67">Result</h3>
+
+<p>The <code>result</code> attribute of a response from this endpoint can be one of the following values:</p>
+
+<table>
+<thead>
+<tr>
+<th><code>result</code></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>malformed</td>
+<td>The transaction was suffiently malformed that we could not interpet it.</td>
+</tr>
+
+<tr>
+<td>already_finished</td>
+<td>The hash for this transaction hash is either in the history database or is in the stellar core database.</td>
+</tr>
+
+<tr>
+<td>received</td>
+<td>The transaction was submitted and received by stellar core, and will be included in consideration for a validared ledger</td>
+</tr>
+
+<tr>
+<td>failed</td>
+<td>The submission to stellar core failed, and was not recieved by the network.  Refer to the <code>submission_result</code> for details.</td>
+</tr>
+
+<tr>
+<td>connection_failed</td>
+<td>Horizon could not connect to stellar core.</td>
+</tr>
+</tbody>
+</table>
+
 <h3 id="example-1:d25076cb7570b8e48f0eda47b5eada67">Example</h3>
 
+<pre><code>{
+  &quot;hash&quot;: &quot;802da5683737972e5a0a6d8d4960bb43a7be64a1dbc00549eeb31729f94c75f2&quot;,
+  &quot;result&quot;: &quot;failed&quot;,
+  &quot;submission_result&quot;: &quot;0000000000000000fffffffb&quot;
+}
+</code></pre>
+
 <h3 id="problems:d25076cb7570b8e48f0eda47b5eada67">Problems</h3>
+
+<p>This endpoint should only respond with [standard errors][se].</p>
 
   </div>
 </div>

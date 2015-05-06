@@ -17,6 +17,11 @@
   </url>
   
   <url>
+    <loc>http://stellar.github.io/go-horizon/tutorial/follow_received_payments/</loc>
+    <lastmod>2015-05-06T11:11:53-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://stellar.github.io/go-horizon/endpoint/payments_for_account/</loc>
     <lastmod>2015-05-04T21:06:23-07:00</lastmod>
   </url>
@@ -48,6 +53,10 @@
   
   <url>
     <loc>http://stellar.github.io/go-horizon/resource/operation/</loc>
+  </url>
+  
+  <url>
+    <loc>http://stellar.github.io/go-horizon/resource/page/</loc>
   </url>
   
   <url>

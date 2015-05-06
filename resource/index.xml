@@ -98,6 +98,24 @@
 &lt;td&gt;string&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;envelope_xdr&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A base64 encoded string of the raw &lt;code&gt;TransactionEnvelope&lt;/code&gt; xdr struct for this transaction&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;result_xdr&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A base64 encoded string of the raw &lt;code&gt;TransactionResultPair&lt;/code&gt; xdr struct for this transaction&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;result_meta_xdr&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A base64 encoded string of the raw &lt;code&gt;TransactionMeta&lt;/code&gt; xdr struct for this transaction&lt;/td&gt;
+&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 
@@ -603,6 +621,125 @@ offers or payments, this offer will be filled when possible.&lt;/p&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Page</title>
+      <link>http://stellar.github.io/go-horizon/resource/page/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://stellar.github.io/go-horizon/resource/page/</guid>
+      <description>
+
+&lt;p&gt;Pages are objects that represent a subset of objects from a larger collection.
+As an example, it would be unfeasible to provide the&lt;br /&gt;
+&lt;a href=&#34;No page found with path or logical name &#34;endpoint/transactions_all.md&#34;.
+&#34;&gt;All Transactions&lt;/a&gt; endpoint without paging;  Over time there
+will be millions of transactions in the Stellar network&amp;rsquo;s ledger and returning
+them all over a single request would be unfeasible.&lt;/p&gt;
+
+&lt;h2 id=&#34;attributes:e35b73785af203bc9dd708890406fffd&#34;&gt;Attributes&lt;/h2&gt;
+
+&lt;p&gt;A page itself exposes no attributes.  It is merely a container for embedded
+records and some links to aid in iterating the entire collection the page is
+part of.&lt;/p&gt;
+
+&lt;h2 id=&#34;embedded-resources:e35b73785af203bc9dd708890406fffd&#34;&gt;Embedded Resources&lt;/h2&gt;
+
+&lt;p&gt;A page contains an embedded set of &lt;code&gt;records&lt;/code&gt;, regardless of the contained
+resource.&lt;/p&gt;
+
+&lt;h2 id=&#34;links:e35b73785af203bc9dd708890406fffd&#34;&gt;Links&lt;/h2&gt;
+
+&lt;p&gt;A page provides a couple of links to ease in iteration.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Example&lt;/th&gt;
+&lt;th&gt;Relation&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;self&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;prev&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions?cursor=12884905984&amp;amp;order=desc&amp;amp;limit=10&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The previous page of results&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;next&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions?cursor=12884905984&amp;amp;order=asc&amp;amp;limit=10&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The next page of results&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;example:e35b73785af203bc9dd708890406fffd&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;
+{
+  &amp;quot;_embedded&amp;quot;: {
+    &amp;quot;records&amp;quot;: [
+      {
+        &amp;quot;_links&amp;quot;: {
+          &amp;quot;self&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/operations/12884905984&amp;quot;
+          },
+          &amp;quot;transaction&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/transaction/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&amp;quot;
+          },
+          &amp;quot;precedes&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=asc{?limit}&amp;quot;,
+            &amp;quot;templated&amp;quot;: true
+          },
+          &amp;quot;succeeds&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=desc{?limit}&amp;quot;,
+            &amp;quot;templated&amp;quot;: true
+          }
+        },
+        &amp;quot;id&amp;quot;: 12884905984,
+        &amp;quot;paging_token&amp;quot;: &amp;quot;12884905984&amp;quot;,
+        &amp;quot;type&amp;quot;: 0,
+        &amp;quot;type_s&amp;quot;: &amp;quot;payment&amp;quot;,
+        &amp;quot;sender&amp;quot;: &amp;quot;gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&amp;quot;,
+        &amp;quot;receiver&amp;quot;: &amp;quot;gsKuurNYgtBhTSFfsCaWqNb3Ze5Je9csKTSLfjo8Ko2b1f66ayZ&amp;quot;,
+        &amp;quot;currency&amp;quot;: {
+          &amp;quot;code&amp;quot;: &amp;quot;XLM&amp;quot;
+        },
+        &amp;quot;amount&amp;quot;: 1000000000,
+        &amp;quot;amount_f&amp;quot;: 100.00
+      }
+    ]
+  },
+  &amp;quot;_links&amp;quot;: {
+    &amp;quot;next&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=asc&amp;amp;limit=100&amp;quot;
+    },
+    &amp;quot;prev&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=desc&amp;amp;limit=100&amp;quot;
+    },
+    &amp;quot;self&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?limit=100&amp;quot;
+    }
+  }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;endpoints:e35b73785af203bc9dd708890406fffd&#34;&gt;Endpoints&lt;/h2&gt;
+
+&lt;p&gt;Any endpoint that provides a collection of resources should represent them as
+pages.&lt;/p&gt;
 </description>
     </item>
     

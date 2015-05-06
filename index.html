@@ -44,11 +44,18 @@
         <li><a href="/go-horizon/guide/xdr/">XDR</a></li>
       
 
+      <li>Tutorials</li>
+      
+        <li><a href="/go-horizon/tutorial/follow_received_payments/">Follow payments (node)</a></li>
+      
+
       <li>Resources</li>
       
         <li><a href="/go-horizon/resource/transaction/"> Transaction </a></li>
       
         <li><a href="/go-horizon/resource/operation/"> Operation </a></li>
+      
+        <li><a href="/go-horizon/resource/page/"> Page </a></li>
       
 
       <li>Endpoints</li>
@@ -423,6 +430,24 @@ The IDL files used for the Stellar Network are available
 <td>result_code_s</td>
 <td>string</td>
 <td></td>
+</tr>
+
+<tr>
+<td>envelope_xdr</td>
+<td>string</td>
+<td>A base64 encoded string of the raw <code>TransactionEnvelope</code> xdr struct for this transaction</td>
+</tr>
+
+<tr>
+<td>result_xdr</td>
+<td>string</td>
+<td>A base64 encoded string of the raw <code>TransactionResultPair</code> xdr struct for this transaction</td>
+</tr>
+
+<tr>
+<td>result_meta_xdr</td>
+<td>string</td>
+<td>A base64 encoded string of the raw <code>TransactionMeta</code> xdr struct for this transaction</td>
 </tr>
 </tbody>
 </table>
@@ -933,6 +958,126 @@ offers or payments, this offer will be filled when possible.</p>
 
   </div>
 
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://stellar.github.io/go-horizon/resource/page/">
+        Page
+      </a>
+    </h1>
+
+  
+
+<p>Pages are objects that represent a subset of objects from a larger collection.
+As an example, it would be unfeasible to provide the<br />
+<a href="No page found with path or logical name "endpoint/transactions_all.md".
+">All Transactions</a> endpoint without paging;  Over time there
+will be millions of transactions in the Stellar network&rsquo;s ledger and returning
+them all over a single request would be unfeasible.</p>
+
+<h2 id="attributes:e35b73785af203bc9dd708890406fffd">Attributes</h2>
+
+<p>A page itself exposes no attributes.  It is merely a container for embedded
+records and some links to aid in iterating the entire collection the page is
+part of.</p>
+
+<h2 id="embedded-resources:e35b73785af203bc9dd708890406fffd">Embedded Resources</h2>
+
+<p>A page contains an embedded set of <code>records</code>, regardless of the contained
+resource.</p>
+
+<h2 id="links:e35b73785af203bc9dd708890406fffd">Links</h2>
+
+<p>A page provides a couple of links to ease in iteration.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Example</th>
+<th>Relation</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>self</td>
+<td><code>/transactions</code></td>
+<td></td>
+</tr>
+
+<tr>
+<td>prev</td>
+<td><code>/transactions?cursor=12884905984&amp;order=desc&amp;limit=10</code></td>
+<td>The previous page of results</td>
+</tr>
+
+<tr>
+<td>next</td>
+<td><code>/transactions?cursor=12884905984&amp;order=asc&amp;limit=10</code></td>
+<td>The next page of results</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="example:e35b73785af203bc9dd708890406fffd">Example</h2>
+
+<pre><code class="language-json">
+{
+  &quot;_embedded&quot;: {
+    &quot;records&quot;: [
+      {
+        &quot;_links&quot;: {
+          &quot;self&quot;: {
+            &quot;href&quot;: &quot;/operations/12884905984&quot;
+          },
+          &quot;transaction&quot;: {
+            &quot;href&quot;: &quot;/transaction/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&quot;
+          },
+          &quot;precedes&quot;: {
+            &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=asc{?limit}&quot;,
+            &quot;templated&quot;: true
+          },
+          &quot;succeeds&quot;: {
+            &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=desc{?limit}&quot;,
+            &quot;templated&quot;: true
+          }
+        },
+        &quot;id&quot;: 12884905984,
+        &quot;paging_token&quot;: &quot;12884905984&quot;,
+        &quot;type&quot;: 0,
+        &quot;type_s&quot;: &quot;payment&quot;,
+        &quot;sender&quot;: &quot;gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&quot;,
+        &quot;receiver&quot;: &quot;gsKuurNYgtBhTSFfsCaWqNb3Ze5Je9csKTSLfjo8Ko2b1f66ayZ&quot;,
+        &quot;currency&quot;: {
+          &quot;code&quot;: &quot;XLM&quot;
+        },
+        &quot;amount&quot;: 1000000000,
+        &quot;amount_f&quot;: 100.00
+      }
+    ]
+  },
+  &quot;_links&quot;: {
+    &quot;next&quot;: {
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=asc&amp;limit=100&quot;
+    },
+    &quot;prev&quot;: {
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=desc&amp;limit=100&quot;
+    },
+    &quot;self&quot;: {
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?limit=100&quot;
+    }
+  }
+}
+
+</code></pre>
+
+<h2 id="endpoints:e35b73785af203bc9dd708890406fffd">Endpoints</h2>
+
+<p>Any endpoint that provides a collection of resources should represent them as
+pages.</p>
+
+  </div>
+
 
 
 
@@ -1016,8 +1161,7 @@ curl https://horizon-testnet.stellar.org/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjL
 
 <h2 id="response:6816b45c33d53d5b4428b5123e7485a5">Response</h2>
 
-<p>This endpoint responds with a <a href="No page found with path or logical name "resource/page.md".
-">page</a> of <a href="/go-horizon/resource/operation/#payment">payment operations</a>.</p>
+<p>This endpoint responds with a <a href="/go-horizon/resource/page/">page</a> of <a href="/go-horizon/resource/operation/#payment">payment operations</a>.</p>
 
 <h3 id="example-1:6816b45c33d53d5b4428b5123e7485a5">Example</h3>
 
@@ -1076,8 +1220,7 @@ curl https://horizon-testnet.stellar.org/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjL
 <h2 id="tutorials:6816b45c33d53d5b4428b5123e7485a5">Tutorials</h2>
 
 <ul>
-<li><a href="No page found with path or logical name "tutorial/follow_received_payments.md".
-">Follow payments sent to an account</a></li>
+<li><a href="/go-horizon/tutorial/follow_received_payments/">Follow payments sent to an account</a></li>
 </ul>
 
   </div>
@@ -1091,7 +1234,14 @@ curl https://horizon-testnet.stellar.org/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjL
 
   
 
-<p>Posts a new transaction to the Stellar Network.</p>
+<p>Posts a new transaction to the Stellar Network.  Note that creating a valid
+transactions and signing it properly should be the responsibility of your
+<a href="#">client library</a>.</p>
+
+<p>Also note, this endpoint is presently a very thin wrapper around the raw
+transaction submission endpoint in stellar-core.  This endpoint will probably
+change quite soon to reflect more of the design choices made by the rest of
+horizon</p>
 
 <h2 id="request:d25076cb7570b8e48f0eda47b5eada67">Request</h2>
 
@@ -1104,18 +1254,20 @@ curl https://horizon-testnet.stellar.org/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjL
 <thead>
 <tr>
 <th>name</th>
-<th>type</th>
-<th>description</th>
+<th>loc</th>
+<th>notes</th>
 <th>example</th>
+<th>description</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td><code>hash</code></td>
-<td>string</td>
-<td>A transaction hash, hex-encoded</td>
-<td>6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a</td>
+<td><code>tx</code></td>
+<td>body</td>
+<td>required</td>
+<td>899b2840ed5636c56ddc5f14b23975f79f1ba2388d2694e4c56ecdddc960e5ef<br>0000000a000000000000000100000000ffffffff000000010000000000000000<br>500e14fe9d7dc549e30244da424cfbcabe2166a55237897473d3f7358a086b48<br>00000000000009184e72a000000000000000000000000000000009184e72a000<br>00000001899b28402e992cc5fc6d7e0f888b7afa173a35d3ce87526bc37d8171<br>e2d9ee7f2715d1d4146a9026b13396ab8e7392f947caba1b00d398801b4644ae<br>5238f96f96ec7605</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -1129,9 +1281,93 @@ curl https://horizon-testnet.stellar.org/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjL
 
 <h2 id="response:d25076cb7570b8e48f0eda47b5eada67">Response</h2>
 
+<p>This endpoint returns a resource that represents the result of initial
+submission of the provided transaction to stellar-core.</p>
+
+<h3 id="attributes:d25076cb7570b8e48f0eda47b5eada67">Attributes</h3>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>hash</code></td>
+<td>string</td>
+<td>A hex-encoded hash of the submitted transaction.</td>
+</tr>
+
+<tr>
+<td><code>result</code></td>
+<td>string</td>
+<td>Distilled summary of the result.  See &ldquo;Result&rdquo; section below.</td>
+</tr>
+
+<tr>
+<td><code>submission_result</code></td>
+<td>string</td>
+<td>A hex-encoded <code>TransactionResult</code> XDR object.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="result:d25076cb7570b8e48f0eda47b5eada67">Result</h3>
+
+<p>The <code>result</code> attribute of a response from this endpoint can be one of the following values:</p>
+
+<table>
+<thead>
+<tr>
+<th><code>result</code></th>
+<th></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>malformed</td>
+<td>The transaction was suffiently malformed that we could not interpet it.</td>
+</tr>
+
+<tr>
+<td>already_finished</td>
+<td>The hash for this transaction hash is either in the history database or is in the stellar core database.</td>
+</tr>
+
+<tr>
+<td>received</td>
+<td>The transaction was submitted and received by stellar core, and will be included in consideration for a validared ledger</td>
+</tr>
+
+<tr>
+<td>failed</td>
+<td>The submission to stellar core failed, and was not recieved by the network.  Refer to the <code>submission_result</code> for details.</td>
+</tr>
+
+<tr>
+<td>connection_failed</td>
+<td>Horizon could not connect to stellar core.</td>
+</tr>
+</tbody>
+</table>
+
 <h3 id="example-1:d25076cb7570b8e48f0eda47b5eada67">Example</h3>
 
+<pre><code>{
+  &quot;hash&quot;: &quot;802da5683737972e5a0a6d8d4960bb43a7be64a1dbc00549eeb31729f94c75f2&quot;,
+  &quot;result&quot;: &quot;failed&quot;,
+  &quot;submission_result&quot;: &quot;0000000000000000fffffffb&quot;
+}
+</code></pre>
+
 <h3 id="problems:d25076cb7570b8e48f0eda47b5eada67">Problems</h3>
+
+<p>This endpoint should only respond with [standard errors][se].</p>
 
   </div>
 

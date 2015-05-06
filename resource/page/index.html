@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  <title> Payments for account &middot; Horizon </title>
+  <title> Page &middot; Horizon </title>
 
   
   <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/poole.css">
@@ -80,83 +80,62 @@
 
 <div class="content container">
   <div class="post">
-    <h1>Payments for account</h1>
+    <h1>Page</h1>
         
 
-<p>This endpoint responds with a collection of <a href="/go-horizon/resource/operation/#payment">Payment operations</a>
-resources for the account specified in the arguments.  Specifically, any payment
-in which the specified account participates, either as sender or receiver.</p>
+<p>Pages are objects that represent a subset of objects from a larger collection.
+As an example, it would be unfeasible to provide the<br />
+<a href="No page found with path or logical name "endpoint/transactions_all.md".
+">All Transactions</a> endpoint without paging;  Over time there
+will be millions of transactions in the Stellar network&rsquo;s ledger and returning
+them all over a single request would be unfeasible.</p>
 
-<p>This endpoint is particularly useful for following along with payments made by
-an account.  A client can retrieve quick notification about payments made to a
-specific account by using <a href="No page found with path or logical name "guide/response_streaming.md".
-">response streaming</a>.</p>
+<h2 id="attributes:e35b73785af203bc9dd708890406fffd">Attributes</h2>
 
-<h2 id="request:6816b45c33d53d5b4428b5123e7485a5">Request</h2>
+<p>A page itself exposes no attributes.  It is merely a container for embedded
+records and some links to aid in iterating the entire collection the page is
+part of.</p>
 
-<pre><code>GET /accounts/{id}/payments{?cursor}{?limit}{?order}
-</code></pre>
+<h2 id="embedded-resources:e35b73785af203bc9dd708890406fffd">Embedded Resources</h2>
 
-<h3 id="arguments:6816b45c33d53d5b4428b5123e7485a5">Arguments</h3>
+<p>A page contains an embedded set of <code>records</code>, regardless of the contained
+resource.</p>
+
+<h2 id="links:e35b73785af203bc9dd708890406fffd">Links</h2>
+
+<p>A page provides a couple of links to ease in iteration.</p>
 
 <table>
 <thead>
 <tr>
-<th>name</th>
-<th>loc</th>
-<th>notes</th>
-<th>example</th>
-<th>description</th>
+<th></th>
+<th>Example</th>
+<th>Relation</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>id</td>
-<td>path</td>
-<td>required, string</td>
-<td>gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC</td>
-<td>The address of the account used to constrain results.</td>
+<td>self</td>
+<td><code>/transactions</code></td>
+<td></td>
 </tr>
 
 <tr>
-<td>cursor</td>
-<td>query</td>
-<td>optional, <br> default <code>&quot;&quot;</code></td>
-<td>8589934592</td>
-<td>A payment paging token specifying from where to begin results.</td>
+<td>prev</td>
+<td><code>/transactions?cursor=12884905984&amp;order=desc&amp;limit=10</code></td>
+<td>The previous page of results</td>
 </tr>
 
 <tr>
-<td>limit</td>
-<td>query</td>
-<td>optional, number, <br> default <code>10</code></td>
-<td>500</td>
-<td>Specifies the count of records at most to return.</td>
-</tr>
-
-<tr>
-<td>order</td>
-<td>query</td>
-<td>optional, string, <br> default <code>&quot;asc&quot;</code></td>
-<td>desc</td>
-<td>Specifies order of returned results.  <code>&quot;asc&quot;</code> means older payments first, <code>&quot;desc&quot;</code> mean newer payments first.</td>
+<td>next</td>
+<td><code>/transactions?cursor=12884905984&amp;order=asc&amp;limit=10</code></td>
+<td>The next page of results</td>
 </tr>
 </tbody>
 </table>
 
-<h3 id="example:6816b45c33d53d5b4428b5123e7485a5">Example</h3>
-
-<pre><code class="language-bash"># retrieve the first 25 payment for account
-
-curl https://horizon-testnet.stellar.org/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?limit=25
-</code></pre>
-
-<h2 id="response:6816b45c33d53d5b4428b5123e7485a5">Response</h2>
-
-<p>This endpoint responds with a <a href="/go-horizon/resource/page/">page</a> of <a href="/go-horizon/resource/operation/#payment">payment operations</a>.</p>
-
-<h3 id="example-1:6816b45c33d53d5b4428b5123e7485a5">Example</h3>
+<h2 id="example:e35b73785af203bc9dd708890406fffd">Example</h2>
 
 <pre><code class="language-json">
 {
@@ -195,26 +174,23 @@ curl https://horizon-testnet.stellar.org/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjL
   },
   &quot;_links&quot;: {
     &quot;next&quot;: {
-      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=asc{?limit}&quot;,
-      &quot;templated&quot;: true
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=asc&amp;limit=100&quot;
+    },
+    &quot;prev&quot;: {
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;order=desc&amp;limit=100&quot;
     },
     &quot;self&quot;: {
-      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments&quot;
+      &quot;href&quot;: &quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?limit=100&quot;
     }
   }
 }
 
 </code></pre>
 
-<h3 id="problems:6816b45c33d53d5b4428b5123e7485a5">Problems</h3>
+<h2 id="endpoints:e35b73785af203bc9dd708890406fffd">Endpoints</h2>
 
-<p>This endpoint should only respond with <a href="/go-horizon/guide/problems/#standard_errors">standard errors</a>.</p>
-
-<h2 id="tutorials:6816b45c33d53d5b4428b5123e7485a5">Tutorials</h2>
-
-<ul>
-<li><a href="/go-horizon/tutorial/follow_received_payments/">Follow payments sent to an account</a></li>
-</ul>
+<p>Any endpoint that provides a collection of resources should represent them as
+pages.</p>
 
   </div>
 </div>

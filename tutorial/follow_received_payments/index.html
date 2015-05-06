@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> Follow payments sent to an account (Node.js) &middot; Horizon </title>
+
+  
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/poole.css">
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/syntax.css">
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="Horizon" />
+</head>
+
+<body>
+
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1>Horizon</h1>
+    </div>
+
+    <ul class="sidebar-nav">
+
+      <li>Guides</li>
+      
+        <li><a href="/go-horizon/guide/intro/">Introduction</a></li>
+      
+        <li><a href="/go-horizon/guide/responses/">Response Format</a></li>
+      
+        <li><a href="/go-horizon/guide/problems/">Problems</a></li>
+      
+        <li><a href="/go-horizon/guide/xdr/">XDR</a></li>
+      
+
+      <li>Tutorials</li>
+      
+        <li><a href="/go-horizon/tutorial/follow_received_payments/">Follow payments (node)</a></li>
+      
+
+      <li>Resources</li>
+      
+        <li><a href="/go-horizon/resource/transaction/"> Transaction </a></li>
+      
+        <li><a href="/go-horizon/resource/operation/"> Operation </a></li>
+      
+        <li><a href="/go-horizon/resource/page/"> Page </a></li>
+      
+
+      <li>Endpoints</li>
+      
+        <li><a href="/go-horizon/endpoint/payments_for_account/"> Payments for account </a></li>
+      
+        <li><a href="/go-horizon/endpoint/transactions_create/"> Post Transaction </a></li>
+      
+        <li><a href="/go-horizon/endpoint/transactions_single/"> Transaction Details </a></li>
+      
+
+      <li>Problems</li>
+      
+        <li><a href="/go-horizon/problem/server_error/"> Server Error </a></li>
+      
+        <li><a href="/go-horizon/problem/not_found/"> Not Found </a></li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<div class="content container">
+  <div class="post">
+    <h1>Follow payments sent to an account (Node.js)</h1>
+        
+
+<p>This tutorial shows how easy it is to watch for incoming payments on an account
+using javascript and <code>EventSource</code>.  We will eschew using <code>js-stellar-lib</code>, the
+high-level helper library, to show that it is possible for you to perform this
+task on your own, with whatever programming language you would like to use.</p>
+
+<p>This tutorial assumes that you:</p>
+
+<ul>
+<li>Have node.js installed locally on your machine.</li>
+<li>Have curl installed locally on your machine.</li>
+<li>Are running on Linux, OS X, or any other system that has access to a bash-like
+shell.</li>
+<li>Are familiar with launching and running commands in a terminal.</li>
+</ul>
+
+<p>In this tutorial we will learn:</p>
+
+<ul>
+<li>How to create a new account.</li>
+<li>How to fund your account using friendbot</li>
+<li>How to follow payments to your account using EventSource and Server-Sent Events.</li>
+</ul>
+
+<h2 id="project-skeleton:ee7aa3ccb5ff4fc52fc070c8f2ca7d98">Project Skeleton</h2>
+
+<p>Let&rsquo;s get started by building our project skeleton:</p>
+
+<pre><code class="language-bash">$ mkdir follow_tutorial
+$ cd follow_tutorial
+$ npm install --save stellar-base
+$ npm install --save eventsource
+</code></pre>
+
+<p>This should have created a <code>package.json</code> in the <code>follow_tutorial</code> directory.
+You can check that everything went well by running the following command:</p>
+
+<pre><code class="language-bash">$ node -e &quot;require('stellar-base')&quot;
+</code></pre>
+
+<p>Everything was successful if no output it generated from the above command.  Now
+let&rsquo;s write a script to create a new account.</p>
+
+<h2 id="creating-an-account:ee7aa3ccb5ff4fc52fc070c8f2ca7d98">Creating an account</h2>
+
+<p>Create a new file named <code>make_account.js</code> and paste the following text into it:</p>
+
+<pre><code class="language-javascript">var Keypair = require(&quot;stellar-base&quot;).Keypair;
+
+var newAccount = Keypair.random();
+
+console.log(&quot;New account created!&quot;);
+console.log(&quot;  Address: &quot; + newAccount.address());
+console.log(&quot;  Seed: &quot; + newAccount.seed());
+</code></pre>
+
+<p>Save the file and run it:</p>
+
+<pre><code class="language-bash">$ node make_account.js
+New account created!
+  Address: gxk31VU4jeBBtdkUo4YKqCnd66iavjKvn36m1o7W95WtJfPW1g
+  Seed: s3SK8u5ghRvPmPNatUcCg8jCC4wbuYoBtZKnWjsxDRRn857Yrvc
+$  
+</code></pre>
+
+<p>Before our account can do anything it must be funded.  Indeed, before an account
+is funded it does not truly exist!</p>
+
+<h2 id="funding-your-account:ee7aa3ccb5ff4fc52fc070c8f2ca7d98">Funding your account</h2>
+
+<p>The Stellar test network provides a
+<a href="http://en.wikipedia.org/wiki/Bitcoin_faucet">currency faucet</a> that provides
+free lumens for developers call Friendbot.  To fund you account, you simply
+execute the following curl command:</p>
+
+<pre><code class="language-bash">$ curl https://horizon-testnet.stellar.org/friendbot?addr=gxk31VU4jeBBtdkUo4YKqCnd66iavjKvn36m1o7W95WtJfPW1g
+</code></pre>
+
+<p>Don&rsquo;t forget to replace the address above with your own.  If the request
+succeeds, you should see a response like:</p>
+
+<pre><code class="language-json">{
+&quot;hash&quot;: &quot;ed9e96e136915103f5d8978cbb2036628e811f2c59c4c3d88534444cf504e360&quot;,
+&quot;result&quot;: &quot;received&quot;,
+&quot;submission_result&quot;: &quot;000000000000000a0000000000000001000000000000000000000000&quot;
+}
+</code></pre>
+
+<p>After a few seconds, the Stellar network will perform consensus, close the
+ledger, and your account will have been created.  Next up we will write a script
+that watches for new payments to your account and outputs a message to the
+terminal.</p>
+
+<h2 id="following-payments:ee7aa3ccb5ff4fc52fc070c8f2ca7d98">Following payments</h2>
+
+<h2 id="testing-it-out:ee7aa3ccb5ff4fc52fc070c8f2ca7d98">Testing it out</h2>
+
+  </div>
+</div>
+
+</body>
+</html>

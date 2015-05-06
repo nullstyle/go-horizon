@@ -164,6 +164,24 @@ trades that were executed within the exchange.&lt;/p&gt;
 &lt;td&gt;string&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;envelope_xdr&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A base64 encoded string of the raw &lt;code&gt;TransactionEnvelope&lt;/code&gt; xdr struct for this transaction&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;result_xdr&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A base64 encoded string of the raw &lt;code&gt;TransactionResultPair&lt;/code&gt; xdr struct for this transaction&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;result_meta_xdr&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A base64 encoded string of the raw &lt;code&gt;TransactionMeta&lt;/code&gt; xdr struct for this transaction&lt;/td&gt;
+&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 
@@ -277,6 +295,112 @@ trades that were executed within the exchange.&lt;/p&gt;
     </item>
     
     <item>
+      <title>Follow payments sent to an account (Node.js)</title>
+      <link>http://stellar.github.io/go-horizon/tutorial/follow_received_payments/</link>
+      <pubDate>Wed, 06 May 2015 11:11:53 -0700</pubDate>
+      
+      <guid>http://stellar.github.io/go-horizon/tutorial/follow_received_payments/</guid>
+      <description>
+
+&lt;p&gt;This tutorial shows how easy it is to watch for incoming payments on an account
+using javascript and &lt;code&gt;EventSource&lt;/code&gt;.  We will eschew using &lt;code&gt;js-stellar-lib&lt;/code&gt;, the
+high-level helper library, to show that it is possible for you to perform this
+task on your own, with whatever programming language you would like to use.&lt;/p&gt;
+
+&lt;p&gt;This tutorial assumes that you:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Have node.js installed locally on your machine.&lt;/li&gt;
+&lt;li&gt;Have curl installed locally on your machine.&lt;/li&gt;
+&lt;li&gt;Are running on Linux, OS X, or any other system that has access to a bash-like
+shell.&lt;/li&gt;
+&lt;li&gt;Are familiar with launching and running commands in a terminal.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In this tutorial we will learn:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;How to create a new account.&lt;/li&gt;
+&lt;li&gt;How to fund your account using friendbot&lt;/li&gt;
+&lt;li&gt;How to follow payments to your account using EventSource and Server-Sent Events.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;project-skeleton:ee7aa3ccb5ff4fc52fc070c8f2ca7d98&#34;&gt;Project Skeleton&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s get started by building our project skeleton:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ mkdir follow_tutorial
+$ cd follow_tutorial
+$ npm install --save stellar-base
+$ npm install --save eventsource
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This should have created a &lt;code&gt;package.json&lt;/code&gt; in the &lt;code&gt;follow_tutorial&lt;/code&gt; directory.
+You can check that everything went well by running the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ node -e &amp;quot;require(&#39;stellar-base&#39;)&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Everything was successful if no output it generated from the above command.  Now
+let&amp;rsquo;s write a script to create a new account.&lt;/p&gt;
+
+&lt;h2 id=&#34;creating-an-account:ee7aa3ccb5ff4fc52fc070c8f2ca7d98&#34;&gt;Creating an account&lt;/h2&gt;
+
+&lt;p&gt;Create a new file named &lt;code&gt;make_account.js&lt;/code&gt; and paste the following text into it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var Keypair = require(&amp;quot;stellar-base&amp;quot;).Keypair;
+
+var newAccount = Keypair.random();
+
+console.log(&amp;quot;New account created!&amp;quot;);
+console.log(&amp;quot;  Address: &amp;quot; + newAccount.address());
+console.log(&amp;quot;  Seed: &amp;quot; + newAccount.seed());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Save the file and run it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ node make_account.js
+New account created!
+  Address: gxk31VU4jeBBtdkUo4YKqCnd66iavjKvn36m1o7W95WtJfPW1g
+  Seed: s3SK8u5ghRvPmPNatUcCg8jCC4wbuYoBtZKnWjsxDRRn857Yrvc
+$  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Before our account can do anything it must be funded.  Indeed, before an account
+is funded it does not truly exist!&lt;/p&gt;
+
+&lt;h2 id=&#34;funding-your-account:ee7aa3ccb5ff4fc52fc070c8f2ca7d98&#34;&gt;Funding your account&lt;/h2&gt;
+
+&lt;p&gt;The Stellar test network provides a
+&lt;a href=&#34;http://en.wikipedia.org/wiki/Bitcoin_faucet&#34;&gt;currency faucet&lt;/a&gt; that provides
+free lumens for developers call Friendbot.  To fund you account, you simply
+execute the following curl command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ curl https://horizon-testnet.stellar.org/friendbot?addr=gxk31VU4jeBBtdkUo4YKqCnd66iavjKvn36m1o7W95WtJfPW1g
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Don&amp;rsquo;t forget to replace the address above with your own.  If the request
+succeeds, you should see a response like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+&amp;quot;hash&amp;quot;: &amp;quot;ed9e96e136915103f5d8978cbb2036628e811f2c59c4c3d88534444cf504e360&amp;quot;,
+&amp;quot;result&amp;quot;: &amp;quot;received&amp;quot;,
+&amp;quot;submission_result&amp;quot;: &amp;quot;000000000000000a0000000000000001000000000000000000000000&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After a few seconds, the Stellar network will perform consensus, close the
+ledger, and your account will have been created.  Next up we will write a script
+that watches for new payments to your account and outputs a message to the
+terminal.&lt;/p&gt;
+
+&lt;h2 id=&#34;following-payments:ee7aa3ccb5ff4fc52fc070c8f2ca7d98&#34;&gt;Following payments&lt;/h2&gt;
+
+&lt;h2 id=&#34;testing-it-out:ee7aa3ccb5ff4fc52fc070c8f2ca7d98&#34;&gt;Testing it out&lt;/h2&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Payments for account</title>
       <link>http://stellar.github.io/go-horizon/endpoint/payments_for_account/</link>
       <pubDate>Mon, 04 May 2015 21:06:23 -0700</pubDate>
@@ -355,8 +479,7 @@ curl https://horizon-testnet.stellar.org/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjL
 
 &lt;h2 id=&#34;response:6816b45c33d53d5b4428b5123e7485a5&#34;&gt;Response&lt;/h2&gt;
 
-&lt;p&gt;This endpoint responds with a &lt;a href=&#34;No page found with path or logical name &#34;resource/page.md&#34;.
-&#34;&gt;page&lt;/a&gt; of &lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/resource/operation/#payment&#34;&gt;payment operations&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This endpoint responds with a &lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/resource/page/&#34;&gt;page&lt;/a&gt; of &lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/resource/operation/#payment&#34;&gt;payment operations&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h3 id=&#34;example-1:6816b45c33d53d5b4428b5123e7485a5&#34;&gt;Example&lt;/h3&gt;
 
@@ -415,8 +538,7 @@ curl https://horizon-testnet.stellar.org/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjL
 &lt;h2 id=&#34;tutorials:6816b45c33d53d5b4428b5123e7485a5&#34;&gt;Tutorials&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;No page found with path or logical name &#34;tutorial/follow_received_payments.md&#34;.
-&#34;&gt;Follow payments sent to an account&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/tutorial/follow_received_payments/&#34;&gt;Follow payments sent to an account&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
@@ -575,7 +697,14 @@ valid URI before navigating to it.&lt;/p&gt;
       <guid>http://stellar.github.io/go-horizon/endpoint/transactions_create/</guid>
       <description>
 
-&lt;p&gt;Posts a new transaction to the Stellar Network.&lt;/p&gt;
+&lt;p&gt;Posts a new transaction to the Stellar Network.  Note that creating a valid
+transactions and signing it properly should be the responsibility of your
+&lt;a href=&#34;#&#34;&gt;client library&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Also note, this endpoint is presently a very thin wrapper around the raw
+transaction submission endpoint in stellar-core.  This endpoint will probably
+change quite soon to reflect more of the design choices made by the rest of
+horizon&lt;/p&gt;
 
 &lt;h2 id=&#34;request:d25076cb7570b8e48f0eda47b5eada67&#34;&gt;Request&lt;/h2&gt;
 
@@ -588,18 +717,20 @@ valid URI before navigating to it.&lt;/p&gt;
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th&gt;name&lt;/th&gt;
-&lt;th&gt;type&lt;/th&gt;
-&lt;th&gt;description&lt;/th&gt;
+&lt;th&gt;loc&lt;/th&gt;
+&lt;th&gt;notes&lt;/th&gt;
 &lt;th&gt;example&lt;/th&gt;
+&lt;th&gt;description&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code&gt;hash&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;string&lt;/td&gt;
-&lt;td&gt;A transaction hash, hex-encoded&lt;/td&gt;
-&lt;td&gt;6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;tx&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;body&lt;/td&gt;
+&lt;td&gt;required&lt;/td&gt;
+&lt;td&gt;899b2840ed5636c56ddc5f14b23975f79f1ba2388d2694e4c56ecdddc960e5ef&lt;br&gt;0000000a000000000000000100000000ffffffff000000010000000000000000&lt;br&gt;500e14fe9d7dc549e30244da424cfbcabe2166a55237897473d3f7358a086b48&lt;br&gt;00000000000009184e72a000000000000000000000000000000009184e72a000&lt;br&gt;00000001899b28402e992cc5fc6d7e0f888b7afa173a35d3ce87526bc37d8171&lt;br&gt;e2d9ee7f2715d1d4146a9026b13396ab8e7392f947caba1b00d398801b4644ae&lt;br&gt;5238f96f96ec7605&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -613,9 +744,93 @@ valid URI before navigating to it.&lt;/p&gt;
 
 &lt;h2 id=&#34;response:d25076cb7570b8e48f0eda47b5eada67&#34;&gt;Response&lt;/h2&gt;
 
+&lt;p&gt;This endpoint returns a resource that represents the result of initial
+submission of the provided transaction to stellar-core.&lt;/p&gt;
+
+&lt;h3 id=&#34;attributes:d25076cb7570b8e48f0eda47b5eada67&#34;&gt;Attributes&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Type&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;hash&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A hex-encoded hash of the submitted transaction.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;result&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;Distilled summary of the result.  See &amp;ldquo;Result&amp;rdquo; section below.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;submission_result&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;string&lt;/td&gt;
+&lt;td&gt;A hex-encoded &lt;code&gt;TransactionResult&lt;/code&gt; XDR object.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&#34;result:d25076cb7570b8e48f0eda47b5eada67&#34;&gt;Result&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;result&lt;/code&gt; attribute of a response from this endpoint can be one of the following values:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;code&gt;result&lt;/code&gt;&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;malformed&lt;/td&gt;
+&lt;td&gt;The transaction was suffiently malformed that we could not interpet it.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;already_finished&lt;/td&gt;
+&lt;td&gt;The hash for this transaction hash is either in the history database or is in the stellar core database.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;received&lt;/td&gt;
+&lt;td&gt;The transaction was submitted and received by stellar core, and will be included in consideration for a validared ledger&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;failed&lt;/td&gt;
+&lt;td&gt;The submission to stellar core failed, and was not recieved by the network.  Refer to the &lt;code&gt;submission_result&lt;/code&gt; for details.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;connection_failed&lt;/td&gt;
+&lt;td&gt;Horizon could not connect to stellar core.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
 &lt;h3 id=&#34;example-1:d25076cb7570b8e48f0eda47b5eada67&#34;&gt;Example&lt;/h3&gt;
 
+&lt;pre&gt;&lt;code&gt;{
+  &amp;quot;hash&amp;quot;: &amp;quot;802da5683737972e5a0a6d8d4960bb43a7be64a1dbc00549eeb31729f94c75f2&amp;quot;,
+  &amp;quot;result&amp;quot;: &amp;quot;failed&amp;quot;,
+  &amp;quot;submission_result&amp;quot;: &amp;quot;0000000000000000fffffffb&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h3 id=&#34;problems:d25076cb7570b8e48f0eda47b5eada67&#34;&gt;Problems&lt;/h3&gt;
+
+&lt;p&gt;This endpoint should only respond with [standard errors][se].&lt;/p&gt;
 </description>
     </item>
     
@@ -1073,6 +1288,125 @@ offers or payments, this offer will be filled when possible.&lt;/p&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Page</title>
+      <link>http://stellar.github.io/go-horizon/resource/page/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://stellar.github.io/go-horizon/resource/page/</guid>
+      <description>
+
+&lt;p&gt;Pages are objects that represent a subset of objects from a larger collection.
+As an example, it would be unfeasible to provide the&lt;br /&gt;
+&lt;a href=&#34;No page found with path or logical name &#34;endpoint/transactions_all.md&#34;.
+&#34;&gt;All Transactions&lt;/a&gt; endpoint without paging;  Over time there
+will be millions of transactions in the Stellar network&amp;rsquo;s ledger and returning
+them all over a single request would be unfeasible.&lt;/p&gt;
+
+&lt;h2 id=&#34;attributes:e35b73785af203bc9dd708890406fffd&#34;&gt;Attributes&lt;/h2&gt;
+
+&lt;p&gt;A page itself exposes no attributes.  It is merely a container for embedded
+records and some links to aid in iterating the entire collection the page is
+part of.&lt;/p&gt;
+
+&lt;h2 id=&#34;embedded-resources:e35b73785af203bc9dd708890406fffd&#34;&gt;Embedded Resources&lt;/h2&gt;
+
+&lt;p&gt;A page contains an embedded set of &lt;code&gt;records&lt;/code&gt;, regardless of the contained
+resource.&lt;/p&gt;
+
+&lt;h2 id=&#34;links:e35b73785af203bc9dd708890406fffd&#34;&gt;Links&lt;/h2&gt;
+
+&lt;p&gt;A page provides a couple of links to ease in iteration.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Example&lt;/th&gt;
+&lt;th&gt;Relation&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;self&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;prev&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions?cursor=12884905984&amp;amp;order=desc&amp;amp;limit=10&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The previous page of results&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;next&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;/transactions?cursor=12884905984&amp;amp;order=asc&amp;amp;limit=10&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;The next page of results&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;example:e35b73785af203bc9dd708890406fffd&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;
+{
+  &amp;quot;_embedded&amp;quot;: {
+    &amp;quot;records&amp;quot;: [
+      {
+        &amp;quot;_links&amp;quot;: {
+          &amp;quot;self&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/operations/12884905984&amp;quot;
+          },
+          &amp;quot;transaction&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/transaction/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a&amp;quot;
+          },
+          &amp;quot;precedes&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=asc{?limit}&amp;quot;,
+            &amp;quot;templated&amp;quot;: true
+          },
+          &amp;quot;succeeds&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=desc{?limit}&amp;quot;,
+            &amp;quot;templated&amp;quot;: true
+          }
+        },
+        &amp;quot;id&amp;quot;: 12884905984,
+        &amp;quot;paging_token&amp;quot;: &amp;quot;12884905984&amp;quot;,
+        &amp;quot;type&amp;quot;: 0,
+        &amp;quot;type_s&amp;quot;: &amp;quot;payment&amp;quot;,
+        &amp;quot;sender&amp;quot;: &amp;quot;gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC&amp;quot;,
+        &amp;quot;receiver&amp;quot;: &amp;quot;gsKuurNYgtBhTSFfsCaWqNb3Ze5Je9csKTSLfjo8Ko2b1f66ayZ&amp;quot;,
+        &amp;quot;currency&amp;quot;: {
+          &amp;quot;code&amp;quot;: &amp;quot;XLM&amp;quot;
+        },
+        &amp;quot;amount&amp;quot;: 1000000000,
+        &amp;quot;amount_f&amp;quot;: 100.00
+      }
+    ]
+  },
+  &amp;quot;_links&amp;quot;: {
+    &amp;quot;next&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=asc&amp;amp;limit=100&amp;quot;
+    },
+    &amp;quot;prev&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?cursor=12884905984&amp;amp;order=desc&amp;amp;limit=100&amp;quot;
+    },
+    &amp;quot;self&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/account/gspbxqXqEUZkiCCEFFCN9Vu4FLucdjLLdLcsV6E82Qc1T7ehsTC/payments?limit=100&amp;quot;
+    }
+  }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;endpoints:e35b73785af203bc9dd708890406fffd&#34;&gt;Endpoints&lt;/h2&gt;
+
+&lt;p&gt;Any endpoint that provides a collection of resources should represent them as
+pages.&lt;/p&gt;
 </description>
     </item>
     

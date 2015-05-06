@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  <title> Transaction Details &middot; Horizon </title>
+  <title> Tutorials &middot; Horizon </title>
 
   
   <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/poole.css">
@@ -20,7 +20,7 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
   
-  <link href="" rel="alternate" type="application/rss+xml" title="Horizon" />
+  <link href="http://stellar.github.io/go-horizon/tutorial/index.xml" rel="alternate" type="application/rss+xml" title="Horizon" />
 </head>
 
 <body>
@@ -78,64 +78,14 @@
 </div>
 
 
-<div class="content container">
-  <div class="post">
-    <h1>Transaction Details</h1>
+  <div class="content container">
+    <ul class="posts">
         
-
-<p>The transaction details endpoint provides information on a single transaction
-within the ledger. The transaction hash provided in the <code>hash</code> argument specifies
-which transaction to load</p>
-
-<h2 id="request:fe8abeb8cb7003c54c062db4b868bc2f">Request</h2>
-
-<pre><code>GET /transactions/{hash}
-</code></pre>
-
-<h3 id="arguments:fe8abeb8cb7003c54c062db4b868bc2f">Arguments</h3>
-
-<table>
-<thead>
-<tr>
-<th>name</th>
-<th>type</th>
-<th>description</th>
-<th>example</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>hash</code></td>
-<td>string</td>
-<td>A transaction hash, hex-encoded</td>
-<td>6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a</td>
-</tr>
-</tbody>
-</table>
-
-<h3 id="example:fe8abeb8cb7003c54c062db4b868bc2f">Example</h3>
-
-<pre><code>curl https://horizon-testnet.stellar.org/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a
-</code></pre>
-
-<h2 id="response:fe8abeb8cb7003c54c062db4b868bc2f">Response</h2>
-
-<p>This endpoint responds with a single Transaction.  See <a href="/go-horizon/resource/transaction/">transaction resource</a> for reference.</p>
-
-<h3 id="example-1:fe8abeb8cb7003c54c062db4b868bc2f">Example</h3>
-
-<p>TODO</p>
-
-<h3 id="problems:fe8abeb8cb7003c54c062db4b868bc2f">Problems</h3>
-
-<ul>
-<li>The <a href="/go-horizon/guide/problems/#standard_errors">standard errors</a>.</li>
-<li><a href="/go-horizon/problem/not_found/">not_found</a>: A <code>not_found</code> problem will be returned if there is no transaction in the ledger whose hash matches the <code>hash</code> argument.</li>
-</ul>
-
+        <li>
+          <span><a href="http://stellar.github.io/go-horizon/tutorial/follow_received_payments/">Follow payments sent to an account (Node.js)</a> <time class="pull-right post-list">Wed, May 6, 2015</time></span>
+        </li>
+        
+    </ul>
   </div>
-</div>
-
 </body>
 </html>
