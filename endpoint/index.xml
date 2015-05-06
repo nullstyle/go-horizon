@@ -57,8 +57,7 @@ which transaction to load&lt;/p&gt;
 &lt;h2 id=&#34;problems:fe8abeb8cb7003c54c062db4b868bc2f&#34;&gt;Problems&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;No page found with path or logical name &#34;problem/not_found.md&#34;.
-&#34;&gt;not_found&lt;/a&gt;: A &lt;code&gt;not_found&lt;/code&gt; problem will be returned if there is no transaction in the ledger whose hash matches the &lt;code&gt;hash&lt;/code&gt; argument.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://stellar.github.io/go-horizon/go-horizon/problem/not_found/&#34;&gt;not_found&lt;/a&gt;: A &lt;code&gt;not_found&lt;/code&gt; problem will be returned if there is no transaction in the ledger whose hash matches the &lt;code&gt;hash&lt;/code&gt; argument.&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>

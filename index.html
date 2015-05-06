@@ -37,6 +37,10 @@
       
         <li><a href="/go-horizon/guide/intro/">Introduction</a></li>
       
+        <li><a href="/go-horizon/guide/responses/">Response Format</a></li>
+      
+        <li><a href="/go-horizon/guide/xdr/">XDR</a></li>
+      
 
       <li>Resources</li>
       
@@ -51,6 +55,10 @@
       
 
       <li>Problems</li>
+      
+        <li><a href="/go-horizon/problem/not_found/"> Not Found </a></li>
+      
+        <li><a href="/go-horizon/problem/server_error/"> Server Error </a></li>
       
     </ul>
   </div>
@@ -70,7 +78,7 @@
 
   
 
-<p>Horizon is the client facing API server for the Stellar ecosystem.  See <a href="TODO">an overview of the Stellar ecosystem</a> for more details.</p>
+<p>Horizon is the client facing API server for the Stellar ecosystem.  See <a href="#">an overview of the Stellar ecosystem</a> for more details.</p>
 
 <p>Horizon provides three significant portions of functionality:  The Transactions API, the History API, and the Trading API.</p>
 
@@ -79,6 +87,16 @@
 <p>The Transactions API exists to help you make transactions against the Stellar network.  It provides ways to help you create valid transactions, such as providing an account&rsquo;s sequence number or latest known balances.</p>
 
 <p>In addition to the read endpoints, the Transactions API also provides the endpoint to submit transactions.</p>
+
+<h3 id="important-endpoints:34c4da6d4768d05e50db99357a299b5c">Important Endpoints</h3>
+
+<ul>
+<li><a href="No page found with path or logical name "endpoint/transactions_create.md".
+">Post transaction</a></li>
+<li><a href="No page found with path or logical name "endpoint/accounts_one.md".
+">Account details</a></li>
+<li><a href="#">Calculate payment path</a></li>
+</ul>
 
 <h2 id="history-api:34c4da6d4768d05e50db99357a299b5c">History API</h2>
 
@@ -91,7 +109,134 @@
 <li>Load trade history for a given order book</li>
 </ul>
 
+<h3 id="important-endpoints-1:34c4da6d4768d05e50db99357a299b5c">Important Endpoints</h3>
+
+<ul>
+<li><a href="No page found with path or logical name "endpoint/transactions_for_account.md".
+">Transactions for account</a></li>
+<li><a href="No page found with path or logical name "endpoint/transactions_one.md".
+">Transaction fetails</a></li>
+<li><a href="No page found with path or logical name "endpoint/ledgers_all.md".
+">All ledgers</a></li>
+</ul>
+
 <h2 id="trading-api:34c4da6d4768d05e50db99357a299b5c">Trading API</h2>
+
+<p>The Trading API provides endpoints for retrieving data about the distributed
+currency exchange within stellar.  It provides data regarding open offers to
+exchange currency (often called an order book) and also provides data about
+trades that were executed within the exchange.</p>
+
+<h3 id="important-endpoints-2:34c4da6d4768d05e50db99357a299b5c">Important Endpoints</h3>
+
+<ul>
+<li><a href="#">Orderbook details</a></li>
+<li><a href="#">Trades for orderbook</a></li>
+</ul>
+
+  </div>
+
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://stellar.github.io/go-horizon/guide/responses/">
+        Response Format
+      </a>
+    </h1>
+
+  
+
+<p>Rather than using a fully custom way of representing the resources we expose in
+Horizon, we use <a href="http://stateless.co/hal_specification.html">HAL</a>. HAL is a
+hypermedia format in JSON that remains simple while giving us a couple of
+benefits such as simpler client integration for several languages. See <a href="https://github.com/mikekelly/hal_specification/wiki/Libraries">this
+wiki page</a> for a
+list of libraries.</p>
+
+<h2 id="attributes-links-embedded-resources:a9fd9c163aecade52fef4c416dfaef41">Attributes, Links, Embedded Resources</h2>
+
+<p>At its simplest, a HAL response is just a JSON object with a couple of reserved
+property names:  <code>_links</code> is used for expressing links and <code>_embedded</code> is used
+for bundling other HAL objects with the response.  Other than links and embedded
+objects, <strong>HAL is just JSON</strong>.</p>
+
+<h3 id="links:a9fd9c163aecade52fef4c416dfaef41">Links</h3>
+
+<p>HAL is a hypermedia format, like HTML, in that it has a mechanism to express
+links between documents.  Let&rsquo;s look at a simple example:</p>
+
+<pre><code class="language-json">{
+  &quot;_links&quot;: {
+    &quot;self&quot;: {
+      &quot;href&quot;: &quot;/ledgers/1&quot;
+    },
+    &quot;transactions&quot;: {
+      &quot;href&quot;: &quot;/ledgers/1/transactions{?cursor}{?limit}{?order}&quot;,
+      &quot;templated&quot;: true
+    }
+  },
+  &quot;id&quot;: &quot;43cf4db3741a7d6c2322e7b646320ce9d7b099a0b3501734dcf70e74a8a4e637&quot;,
+  &quot;hash&quot;: &quot;43cf4db3741a7d6c2322e7b646320ce9d7b099a0b3501734dcf70e74a8a4e637&quot;,
+  &quot;prev_hash&quot;: &quot;&quot;,
+  &quot;sequence&quot;: 1,
+  &quot;transaction_count&quot;: 0,
+  &quot;operation_count&quot;: 0,
+  &quot;closed_at&quot;: &quot;0001-01-01T00:00:00Z&quot;
+}
+</code></pre>
+
+<p>The above response is for the genesis ledger of the Stellar test network, and
+the links in the <code>_links</code> attribute provide links to other relavant resources in
+Horizon.  Notice the object beneath the <code>transactions</code> key.  The key of each
+link specifies that links relation to the current resource, and in this case
+<code>transactions</code> means &ldquo;Transactions that occurred in this ledger&rdquo;.  Logically,
+you should expect that resource to respond with a collection of transactions
+with all of the results having a <code>ledger_sequence</code> attribute equal to 1.</p>
+
+<p>The <code>transactions</code> link is also <em>templated</em>, which means that the <code>href</code>
+attribute of the link is actually a URI template, as specified by  <a href="https://tools.ietf.org/html/rfc6570">RFC
+6570</a>.  We use URI templates to show you
+what parameters a give resource can take. You must evaluate the template to a
+valid URI before navigating to it.</p>
+
+<h2 id="pages:a9fd9c163aecade52fef4c416dfaef41">Pages</h2>
+
+<p>TODO</p>
+
+  </div>
+
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://stellar.github.io/go-horizon/guide/xdr/">
+        XDR
+      </a>
+    </h1>
+
+  
+
+<p><strong>XDR</strong>, also known as <em>External Data Representation</em>, is used extensively in
+the Stellar Network, especially the core.  The ledger, transactions, results,
+history, and even the messages passed between computers running stellar-core
+are encoded using XDR.</p>
+
+<p>XDR is specified in <a href="http://tools.ietf.org/html/rfc4506.html">RFC 4506</a>.</p>
+
+<p>Since XDR is a binary format, not known as widely as JSON for example, we try
+to hide most of it from Horizon.  Instead, we opt to interpret the XDR for you
+and present the values as JSON attributes.  That said, we also expose the XDR
+to your so you can get access to the raw, canonical data.</p>
+
+<p><strong>NOTE: While Horizon is in development, you can get the most complete access
+access to data by reading XDR.</strong></p>
+
+<p>In general, horizon will render the xdr structures encoded in base64 so that it
+is capable to transmit within a json body.  You should decode the base64 string
+into a byte stream, then decode the XDR into in memory data structures.</p>
+
+<h2 id="x-files:2595d1709209958e0298f70dd5898c25">.X files</h2>
+
+<p>Data structures in XDR are specified in an <em>interface definition file</em> (IDL).<br />
+The IDL files used for the Stellar Network are available
+<a href="https://github.com/stellar/stellar-core/tree/master/src/xdr">on github</a>.</p>
 
   </div>
 
@@ -715,8 +860,7 @@ which transaction to load</p>
 <h2 id="problems:fe8abeb8cb7003c54c062db4b868bc2f">Problems</h2>
 
 <ul>
-<li><a href="No page found with path or logical name "problem/not_found.md".
-">not_found</a>: A <code>not_found</code> problem will be returned if there is no transaction in the ledger whose hash matches the <code>hash</code> argument.</li>
+<li><a href="/go-horizon/problem/not_found/">not_found</a>: A <code>not_found</code> problem will be returned if there is no transaction in the ledger whose hash matches the <code>hash</code> argument.</li>
 </ul>
 
   </div>
@@ -724,6 +868,87 @@ which transaction to load</p>
 
 
 
+
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://stellar.github.io/go-horizon/problem/not_found/">
+        Problem: Not Found
+      </a>
+    </h1>
+
+  
+
+<p>A <code>not_found</code> problem is returned from horizon when the resource a client is
+requesting is not found.  This is similar to a &ldquo;404 Not Found&rdquo; error response
+you get from HTTP.</p>
+
+<h2 id="example:7c9f872d85877c754d4fe264c1426309">Example</h2>
+
+<pre><code class="language-json">{
+  &quot;type&quot;:     &quot;https://www.stellar.org/docs/horizon/problems/not_found&quot;,
+  &quot;title&quot;:    &quot;Resource Missing&quot;,
+  &quot;status&quot;:   404,
+  &quot;details&quot;:  &quot;The resource .... not found.&quot;,
+  &quot;instance&quot;: &quot;d3465740-ec3a-4a0b-9d4a-c9ea734ce58a&quot;
+}
+</code></pre>
+
+<h2 id="tips-for-resolution:7c9f872d85877c754d4fe264c1426309">Tips for resolution</h2>
+
+<ul>
+<li><p>Ensure that the URL is correct, pay special attention to any path parameters,
+as this is usually where something is wrong.  Additionally, you should be
+never see this error message when navigating from a link read from a response.</p></li>
+
+<li><p>Ensure the data exists. For example, if you are requesting the details of a
+transaction, you will receive a <code>not_found</code> error in the event that the
+transaction you are requesting failed.</p></li>
+</ul>
+
+  </div>
+
+  <div class="post">
+    <h1 class="post-title">
+      <a href="http://stellar.github.io/go-horizon/problem/server_error/">
+        Problem: Internal Server Error
+      </a>
+    </h1>
+
+  
+
+<p>A <code>server_error</code> problem is returned from horizon when an error occurs within
+the code for horizon.  This error code is a catchall, and it could reflect any
+number of errors in the server:  A configuration mistake, a database connection
+error, a bug, etc.</p>
+
+<p><strong>NOTE: Even though Horizon is an open source project, we do not directly expose error information such as stack traces or raw error messages, as they may exposes sensitive configuration data such as secret keys.</strong></p>
+
+<h2 id="example:aa71694a89403024ff525f885c257750">Example</h2>
+
+<pre><code class="language-json">{
+  &quot;type&quot;:     &quot;https://www.stellar.org/docs/horizon/problems/server_error&quot;,
+  &quot;title&quot;:    &quot;Internal Server Error&quot;,
+  &quot;status&quot;:   500,
+  &quot;details&quot;:  &quot;...&quot;,
+  &quot;instance&quot;: &quot;d3465740-ec3a-4a0b-9d4a-c9ea734ce58a&quot;
+}
+</code></pre>
+
+<h2 id="tips-for-resolution:aa71694a89403024ff525f885c257750">Tips for resolution</h2>
+
+<ul>
+<li><p>If you are encountering this problem on a server you control, please check the
+horizon log files for more details.  The logs should contain stack traces and
+more detailed information to help you discover the root issue.</p></li>
+
+<li><p>If encountering this problem on the public stellar infrastructure, report an
+issue on <a href="#">horizon&rsquo;s issue tracker</a>.  Please include at a minimum the
+<code>instance</code>   attribute from the problem response, but additional information
+such as the original request that triggered the problem is always welcome and
+speeds our ability to identify the problem.</p></li>
+</ul>
+
+  </div>
 
 
 </div>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-  <title> Transaction Details &middot; Horizon </title>
+  <title> Problem: Internal Server Error &middot; Horizon </title>
 
   
   <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/poole.css">
@@ -67,50 +67,39 @@
 
 <div class="content container">
   <div class="post">
-    <h1>Transaction Details</h1>
+    <h1>Problem: Internal Server Error</h1>
         
 
-<p>The transaction details endpoint provides information on a single transaction
-within the ledger. The transaction hash provided in the <code>hash</code> argument specifies
-which transaction to load</p>
+<p>A <code>server_error</code> problem is returned from horizon when an error occurs within
+the code for horizon.  This error code is a catchall, and it could reflect any
+number of errors in the server:  A configuration mistake, a database connection
+error, a bug, etc.</p>
 
-<p>URL Template: <code>/transactions/{hash}</code></p>
+<p><strong>NOTE: Even though Horizon is an open source project, we do not directly expose error information such as stack traces or raw error messages, as they may exposes sensitive configuration data such as secret keys.</strong></p>
 
-<h2 id="arguments:fe8abeb8cb7003c54c062db4b868bc2f">Arguments</h2>
+<h2 id="example:aa71694a89403024ff525f885c257750">Example</h2>
 
-<table>
-<thead>
-<tr>
-<th>name</th>
-<th>type</th>
-<th>description</th>
-<th>example</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td><code>hash</code></td>
-<td>string</td>
-<td>A transaction hash, hex-encoded</td>
-<td>6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="example-request:fe8abeb8cb7003c54c062db4b868bc2f">Example Request</h2>
-
-<pre><code>curl TODO/transactions/6391dd190f15f7d1665ba53c63842e368f485651a53d8d852ed442a446d1c69a
+<pre><code class="language-json">{
+  &quot;type&quot;:     &quot;https://www.stellar.org/docs/horizon/problems/server_error&quot;,
+  &quot;title&quot;:    &quot;Internal Server Error&quot;,
+  &quot;status&quot;:   500,
+  &quot;details&quot;:  &quot;...&quot;,
+  &quot;instance&quot;: &quot;d3465740-ec3a-4a0b-9d4a-c9ea734ce58a&quot;
+}
 </code></pre>
 
-<h2 id="response:fe8abeb8cb7003c54c062db4b868bc2f">Response</h2>
-
-<p>This endpoint responds with a single Transaction.  See <a href="/go-horizon/resource/transaction/">transaction resource</a> for reference.</p>
-
-<h2 id="problems:fe8abeb8cb7003c54c062db4b868bc2f">Problems</h2>
+<h2 id="tips-for-resolution:aa71694a89403024ff525f885c257750">Tips for resolution</h2>
 
 <ul>
-<li><a href="/go-horizon/problem/not_found/">not_found</a>: A <code>not_found</code> problem will be returned if there is no transaction in the ledger whose hash matches the <code>hash</code> argument.</li>
+<li><p>If you are encountering this problem on a server you control, please check the
+horizon log files for more details.  The logs should contain stack traces and
+more detailed information to help you discover the root issue.</p></li>
+
+<li><p>If encountering this problem on the public stellar infrastructure, report an
+issue on <a href="#">horizon&rsquo;s issue tracker</a>.  Please include at a minimum the
+<code>instance</code>   attribute from the problem response, but additional information
+such as the original request that triggered the problem is always welcome and
+speeds our ability to identify the problem.</p></li>
 </ul>
 
   </div>

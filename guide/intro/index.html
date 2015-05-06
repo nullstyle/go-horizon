@@ -37,6 +37,10 @@
       
         <li><a href="/go-horizon/guide/intro/">Introduction</a></li>
       
+        <li><a href="/go-horizon/guide/responses/">Response Format</a></li>
+      
+        <li><a href="/go-horizon/guide/xdr/">XDR</a></li>
+      
 
       <li>Resources</li>
       
@@ -52,6 +56,10 @@
 
       <li>Problems</li>
       
+        <li><a href="/go-horizon/problem/not_found/"> Not Found </a></li>
+      
+        <li><a href="/go-horizon/problem/server_error/"> Server Error </a></li>
+      
     </ul>
   </div>
 </div>
@@ -62,7 +70,7 @@
     <h1>Introduction</h1>
         
 
-<p>Horizon is the client facing API server for the Stellar ecosystem.  See <a href="TODO">an overview of the Stellar ecosystem</a> for more details.</p>
+<p>Horizon is the client facing API server for the Stellar ecosystem.  See <a href="#">an overview of the Stellar ecosystem</a> for more details.</p>
 
 <p>Horizon provides three significant portions of functionality:  The Transactions API, the History API, and the Trading API.</p>
 
@@ -71,6 +79,16 @@
 <p>The Transactions API exists to help you make transactions against the Stellar network.  It provides ways to help you create valid transactions, such as providing an account&rsquo;s sequence number or latest known balances.</p>
 
 <p>In addition to the read endpoints, the Transactions API also provides the endpoint to submit transactions.</p>
+
+<h3 id="important-endpoints:34c4da6d4768d05e50db99357a299b5c">Important Endpoints</h3>
+
+<ul>
+<li><a href="No page found with path or logical name "endpoint/transactions_create.md".
+">Post transaction</a></li>
+<li><a href="No page found with path or logical name "endpoint/accounts_one.md".
+">Account details</a></li>
+<li><a href="#">Calculate payment path</a></li>
+</ul>
 
 <h2 id="history-api:34c4da6d4768d05e50db99357a299b5c">History API</h2>
 
@@ -83,7 +101,30 @@
 <li>Load trade history for a given order book</li>
 </ul>
 
+<h3 id="important-endpoints-1:34c4da6d4768d05e50db99357a299b5c">Important Endpoints</h3>
+
+<ul>
+<li><a href="No page found with path or logical name "endpoint/transactions_for_account.md".
+">Transactions for account</a></li>
+<li><a href="No page found with path or logical name "endpoint/transactions_one.md".
+">Transaction fetails</a></li>
+<li><a href="No page found with path or logical name "endpoint/ledgers_all.md".
+">All ledgers</a></li>
+</ul>
+
 <h2 id="trading-api:34c4da6d4768d05e50db99357a299b5c">Trading API</h2>
+
+<p>The Trading API provides endpoints for retrieving data about the distributed
+currency exchange within stellar.  It provides data regarding open offers to
+exchange currency (often called an order book) and also provides data about
+trades that were executed within the exchange.</p>
+
+<h3 id="important-endpoints-2:34c4da6d4768d05e50db99357a299b5c">Important Endpoints</h3>
+
+<ul>
+<li><a href="#">Orderbook details</a></li>
+<li><a href="#">Trades for orderbook</a></li>
+</ul>
 
   </div>
 </div>

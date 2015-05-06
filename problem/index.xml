@@ -2,19 +2,61 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Problems on Horizon</title>
-    <link>http://localhost:1313/go-horizon/problem/</link>
+    <link>http://stellar.github.io/go-horizon/problem/</link>
     <description>Recent content in Problems on Horizon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 04 May 2015 20:03:27 -0700</lastBuildDate>
-    <atom:link href="http://localhost:1313/go-horizon/problem/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://stellar.github.io/go-horizon/problem/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Problem: Internal Server Error</title>
+      <link>http://stellar.github.io/go-horizon/problem/server_error/</link>
+      <pubDate>Mon, 04 May 2015 20:03:27 -0700</pubDate>
+      
+      <guid>http://stellar.github.io/go-horizon/problem/server_error/</guid>
+      <description>
+
+&lt;p&gt;A &lt;code&gt;server_error&lt;/code&gt; problem is returned from horizon when an error occurs within
+the code for horizon.  This error code is a catchall, and it could reflect any
+number of errors in the server:  A configuration mistake, a database connection
+error, a bug, etc.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;NOTE: Even though Horizon is an open source project, we do not directly expose error information such as stack traces or raw error messages, as they may exposes sensitive configuration data such as secret keys.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;example:aa71694a89403024ff525f885c257750&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;type&amp;quot;:     &amp;quot;https://www.stellar.org/docs/horizon/problems/server_error&amp;quot;,
+  &amp;quot;title&amp;quot;:    &amp;quot;Internal Server Error&amp;quot;,
+  &amp;quot;status&amp;quot;:   500,
+  &amp;quot;details&amp;quot;:  &amp;quot;...&amp;quot;,
+  &amp;quot;instance&amp;quot;: &amp;quot;d3465740-ec3a-4a0b-9d4a-c9ea734ce58a&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;tips-for-resolution:aa71694a89403024ff525f885c257750&#34;&gt;Tips for resolution&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;If you are encountering this problem on a server you control, please check the
+horizon log files for more details.  The logs should contain stack traces and
+more detailed information to help you discover the root issue.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;If encountering this problem on the public stellar infrastructure, report an
+issue on &lt;a href=&#34;#&#34;&gt;horizon&amp;rsquo;s issue tracker&lt;/a&gt;.  Please include at a minimum the
+&lt;code&gt;instance&lt;/code&gt;   attribute from the problem response, but additional information
+such as the original request that triggered the problem is always welcome and
+speeds our ability to identify the problem.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Problem: Not Found</title>
-      <link>http://localhost:1313/go-horizon/problem/not_found/</link>
+      <link>http://stellar.github.io/go-horizon/problem/not_found/</link>
       <pubDate>Mon, 04 May 2015 20:03:27 -0700</pubDate>
       
-      <guid>http://localhost:1313/go-horizon/problem/not_found/</guid>
+      <guid>http://stellar.github.io/go-horizon/problem/not_found/</guid>
       <description>
 
 &lt;p&gt;A &lt;code&gt;not_found&lt;/code&gt; problem is returned from horizon when the resource a client is

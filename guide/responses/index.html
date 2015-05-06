@@ -10,9 +10,9 @@
   <title> Response Format &middot; Horizon </title>
 
   
-  <link rel="stylesheet" href="http://localhost:1313/go-horizon/css/poole.css">
-  <link rel="stylesheet" href="http://localhost:1313/go-horizon/css/syntax.css">
-  <link rel="stylesheet" href="http://localhost:1313/go-horizon/css/hyde.css">
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/poole.css">
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/syntax.css">
+  <link rel="stylesheet" href="http://stellar.github.io/go-horizon/css/hyde.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
 
   
@@ -39,14 +39,12 @@
       
         <li><a href="/go-horizon/guide/responses/">Response Format</a></li>
       
+        <li><a href="/go-horizon/guide/xdr/">XDR</a></li>
+      
 
       <li>Resources</li>
       
         <li><a href="/go-horizon/resource/transaction/"> Transaction </a></li>
-      
-        <li><a href="/go-horizon/resource/effect/"> Effect </a></li>
-      
-        <li><a href="/go-horizon/resource/ledger/"> Ledger </a></li>
       
         <li><a href="/go-horizon/resource/operation/"> Operation </a></li>
       
@@ -58,6 +56,10 @@
 
       <li>Problems</li>
       
+        <li><a href="/go-horizon/problem/not_found/"> Not Found </a></li>
+      
+        <li><a href="/go-horizon/problem/server_error/"> Server Error </a></li>
+      
     </ul>
   </div>
 </div>
@@ -66,13 +68,67 @@
 <div class="content container">
   <div class="post">
     <h1>Response Format</h1>
-        <p>Rather than using a fully custom way of representing the resources we expose in Horizon, we use <a href="http://stateless.co/hal_specification.html">HAL</a>. HAL is a hypermedia format in JSON that remains simple while giving us a couple of benefits such as simpler client integration for several languages. See <a href="https://github.com/mikekelly/hal_specification/wiki/Libraries">this wiki page</a> for a list of libraries.</p>
+        
+
+<p>Rather than using a fully custom way of representing the resources we expose in
+Horizon, we use <a href="http://stateless.co/hal_specification.html">HAL</a>. HAL is a
+hypermedia format in JSON that remains simple while giving us a couple of
+benefits such as simpler client integration for several languages. See <a href="https://github.com/mikekelly/hal_specification/wiki/Libraries">this
+wiki page</a> for a
+list of libraries.</p>
+
+<h2 id="attributes-links-embedded-resources:a9fd9c163aecade52fef4c416dfaef41">Attributes, Links, Embedded Resources</h2>
+
+<p>At its simplest, a HAL response is just a JSON object with a couple of reserved
+property names:  <code>_links</code> is used for expressing links and <code>_embedded</code> is used
+for bundling other HAL objects with the response.  Other than links and embedded
+objects, <strong>HAL is just JSON</strong>.</p>
+
+<h3 id="links:a9fd9c163aecade52fef4c416dfaef41">Links</h3>
+
+<p>HAL is a hypermedia format, like HTML, in that it has a mechanism to express
+links between documents.  Let&rsquo;s look at a simple example:</p>
+
+<pre><code class="language-json">{
+  &quot;_links&quot;: {
+    &quot;self&quot;: {
+      &quot;href&quot;: &quot;/ledgers/1&quot;
+    },
+    &quot;transactions&quot;: {
+      &quot;href&quot;: &quot;/ledgers/1/transactions{?cursor}{?limit}{?order}&quot;,
+      &quot;templated&quot;: true
+    }
+  },
+  &quot;id&quot;: &quot;43cf4db3741a7d6c2322e7b646320ce9d7b099a0b3501734dcf70e74a8a4e637&quot;,
+  &quot;hash&quot;: &quot;43cf4db3741a7d6c2322e7b646320ce9d7b099a0b3501734dcf70e74a8a4e637&quot;,
+  &quot;prev_hash&quot;: &quot;&quot;,
+  &quot;sequence&quot;: 1,
+  &quot;transaction_count&quot;: 0,
+  &quot;operation_count&quot;: 0,
+  &quot;closed_at&quot;: &quot;0001-01-01T00:00:00Z&quot;
+}
+</code></pre>
+
+<p>The above response is for the genesis ledger of the Stellar test network, and
+the links in the <code>_links</code> attribute provide links to other relavant resources in
+Horizon.  Notice the object beneath the <code>transactions</code> key.  The key of each
+link specifies that links relation to the current resource, and in this case
+<code>transactions</code> means &ldquo;Transactions that occurred in this ledger&rdquo;.  Logically,
+you should expect that resource to respond with a collection of transactions
+with all of the results having a <code>ledger_sequence</code> attribute equal to 1.</p>
+
+<p>The <code>transactions</code> link is also <em>templated</em>, which means that the <code>href</code>
+attribute of the link is actually a URI template, as specified by  <a href="https://tools.ietf.org/html/rfc6570">RFC
+6570</a>.  We use URI templates to show you
+what parameters a give resource can take. You must evaluate the template to a
+valid URI before navigating to it.</p>
+
+<h2 id="pages:a9fd9c163aecade52fef4c416dfaef41">Pages</h2>
+
+<p>TODO</p>
 
   </div>
 </div>
 
-<script>document.write('<script src="http://'
-        + (location.host || 'localhost').split(':')[0]
-		+ ':1313/livereload.js?mindelay=10"></'
-        + 'script>')</script></body>
+</body>
 </html>
