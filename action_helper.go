@@ -34,19 +34,23 @@ type ActionHelper struct {
 	err error
 }
 
+// Err returns the first error that was encountered while extracting paramters
+// from the action.
 func (a *ActionHelper) Err() error {
 	return a.err
 }
 
+//App retrieves the instance of App that this request is bound to
 func (a *ActionHelper) App() *App {
 	return a.c.Env["app"].(*App)
 }
 
+// Context returns the context for the request
 func (a *ActionHelper) Context() context.Context {
 	return gctx.FromC(a.c)
 }
 
-// Gets a string from either the URLParams or query string.
+// GetString retrieves a string from either the URLParams or query string.
 // This method prioritizes the URLParams over the Query.
 //
 // TODO: Add form support, prioritized over query
@@ -55,15 +59,17 @@ func (a *ActionHelper) GetString(name string) string {
 		return ""
 	}
 
-	fromUrl, ok := a.c.URLParams[name]
+	fromURL, ok := a.c.URLParams[name]
 
 	if ok {
-		return fromUrl
+		return fromURL
 	}
 
 	return a.r.URL.Query().Get(name)
 }
 
+// GetInt64 retrieves an int64 from the action parameter of the given name.
+// Populates err if the value is not a valid int64
 func (a *ActionHelper) GetInt64(name string) int64 {
 	if a.err != nil {
 		return 0
@@ -85,6 +91,8 @@ func (a *ActionHelper) GetInt64(name string) int64 {
 	return asI64
 }
 
+// GetInt32 retrieves an int32 from the action parameter of the given name.
+// Populates err if the value is not a valid int32
 func (a *ActionHelper) GetInt32(name string) int32 {
 	if a.err != nil {
 		return 0
@@ -106,6 +114,8 @@ func (a *ActionHelper) GetInt32(name string) int32 {
 	return int32(asI64)
 }
 
+// GetPagingParams returns the cursor/order/limit triplet that is the
+// standard way of communicating paging data to a horizon endpoint.
 func (a *ActionHelper) GetPagingParams() (cursor string, order string, limit int32) {
 	if a.err != nil {
 		return
@@ -122,6 +132,8 @@ func (a *ActionHelper) GetPagingParams() (cursor string, order string, limit int
 	return
 }
 
+// GetPageQuery is a helper that returns a new db.PageQuery struct initialized
+// using the results from a call to GetPagingParams()
 func (a *ActionHelper) GetPageQuery() db.PageQuery {
 	r, err := db.NewPageQuery(a.GetPagingParams())
 	a.err = err
