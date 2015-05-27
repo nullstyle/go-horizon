@@ -1,12 +1,14 @@
 package horizon
 
 import (
-	gctx "github.com/goji/context"
-	"github.com/stellar/go-horizon/db"
-	"github.com/zenazn/goji/web"
-	"golang.org/x/net/context"
 	"net/http"
 	"strconv"
+
+	gctx "github.com/goji/context"
+	"github.com/stellar/go-horizon/db"
+	"github.com/stellar/go-stellar-base"
+	"github.com/zenazn/goji/web"
+	"golang.org/x/net/context"
 )
 
 // ActionHelper wraps the goji context and provides helper functions
@@ -109,7 +111,6 @@ func (a *ActionHelper) GetPagingParams() (cursor string, order string, limit int
 		return
 	}
 
-	// TODO: check for Last-Event-Id first
 	cursor = a.GetString("cursor")
 	order = a.GetString("order")
 	limit = a.GetInt32("limit")
@@ -125,4 +126,20 @@ func (a *ActionHelper) GetPageQuery() db.PageQuery {
 	r, err := db.NewPageQuery(a.GetPagingParams())
 	a.err = err
 	return r
+}
+
+// GetAddress reads a base58-check encoded address from the provided parameter
+// name.  If the value is not a valid Stellar address, an error is set on the
+// ActionHelper.
+func (a *ActionHelper) GetAddress(name string) string {
+	if a.err != nil {
+		return ""
+	}
+
+	address := a.GetString(name)
+
+	_, err := stellarbase.DecodeBase58Check(stellarbase.VersionByteAccountID, address)
+	a.err = err
+
+	return address
 }

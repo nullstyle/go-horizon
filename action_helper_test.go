@@ -110,5 +110,48 @@ func TestActionHelper(t *testing.T) {
 			So(cursor, ShouldEqual, "from_header")
 		})
 
+		Convey("GetAddress", func() {
+			c := web.C{
+				Env: make(map[interface{}]interface{}),
+			}
+			c.URLParams = map[string]string{
+				"blank":     "",
+				"two":       "2",
+				"seed":      "s3Fy8h5LEcYVE8aofthKWHeJpygbntw5HgcekFw93K6XqTW4gEx",
+				"addy_path": "gQANmQ3bQkt6VbPrqGmKHq1EuT2cRkFsftDfEhWqdvJgTiibyu",
+			}
+			r, _ := http.NewRequest("GET", "/?addy=gQANmQ3bQkt6VbPrqGmKHq1EuT2cRkFsftDfEhWqdvJgTiibyu", nil)
+			ah := &ActionHelper{c: c, r: r}
+
+			Convey("works for valid addresses", func() {
+				found := ah.GetAddress("addy")
+				So(ah.Err(), ShouldBeNil)
+				So(found, ShouldEqual, "gQANmQ3bQkt6VbPrqGmKHq1EuT2cRkFsftDfEhWqdvJgTiibyu")
+				found = ah.GetAddress("addy_path")
+				So(ah.Err(), ShouldBeNil)
+				So(found, ShouldEqual, "gQANmQ3bQkt6VbPrqGmKHq1EuT2cRkFsftDfEhWqdvJgTiibyu")
+			})
+
+			Convey("Sets an error for non-existent fields", func() {
+				_ = ah.GetAddress("not_present")
+				So(ah.Err(), ShouldNotBeNil)
+			})
+
+			Convey("Sets an error for blank fields", func() {
+				_ = ah.GetAddress("blank")
+				So(ah.Err(), ShouldNotBeNil)
+			})
+
+			Convey("Sets an error for non-address (number) fields", func() {
+				_ = ah.GetAddress("two")
+				So(ah.Err(), ShouldNotBeNil)
+			})
+
+			Convey("Sets an error for non-address (seed) fields", func() {
+				_ = ah.GetAddress("seed")
+				So(ah.Err(), ShouldNotBeNil)
+			})
+		})
+
 	})
 }
