@@ -22,8 +22,8 @@ func NewTestApp() *App {
 
 func NewTestConfig() Config {
 	return Config{
-		DatabaseUrl:            test.DatabaseUrl(),
-		StellarCoreDatabaseUrl: test.StellarCoreDatabaseUrl(),
+		DatabaseUrl:            test.DatabaseURL(),
+		StellarCoreDatabaseUrl: test.StellarCoreDatabaseURL(),
 		RateLimit:              throttled.PerHour(10),
 	}
 }

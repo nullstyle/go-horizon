@@ -19,29 +19,31 @@ import (
 //go:generate go-bindata -pkg test scenarios
 
 const (
-	DefaultTestDatabaseUrl            = "postgres://localhost:5432/horizon_test?sslmode=disable"
-	DefaultTestStellarCoreDatabaseUrl = "postgres://localhost:5432/stellar-core_test?sslmode=disable"
+	// DefaultTestDatabaseURL is the default db url for horizon in a test context
+	DefaultTestDatabaseURL = "postgres://localhost:5432/horizon_test?sslmode=disable"
+	// DefaultTestStellarCoreDatabaseURL is the default db url for stellar-core in a test context
+	DefaultTestStellarCoreDatabaseURL = "postgres://localhost:5432/stellar-core_test?sslmode=disable"
 )
 
-// DatabaseUrl returns the database connection the url any test
+// DatabaseURL returns the database connection the url any test
 // use when connecting to the history/horizon database
-func DatabaseUrl() string {
+func DatabaseURL() string {
 	databaseURL := os.Getenv("DATABASE_URL")
 
 	if databaseURL == "" {
-		databaseURL = DefaultTestDatabaseUrl
+		databaseURL = DefaultTestDatabaseURL
 	}
 
 	return databaseURL
 }
 
-// StellarCoreDatabaseUrl returns the database connection the url any test
+// StellarCoreDatabaseURL returns the database connection the url any test
 // use when connecting to the stellar-core database
-func StellarCoreDatabaseUrl() string {
+func StellarCoreDatabaseURL() string {
 	databaseURL := os.Getenv("STELLAR_CORE_DATABASE_URL")
 
 	if databaseURL == "" {
-		databaseURL = DefaultTestStellarCoreDatabaseUrl
+		databaseURL = DefaultTestStellarCoreDatabaseURL
 	}
 
 	return databaseURL
@@ -66,8 +68,8 @@ func LoadScenario(scenarioName string) {
 	horizonPath := scenarioBasePath + "-horizon.sql"
 	stellarCorePath := scenarioBasePath + "-core.sql"
 
-	loadSqlFile(DatabaseUrl(), horizonPath)
-	loadSqlFile(StellarCoreDatabaseUrl(), stellarCorePath)
+	loadSqlFile(DatabaseURL(), horizonPath)
+	loadSqlFile(StellarCoreDatabaseURL(), stellarCorePath)
 }
 
 func loadSqlFile(url string, path string) {

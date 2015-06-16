@@ -10,11 +10,11 @@ import (
 )
 
 func OpenTestDatabase() *sqlx.DB {
-	return test.OpenDatabase(test.DatabaseUrl())
+	return test.OpenDatabase(test.DatabaseURL())
 }
 
 func OpenStellarCoreTestDatabase() *sqlx.DB {
-	return test.OpenDatabase(test.StellarCoreDatabaseUrl())
+	return test.OpenDatabase(test.StellarCoreDatabaseURL())
 }
 
 func ShouldBeOrderedAscending(actual interface{}, options ...interface{}) string {
