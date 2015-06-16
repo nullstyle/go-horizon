@@ -1,33 +1,20 @@
 package db
 
 import (
-	"database/sql"
 	"fmt"
-	"log"
 	"math"
 
+	"github.com/jmoiron/sqlx"
 	"github.com/stellar/go-horizon/test"
 	"golang.org/x/net/context"
 )
 
-func OpenTestDatabase() *sql.DB {
-
-	result, err := sql.Open("postgres", test.DatabaseUrl())
-
-	if err != nil {
-		log.Panic(err)
-	}
-	return result
+func OpenTestDatabase() *sqlx.DB {
+	return test.OpenDatabase(test.DatabaseUrl())
 }
 
-func OpenStellarCoreTestDatabase() *sql.DB {
-
-	result, err := sql.Open("postgres", test.StellarCoreDatabaseUrl())
-
-	if err != nil {
-		log.Panic(err)
-	}
-	return result
+func OpenStellarCoreTestDatabase() *sqlx.DB {
+	return test.OpenDatabase(test.StellarCoreDatabaseUrl())
 }
 
 func ShouldBeOrderedAscending(actual interface{}, options ...interface{}) string {
@@ -40,7 +27,7 @@ func ShouldBeOrderedAscending(actual interface{}, options ...interface{}) string
 		cur := t(r)
 
 		if cur <= prev {
-			return fmt.Sprintf("not ordered ascending: idx:%s has order %d, which is less than the previous:%d", i, cur, prev)
+			return fmt.Sprintf("not ordered ascending: idx:%d has order %d, which is less than the previous:%d", i, cur, prev)
 		}
 
 		prev = cur
@@ -59,7 +46,7 @@ func ShouldBeOrderedDescending(actual interface{}, options ...interface{}) strin
 		cur := t(r)
 
 		if cur >= prev {
-			return fmt.Sprintf("not ordered decending: idx:%s has order %d, which is more than the previous:%d", i, cur, prev)
+			return fmt.Sprintf("not ordered decending: idx:%d has order %d, which is more than the previous:%d", i, cur, prev)
 		}
 
 		prev = cur

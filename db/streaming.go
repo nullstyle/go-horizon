@@ -1,9 +1,9 @@
 package db
 
 import (
-	"database/sql"
 	"time"
 
+	"github.com/jmoiron/sqlx"
 	"github.com/stellar/go-horizon/log"
 
 	"golang.org/x/net/context"
@@ -58,7 +58,7 @@ func AutoPump(ctx context.Context) {
 // should eventually end up being in this project).  If a new ledger is seen
 // the proc triggers the streaming system to run all watched queries and
 // update connected clients
-func LedgerClosePump(ctx context.Context, db *sql.DB) {
+func LedgerClosePump(ctx context.Context, db *sqlx.DB) {
 	go func() {
 		var lastSeenLedger int32
 		for {

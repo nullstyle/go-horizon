@@ -28,8 +28,7 @@ type OperationPageQuery struct {
 func (q OperationPageQuery) Get(ctx context.Context) ([]interface{}, error) {
 	sql := OperationRecordSelect.
 		Limit(uint64(q.Limit)).
-		PlaceholderFormat(sq.Dollar).
-		RunWith(q.DB)
+		PlaceholderFormat(sq.Dollar)
 
 	switch q.Order {
 	case "asc":

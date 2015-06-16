@@ -1,14 +1,13 @@
 package db
 
 import (
-	"database/sql"
 	"errors"
 	"reflect"
 
-	"golang.org/x/net/context"
-
+	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq" // allow postgres sql connections
 	"github.com/rcrowley/go-metrics"
+	"golang.org/x/net/context"
 )
 
 type Query interface {
@@ -24,18 +23,18 @@ type Record interface{}
 
 // Open the postgres database at the provided url and performing an initial
 // ping to ensure we can connect to it.
-func Open(url string) (*sql.DB, error) {
+func Open(url string) (*sqlx.DB, error) {
 
-	db, err := sql.Open("postgres", url)
+	db, err := sqlx.Open("postgres", url)
 
 	if err != nil {
-		return db, err
+		return nil, err
 	}
 
 	err = db.Ping()
 
 	if err != nil {
-		return db, err
+		return nil, err
 	}
 
 	return db, nil
