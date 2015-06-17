@@ -10,8 +10,16 @@ import (
 	"golang.org/x/net/context"
 )
 
+var ErrNoResults = errors.New("No results")
+var ErrDestinationNotPointer = errors.New("Provided destination is not a pointer")
+
 type Query interface {
 	Get(context.Context) ([]interface{}, error)
+	IsComplete(context.Context, int) bool
+}
+
+type Query2 interface {
+	Select(context.Context, interface{}) error
 	IsComplete(context.Context, int) bool
 }
 
@@ -40,44 +48,66 @@ func Open(url string) (*sqlx.DB, error) {
 	return db, nil
 }
 
-// Results runs the provided query, returning all found results
-func Results(ctx context.Context, query Query) ([]interface{}, error) {
-	return query.Get(ctx)
-}
+// Select runs the provided query, setting all found results on dest.
+func Select(ctx context.Context, query Query2, dest interface{}) error {
+	dvp := reflect.ValueOf(dest)
+	dv := reflect.Indirect(dvp)
+	// create an intermediary slice of the correct type
+	rvp := reflect.New(dv.Type())
+	rv := reflect.Indirect(rvp)
 
-// First runs the provided query, returning the first result if found,
-// otherwise nil
-func First(ctx context.Context, query Query) (interface{}, error) {
-	res, err := query.Get(ctx)
+	err := query.Select(ctx, rvp.Interface())
 
-	switch {
-	case err != nil:
-		return nil, err
-	case len(res) == 0:
-		return nil, nil
-	default:
-		return res[0], nil
+	if err != nil {
+		return err
 	}
+
+	dv.Set(rv)
+	return nil
 }
 
-func MustFirst(ctx context.Context, q Query) interface{} {
-	result, err := First(ctx, q)
+// MustSelect is like Select, but panics on error
+func MustSelect(ctx context.Context, query Query2, dest interface{}) {
+	err := Select(ctx, query, dest)
 
 	if err != nil {
 		panic(err)
 	}
-
-	return result
 }
 
-func MustResults(ctx context.Context, q Query) []interface{} {
-	result, err := Results(ctx, q)
+// Get runs the provided query, returning the first result found, if any.
+func Get(ctx context.Context, query Query2, dest interface{}) error {
+	// TODO: dest must be a pointer
+	// get the pointed to value
+	dvp := reflect.ValueOf(dest)
+	dv := reflect.Indirect(dvp)
+
+	// create a slice of the same type as dest
+	sliceType := reflect.SliceOf(dv.Type())
+	rvp := reflect.New(sliceType)
+	rv := reflect.Indirect(rvp)
+
+	err := query.Select(ctx, rvp.Interface())
+	if err != nil {
+		return err
+	}
+
+	if rv.Len() == 0 {
+		return ErrNoResults
+	}
+
+	// set the first result to the destination
+	dv.Set(rv.Index(0))
+	return nil
+}
+
+// MustGet is like Get, but panics on error
+func MustGet(ctx context.Context, query Query2, dest interface{}) {
+	err := Get(ctx, query, dest)
 
 	if err != nil {
 		panic(err)
 	}
-
-	return result
 }
 
 func QueryGauge() metrics.Gauge {
@@ -116,4 +146,21 @@ func makeResult(src interface{}) []interface{} {
 		result[i] = srcValue.Index(i).Interface()
 	}
 	return result
+}
+
+func setOn(src interface{}, dest interface{}) error {
+	// TODO: get more rigorous with confirming dest and src are correct
+	// i.e. check for settability, investigate other ways this could fail as well
+
+	sp := reflect.ValueOf(src)
+	dvp := reflect.ValueOf(dest)
+
+	if dvp.Kind() != reflect.Ptr {
+		return ErrDestinationNotPointer
+	}
+
+	dv := reflect.Indirect(dvp)
+	dv.Set(sp)
+
+	return nil
 }

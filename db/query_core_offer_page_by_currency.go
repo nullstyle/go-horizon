@@ -18,7 +18,7 @@ type CoreOfferPageByCurrencyQuery struct {
 	TakerGetsIssuer string
 }
 
-func (q CoreOfferPageByCurrencyQuery) Get(ctx context.Context) ([]interface{}, error) {
+func (q CoreOfferPageByCurrencyQuery) Select(ctx context.Context, dest interface{}) error {
 	sql := CoreOfferRecordSelect.Limit(uint64(q.Limit))
 
 	switch q.TakerPaysType {
@@ -46,10 +46,7 @@ func (q CoreOfferPageByCurrencyQuery) Get(ctx context.Context) ([]interface{}, e
 		sql = sql.Where("co.price < ?", q.Cursor).OrderBy("co.price desc")
 	}
 
-	var records []CoreOfferRecord
-	err := q.SqlQuery.Select(ctx, sql, &records)
-	return makeResult(records), err
-
+	return q.SqlQuery.Select(ctx, sql, dest)
 }
 
 func (q CoreOfferPageByCurrencyQuery) IsComplete(ctx context.Context, alreadyDelivered int) bool {

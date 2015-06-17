@@ -3,6 +3,7 @@ package db
 import (
 	"fmt"
 	"math"
+	"reflect"
 
 	"github.com/jmoiron/sqlx"
 	"github.com/stellar/go-horizon/test"
@@ -18,12 +19,13 @@ func OpenStellarCoreTestDatabase() *sqlx.DB {
 }
 
 func ShouldBeOrderedAscending(actual interface{}, options ...interface{}) string {
-	records := actual.([]interface{})
+	rv := reflect.ValueOf(actual)
 	t := options[0].(func(interface{}) int64)
 
 	prev := int64(0)
 
-	for i, r := range records {
+	for i := 0; i < rv.Len(); i++ {
+		r := rv.Index(i).Interface()
 		cur := t(r)
 
 		if cur <= prev {
@@ -37,16 +39,18 @@ func ShouldBeOrderedAscending(actual interface{}, options ...interface{}) string
 }
 
 func ShouldBeOrderedDescending(actual interface{}, options ...interface{}) string {
-	records := actual.([]interface{})
+	rv := reflect.ValueOf(actual)
+
 	t := options[0].(func(interface{}) int64)
 
 	prev := int64(math.MaxInt64)
 
-	for i, r := range records {
+	for i := 0; i < rv.Len(); i++ {
+		r := rv.Index(i).Interface()
 		cur := t(r)
 
 		if cur >= prev {
-			return fmt.Sprintf("not ordered decending: idx:%d has order %d, which is more than the previous:%d", i, cur, prev)
+			return fmt.Sprintf("not ordered descending: idx:%d has order %d, which is more than the previous:%d", i, cur, prev)
 		}
 
 		prev = cur

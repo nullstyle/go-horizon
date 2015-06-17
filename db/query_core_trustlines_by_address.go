@@ -7,12 +7,9 @@ type CoreTrustlinesByAddressQuery struct {
 	Address string
 }
 
-func (q CoreTrustlinesByAddressQuery) Get(ctx context.Context) ([]interface{}, error) {
+func (q CoreTrustlinesByAddressQuery) Select(ctx context.Context, dest interface{}) error {
 	sql := CoreTrustlineRecordSelect.Where("accountid = ?", q.Address)
-
-	var records []CoreTrustlineRecord
-	err := q.SqlQuery.Select(ctx, sql, &records)
-	return makeResult(records), err
+	return q.SqlQuery.Select(ctx, sql, dest)
 }
 
 func (q CoreTrustlinesByAddressQuery) IsComplete(ctx context.Context, alreadyDelivered int) bool {

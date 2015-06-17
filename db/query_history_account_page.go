@@ -10,7 +10,7 @@ type HistoryAccountPageQuery struct {
 }
 
 // Get executes the query, returning any results
-func (q HistoryAccountPageQuery) Get(ctx context.Context) ([]interface{}, error) {
+func (q HistoryAccountPageQuery) Select(ctx context.Context, dest interface{}) error {
 	sql := HistoryAccountRecordSelect.
 		Limit(uint64(q.Limit))
 
@@ -21,9 +21,7 @@ func (q HistoryAccountPageQuery) Get(ctx context.Context) ([]interface{}, error)
 		sql = sql.Where("ha.id < ?", q.Cursor).OrderBy("ha.id desc")
 	}
 
-	var records []HistoryAccountRecord
-	err := q.SqlQuery.Select(ctx, sql, &records)
-	return makeResult(records), err
+	return q.SqlQuery.Select(ctx, sql, dest)
 }
 
 // IsComplete returns true if the query considers itself complete.  In this case,

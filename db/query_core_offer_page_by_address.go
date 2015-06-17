@@ -10,7 +10,7 @@ type CoreOfferPageByAddressQuery struct {
 	Address string
 }
 
-func (q CoreOfferPageByAddressQuery) Get(ctx context.Context) ([]interface{}, error) {
+func (q CoreOfferPageByAddressQuery) Select(ctx context.Context, dest interface{}) error {
 	sql := CoreOfferRecordSelect.
 		Where("co.accountid = ?", q.Address).
 		Limit(uint64(q.Limit))
@@ -22,10 +22,7 @@ func (q CoreOfferPageByAddressQuery) Get(ctx context.Context) ([]interface{}, er
 		sql = sql.Where("co.offerid < ?", q.Cursor).OrderBy("co.offerid desc")
 	}
 
-	var records []CoreOfferRecord
-	err := q.SqlQuery.Select(ctx, sql, &records)
-	return makeResult(records), err
-
+	return q.SqlQuery.Select(ctx, sql, dest)
 }
 
 func (q CoreOfferPageByAddressQuery) IsComplete(ctx context.Context, alreadyDelivered int) bool {

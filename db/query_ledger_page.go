@@ -7,7 +7,7 @@ type LedgerPageQuery struct {
 	PageQuery
 }
 
-func (q LedgerPageQuery) Get(ctx context.Context) ([]interface{}, error) {
+func (q LedgerPageQuery) Select(ctx context.Context, dest interface{}) error {
 	sql := LedgerRecordSelect.
 		Limit(uint64(q.Limit))
 
@@ -18,9 +18,7 @@ func (q LedgerPageQuery) Get(ctx context.Context) ([]interface{}, error) {
 		sql = sql.Where("hl.id < ?", q.Cursor).OrderBy("hl.id desc")
 	}
 
-	var records []LedgerRecord
-	err := q.SqlQuery.Select(ctx, sql, &records)
-	return makeResult(records), err
+	return q.SqlQuery.Select(ctx, sql, dest)
 }
 
 func (q LedgerPageQuery) IsComplete(ctx context.Context, alreadyDelivered int) bool {

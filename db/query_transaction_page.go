@@ -9,7 +9,7 @@ type TransactionPageQuery struct {
 	LedgerSequence int32
 }
 
-func (q TransactionPageQuery) Get(ctx context.Context) ([]interface{}, error) {
+func (q TransactionPageQuery) Select(ctx context.Context, dest interface{}) error {
 	sql := TransactionRecordSelect.
 		Limit(uint64(q.Limit))
 
@@ -30,9 +30,7 @@ func (q TransactionPageQuery) Get(ctx context.Context) ([]interface{}, error) {
 		sql = sql.Where("ht.ledger_sequence = ?", q.LedgerSequence)
 	}
 
-	var records []TransactionRecord
-	err := q.SqlQuery.Select(ctx, sql, &records)
-	return makeResult(records), err
+	return q.SqlQuery.Select(ctx, sql, dest)
 }
 
 func (q TransactionPageQuery) IsComplete(ctx context.Context, alreadyDelivered int) bool {

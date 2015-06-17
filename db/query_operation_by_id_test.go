@@ -15,6 +15,7 @@ func TestOperationByIdQuery(t *testing.T) {
 	defer db.Close()
 
 	Convey("OperationByIdQuery", t, func() {
+		var op OperationRecord
 
 		Convey("Existing record behavior", func() {
 			id := int64(17179873280)
@@ -22,10 +23,8 @@ func TestOperationByIdQuery(t *testing.T) {
 				SqlQuery{db},
 				id,
 			}
-			result, err := First(ctx, q)
+			err := Get(ctx, q, &op)
 			So(err, ShouldBeNil)
-			op := result.(OperationRecord)
-
 			So(op.Id, ShouldEqual, id)
 			So(op.TransactionId, ShouldEqual, id)
 		})
@@ -36,9 +35,8 @@ func TestOperationByIdQuery(t *testing.T) {
 				SqlQuery{db},
 				id,
 			}
-			result, err := First(ctx, q)
-			So(result, ShouldBeNil)
-			So(err, ShouldBeNil)
+			err := Get(ctx, q, &op)
+			So(err, ShouldEqual, ErrNoResults)
 		})
 
 	})

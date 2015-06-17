@@ -15,6 +15,7 @@ func TestLedgerBySequenceQuery(t *testing.T) {
 		ctx := test.Context()
 		db := OpenTestDatabase()
 		defer db.Close()
+		var record LedgerRecord
 
 		Convey("Existing record behavior", func() {
 			sequence := int32(2)
@@ -22,25 +23,19 @@ func TestLedgerBySequenceQuery(t *testing.T) {
 				SqlQuery{db},
 				sequence,
 			}
-			ledgers, err := Results(ctx, q)
-
+			err := Get(ctx, q, &record)
 			So(err, ShouldBeNil)
-			So(len(ledgers), ShouldEqual, 1)
-
-			found := ledgers[0].(LedgerRecord)
-			So(found.Sequence, ShouldEqual, sequence)
+			So(record.Sequence, ShouldEqual, sequence)
 		})
 
 		Convey("Missing record behavior", func() {
 			sequence := int32(-1)
-			var q Query = LedgerBySequenceQuery{
+			q := LedgerBySequenceQuery{
 				SqlQuery{db},
 				sequence,
 			}
-			ledgers, err := Results(ctx, q)
-
-			So(err, ShouldBeNil)
-			So(len(ledgers), ShouldEqual, 0)
+			err := Get(ctx, q, &record)
+			So(err, ShouldEqual, ErrNoResults)
 		})
 	})
 }

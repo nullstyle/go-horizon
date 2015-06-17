@@ -7,14 +7,11 @@ type CoreAccountByAddressQuery struct {
 	Address string
 }
 
-func (q CoreAccountByAddressQuery) Get(ctx context.Context) ([]interface{}, error) {
-	sql := CoreAccountRecordSelect.Where("accountid = ?", q.Address).Limit(1)
-
-	var records []CoreAccountRecord
-	err := q.SqlQuery.Select(ctx, sql, &records)
-	return makeResult(records), err
-}
-
 func (q CoreAccountByAddressQuery) IsComplete(ctx context.Context, alreadyDelivered int) bool {
 	return alreadyDelivered > 0
+}
+
+func (q CoreAccountByAddressQuery) Select(ctx context.Context, dest interface{}) error {
+	sql := CoreAccountRecordSelect.Where("accountid = ?", q.Address).Limit(1)
+	return q.SqlQuery.Select(ctx, sql, dest)
 }

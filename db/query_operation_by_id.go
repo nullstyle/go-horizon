@@ -7,12 +7,10 @@ type OperationByIdQuery struct {
 	Id int64
 }
 
-func (q OperationByIdQuery) Get(ctx context.Context) ([]interface{}, error) {
+func (q OperationByIdQuery) Select(ctx context.Context, dest interface{}) error {
 	sql := OperationRecordSelect.Where("id = ?", q.Id).Limit(1)
 
-	var records []OperationRecord
-	err := q.SqlQuery.Select(ctx, sql, &records)
-	return makeResult(records), err
+	return q.SqlQuery.Select(ctx, sql, dest)
 }
 
 func (q OperationByIdQuery) IsComplete(ctx context.Context, alreadyDelivered int) bool {
